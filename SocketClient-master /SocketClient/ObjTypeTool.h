@@ -49,4 +49,9 @@ extern NSString *const ObjTypeToolString_NSString;
     字符描述部分获取长度
  */
 + (NSUInteger)stringByteNumberFormData:(NSData *)data;
+
+/** 
+ 根据传入类型字符串 获取对应的C值
+ */
++ (NSData *)getDataFormValue:(id)value forProperty:(NSString *)property;
 @end

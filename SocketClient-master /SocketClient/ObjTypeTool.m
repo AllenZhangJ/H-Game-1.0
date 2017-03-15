@@ -63,7 +63,7 @@ NSString *const ObjTypeToolString_NSString = @"@\"NSString\"";// NSString对应�
             break;
     }
 }
-
+//根据传入data
 + (NSUInteger)stringByteNumberFormData:(NSData *)data{
     uint32_t tmp;
     // 字符描述占的范围
@@ -84,7 +84,41 @@ NSString *const ObjTypeToolString_NSString = @"@\"NSString\"";// NSString对应�
         return [self private_c_PropertyTypeOfProperty:property];
     }
 }
-
+/**
+ 根据传入类型字符串 获取对应的data
+ */
++ (NSData *)getDataFormValue:(id)value forProperty:(NSString *)property{
+    BaseModelPropertyType type = [self propertyTypeOfProperty:property];
+    switch (type) {
+        case BaseModelPropertyType_UInt32:
+        {
+            NSNumber *tmp = value;
+            uint32_t tmp_32 = tmp.intValue;
+            return [NSData dataWithBytes:&tmp_32 length:sizeof(tmp_32)];
+        }
+            break;
+        case BaseModelPropertyType_UInt64:
+        {
+            NSNumber *tmp = value;
+            uint64_t tmp_64 = tmp.intValue;
+            return [NSData dataWithBytes:&tmp_64 length:sizeof(tmp_64)];
+        }
+            break;
+        case BaseModelPropertyType_NSString:
+        {
+            NSString *tmp_str = value;
+            uint32_t tmp_length = [NSNumber numberWithInteger:tmp_str.length].unsignedIntValue;
+            NSMutableData *mutableData = [NSMutableData data];
+            [mutableData appendData:[NSData dataWithBytes:&tmp_length length:sizeof(tmp_length)]];
+            [mutableData appendData:[tmp_str dataUsingEncoding:NSUTF32StringEncoding]];
+            return [mutableData mutableCopy];
+        }
+            break;
+        default:
+            break;
+    }
+    return nil;
+}
 #pragma mark - Private
 + (BaseModelPropertyType)private_c_PropertyTypeOfProperty:(NSString *)property{
     if ([property isEqualToString:ObjTypeToolString_UInt32]) {

@@ -13,9 +13,13 @@
 
 #import "DataCenter.h"
 #import "MsgSecret.h"
+#import "Vernt.h"
 #import "RegisterModel.h"
 #import "MsgCenterSystemSecret.h"
 
+
+#define URLstr = @"hydemo.hao-games.com"
+#define LANURLstr = @"192.168.1.139"
 @interface ViewController ()<GCDAsyncSocketDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *addressTF;
 @property (weak, nonatomic) IBOutlet UITextField *portTF;
@@ -43,15 +47,18 @@
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     
     self.data_obj = [[DataCenter alloc]objFromData:data];
+    
     NSLog(@"----------\n\
           tag=%ld,\n\
           uAssID:%u,\n\
           uSecretKey:%u,\n\
-          uTimeNow:%u",
+          uTimeNow:%u,\n\
+          hello:%@",
           tag,
           self.data_obj.uAssID,
           self.data_obj.uSecretKey,
-          self.data_obj.uTimeNow);
+          self.data_obj.uTimeNow,
+          self.data_obj.hello);
     
     self.secret_obj = [[MsgCenterSystemSecret alloc]initWithData:data];
     NSLog(@"tag=%ld,uAssID:%ld,uSecretKey:%u,uTimeNow:%ld", tag, self.secret_obj.uAssID, self.secret_obj.uSecretKey, self.secret_obj.uTimeNow);
@@ -67,7 +74,17 @@
 //开始连接
 - (IBAction)connectAction:(id)sender {
     //2、连接服务器
-    [self.clinetSocket connectToHost:self.addressTF.text onPort:self.portTF.text.integerValue withTimeout:-1 error:nil];
+//    [self.clinetSocket connectToHost:self.addressTF.text onPort:self.portTF.text.integerValue withTimeout:-1 error:nil];
+    
+    //test
+    Vernt *vernt = [Vernt new];
+    vernt.vID_32 = 33;
+    vernt.vID_64 = 65;
+    vernt.vID_string = @"string_string_string";
+    NSLog(@"vernt NSData:%@", [vernt serializeObj]);
+    
+    Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
+    NSLog(@"vernt ID_32:%u,ID_64:%llu,ID_str:%@", vernt_2.vID_32, vernt_2.vID_64, vernt_2.vID_string);
 }
 
 //发送消息
