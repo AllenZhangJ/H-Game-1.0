@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */; };
 		5385A4FC1E76255E00425207 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FB1E76255E00425207 /* DataCenter.m */; };
 		5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FE1E762DDD00425207 /* MsgSecret.m */; };
 		5385A5021E76344300425207 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A5011E76344300425207 /* BaseModel.m */; };
@@ -32,6 +33,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16F1DAA21E7A2FCF0017A20D /* ObjSerializerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjSerializerTool.h; sourceTree = "<group>"; };
+		16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjSerializerTool.m; sourceTree = "<group>"; };
 		5385A4FA1E76255E00425207 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		5385A4FB1E76255E00425207 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
 		5385A4FD1E762DDD00425207 /* MsgSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecret.h; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 			children = (
 				5385A50F1E767D9100425207 /* ObjTypeTool.h */,
 				5385A5101E767D9100425207 /* ObjTypeTool.m */,
+				16F1DAA21E7A2FCF0017A20D /* ObjSerializerTool.h */,
+				16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */,
 			);
 			name = "ObjTypeTool(数据类型工具)";
 			sourceTree = "<group>";
@@ -372,6 +377,7 @@
 				9FF461321E6E86D000025286 /* NSData+LSUDPDataDetail.m in Sources */,
 				9FF461311E6E86D000025286 /* LSUDPDataDetail.m in Sources */,
 				538BB69B1E6EE7B3009F850E /* MsgCenterSystemSecret.m in Sources */,
+				16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */,
 				9FFB6F761E7118C3007214B6 /* RegisterModel.mm in Sources */,
 				8D2DDA981D1D1F5400356798 /* README.markdown in Sources */,
 				8D2DDA9A1D1D1F5400356798 /* GCDAsyncUdpSocket.m in Sources */,
