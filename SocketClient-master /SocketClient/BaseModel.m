@@ -176,18 +176,15 @@
     BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
     
     NSUInteger typeLangth = 0;
-    // 判断是否为字符串类型
-    if (type == BaseModelPropertyType_NSString) {
-//        uint32_t tmp;
-//        *location += tmp;
-        
+    //获得长度
+    if (type == BaseModelPropertyType_NSString) {// 判断是否为字符串类型
         //字符串长度获取
-        typeLangth = [ObjTypeTool stringByteNumberFormData:_dataCache];
+        typeLangth = [ObjTypeTool stringByteNumberFormData:[_dataCache subdataWithRange:NSMakeRange(*location, _dataCache.length - *location)]];
+        typeLangth += sizeof(uint32_t);
     }else {
         typeLangth = [ObjTypeTool byteNumberForPropertyType:type];
     }
     //获得长度
-    if (type == BaseModelPropertyType_NSString) typeLangth += sizeof(uint32_t);//字符串
     NSRange rangeTmp = NSMakeRange(*location, typeLangth);
     
     // 验证 Range 越界
@@ -195,25 +192,18 @@
         // 越界
         return nil;
     }
-    // 更新位置
-    *location += typeLangth;
+    
     //获得Value
     id value = [ObjTypeTool getValueFromData:[_dataCache subdataWithRange:rangeTmp]
                                  forProperty:stringType];
-    // 判断是否为字符加值
-    if (type == BaseModelPropertyType_NSString) {
-        uint32_t tmp;
-        *location += sizeof(tmp);
-    }
+    
     if (!value) {
         // 值为空
-        *location -= typeLangth;// 恢复原值
-        if (type == BaseModelPropertyType_NSString) {
-            uint32_t tmp;
-            *location -= tmp;// 恢复原值
-        }
         return nil;
     }
+    // 更新位置
+    *location += typeLangth;
+    
     return value;
 }
 

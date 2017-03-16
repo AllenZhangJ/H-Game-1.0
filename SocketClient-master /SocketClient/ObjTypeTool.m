@@ -34,7 +34,7 @@ NSString *const ObjTypeToolString_NSString = @"@\"NSString\"";// NSString对应�
         case BaseModelPropertyType_NSString:{
             NSInteger stringLength = [self stringByteNumberFormData:data];
             NSData *strData = [data subdataWithRange:NSMakeRange(sizeof(uint32_t), stringLength)];
-            return [[NSString string]initWithData:strData encoding:NSUTF8StringEncoding];
+            return [[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding];
         }
             break;
         default:
@@ -110,7 +110,7 @@ NSString *const ObjTypeToolString_NSString = @"@\"NSString\"";// NSString对应�
             uint32_t tmp_length = [NSNumber numberWithInteger:tmp_str.length].unsignedIntValue;
             NSMutableData *mutableData = [NSMutableData data];
             [mutableData appendData:[NSData dataWithBytes:&tmp_length length:sizeof(tmp_length)]];
-            [mutableData appendData:[tmp_str dataUsingEncoding:NSUTF32StringEncoding]];
+            [mutableData appendData:[tmp_str dataUsingEncoding:NSUTF8StringEncoding]];
             return [mutableData mutableCopy];
         }
             break;

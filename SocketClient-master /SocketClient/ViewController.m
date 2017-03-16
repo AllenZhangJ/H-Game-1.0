@@ -80,7 +80,7 @@
     Vernt *vernt = [Vernt new];
     vernt.vID_32 = 33;
     vernt.vID_64 = 65;
-    vernt.vID_string = @"string_string_string";
+    vernt.vID_string = @"string_string";
     NSLog(@"vernt NSData:%@", [vernt serializeObj]);
     
     Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
