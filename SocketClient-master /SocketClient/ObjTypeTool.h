@@ -10,14 +10,19 @@
 
 typedef NS_ENUM(NSUInteger, BaseModelPropertyType) {
     BaseModelPropertyType_Error = -1,
-    BaseModelPropertyType_UInt32 = 1,
+    BaseModelPropertyType_UInt8 = 1,
+    BaseModelPropertyType_UInt16,
+    BaseModelPropertyType_UInt32,
     BaseModelPropertyType_UInt64,
     BaseModelPropertyType_NSString,
+    BaseModelPropertyType_SCVector
 };
-
+extern NSString *const ObjTypeToolString_UInt8;
+extern NSString *const ObjTypeToolString_UInt16;
 extern NSString *const ObjTypeToolString_UInt32;
 extern NSString *const ObjTypeToolString_UInt64;
 extern NSString *const ObjTypeToolString_NSString;
+extern NSString *const ObjTypeToolString_SCVector;
 
 @interface ObjTypeTool : NSObject
 
@@ -47,6 +52,7 @@ extern NSString *const ObjTypeToolString_NSString;
 + (NSUInteger)byteNumberForPropertyType:(BaseModelPropertyType)propertyType;
 /** 
     字符描述部分获取长度
+ 
  */
 + (NSUInteger)stringByteNumberFormData:(NSData *)data;
 

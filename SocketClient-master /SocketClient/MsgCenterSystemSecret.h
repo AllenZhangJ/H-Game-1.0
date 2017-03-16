@@ -13,7 +13,7 @@
 @property (nonatomic, assign) NSUInteger uAssID;
 @property (nonatomic, assign) uint32_t uSecretKey;
 @property (nonatomic, assign) NSUInteger uTimeNow;
-
+@property (nonatomic, assign) uint8_t u8Test;
 - (instancetype)initWithData:(NSData *)data;
 - (NSData *)toSecretData;
 

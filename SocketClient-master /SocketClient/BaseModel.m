@@ -49,18 +49,25 @@
     for (int i=0; i<count; i++) {
         //得到单个的成员变量
         objc_property_t property = properties[i];// 变量名
-        Ivar thisIvar = ivars[i];// 用于获取变量类型
+        
+//        Ivar thisIvar = ivars[i];// 用于获取变量类型
+        
+        
         // 解析属性
         NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+//        NSString *propertyType = [NSString stringWithCString:property_getAttributes(property) encoding:NSUTF8StringEncoding];
         
-        /* TODO: 这里缺少"属性是否存在"的验证,可以不验证 */
-        //        SEL setSel = [self creatSetterWithPropertyName:propertyName];
-        //        if ([self respondsToSelector:setSel]) {
-        //        }
+        uint attcount;
+        objc_property_attribute_t *propertyType_list = property_copyAttributeList(property, &attcount);
+        const char *type = propertyType_list[0].value;
+        
         
         // 得到这个成员变量的类型
-        const char *type = ivar_getTypeEncoding(thisIvar);
-        //        const char *name = ivar_getName(thisIvar);
+//        const char *type = ivar_getTypeEncoding(thisIvar);
+//        const char *name = ivar_getName(thisIvar);
+
+        
+        
         // 得到这个成员变量的值
         id value = [ObjSerializerTool private_valueFromData:_dataCache andAtLocation:&curLocation andPropertyType:type];
         if (!value) {

@@ -13,6 +13,7 @@
 
 #import "DataCenter.h"
 #import "MsgSecret.h"
+#import "MsgSecretTest.h"
 #import "Vernt.h"
 #import "RegisterModel.h"
 #import "MsgCenterSystemSecret.h"
@@ -20,6 +21,7 @@
 
 #define URLstr = @"hydemo.hao-games.com"
 #define LANURLstr = @"192.168.1.139"
+#define LANURLstr_text = @"192.168.1.138"
 @interface ViewController ()<GCDAsyncSocketDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *addressTF;
 @property (weak, nonatomic) IBOutlet UITextField *portTF;
@@ -31,6 +33,9 @@
 @property (nonatomic) GCDAsyncSocket *clinetSocket;
 
 @property (nonatomic, strong) MsgSecret *data_obj;
+//测试
+@property (nonatomic, strong) MsgSecretTest *dataTest_obj;
+
 @property (nonatomic, strong) MsgCenterSystemSecret *secret_obj;
 
 @end
@@ -45,23 +50,38 @@
 
 //收到消息
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    
-    self.data_obj = [[DataCenter alloc]objFromData:data];
-    
-    NSLog(@"----------\n\
-          tag=%ld,\n\
+    self.dataTest_obj = [[DataCenter alloc]objFromData:data];
+
+    NSLog(@"dataTest_obj NSData:%@\n\
+          ---------\n\
           uAssID:%u,\n\
-          uSecretKey:%u,\n\
+          uScretKey:%u,\n\
           uTimeNow:%u,\n\
-          hello:%@",
-          tag,
-          self.data_obj.uAssID,
-          self.data_obj.uSecretKey,
-          self.data_obj.uTimeNow,
-          self.data_obj.hello);
+          u8Test:%zi,\n\
+          u16Test:%zi,\n\
+          sTest:%@",
+          data,
+          self.dataTest_obj.uAssID,
+          self.dataTest_obj.uSecretKey,
+          self.dataTest_obj.uTimeNow,
+          self.dataTest_obj.u8Test,
+          self.dataTest_obj.u16Test,
+          self.dataTest_obj.sTest);
+
+//    self.data_obj = [[DataCenter alloc]objFromData:data];
+//    NSLog(@"----------\n\
+//          tag=%ld,\n\
+//          uAssID:%u,\n\
+//          uSecretKey:%u,\n\
+//          uTimeNow:%u,\n\
+//          hello",
+//          tag,
+//          self.data_obj.uAssID,
+//          self.data_obj.uSecretKey,
+//          self.data_obj.uTimeNow);
     
-    self.secret_obj = [[MsgCenterSystemSecret alloc]initWithData:data];
-    NSLog(@"tag=%ld,uAssID:%ld,uSecretKey:%u,uTimeNow:%ld", tag, self.secret_obj.uAssID, self.secret_obj.uSecretKey, self.secret_obj.uTimeNow);
+//    self.secret_obj = [[MsgCenterSystemSecret alloc]initWithData:data];
+//    NSLog(@"tag=%ld,uAssID:%ld,uSecretKey:%u,uTimeNow:%ld,u8Test:%zi", tag, self.secret_obj.uAssID, self.secret_obj.uSecretKey, self.secret_obj.uTimeNow,self.secret_obj.u8Test);
     
     [self.clinetSocket readDataWithTimeout:-1 tag:0];
     [self.sendButton setEnabled:YES];
@@ -74,17 +94,29 @@
 //开始连接
 - (IBAction)connectAction:(id)sender {
     //2、连接服务器
-//    [self.clinetSocket connectToHost:self.addressTF.text onPort:self.portTF.text.integerValue withTimeout:-1 error:nil];
+    [self.clinetSocket connectToHost:self.addressTF.text onPort:self.portTF.text.integerValue withTimeout:-1 error:nil];
     
     //test
     Vernt *vernt = [Vernt new];
+    vernt.vID_8 = 9;
+    vernt.vID_16 = 17;
     vernt.vID_32 = 33;
     vernt.vID_64 = 65;
     vernt.vID_string = @"string_string";
     NSLog(@"vernt NSData:%@", [vernt serializeObj]);
     
     Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
-    NSLog(@"vernt ID_32:%u,ID_64:%llu,ID_str:%@", vernt_2.vID_32, vernt_2.vID_64, vernt_2.vID_string);
+    NSLog(@"vernt \n\
+          ID_8:%u,\n\
+          ID_16:%u, \n\
+          ID_32:%u,\n\
+          ID_64:%llu,\n\
+          ID_str:%@",
+          vernt_2.vID_8,
+          vernt_2.vID_16,
+          vernt_2.vID_32,
+          vernt_2.vID_64,
+          vernt_2.vID_string);
 }
 
 //发送消息

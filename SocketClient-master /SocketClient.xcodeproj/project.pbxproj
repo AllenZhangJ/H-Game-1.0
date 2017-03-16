@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */; };
+		16F1DAA71E7A34270017A20D /* SCVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA61E7A34270017A20D /* SCVector.m */; };
+		16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */; };
 		5385A4FC1E76255E00425207 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FB1E76255E00425207 /* DataCenter.m */; };
 		5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FE1E762DDD00425207 /* MsgSecret.m */; };
 		5385A5021E76344300425207 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A5011E76344300425207 /* BaseModel.m */; };
@@ -35,6 +37,10 @@
 /* Begin PBXFileReference section */
 		16F1DAA21E7A2FCF0017A20D /* ObjSerializerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjSerializerTool.h; sourceTree = "<group>"; };
 		16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjSerializerTool.m; sourceTree = "<group>"; };
+		16F1DAA51E7A34270017A20D /* SCVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVector.h; sourceTree = "<group>"; };
+		16F1DAA61E7A34270017A20D /* SCVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVector.m; sourceTree = "<group>"; };
+		16F1DAA81E7A422E0017A20D /* MsgSecretTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecretTest.h; sourceTree = "<group>"; };
+		16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSecretTest.m; sourceTree = "<group>"; };
 		5385A4FA1E76255E00425207 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		5385A4FB1E76255E00425207 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
 		5385A4FD1E762DDD00425207 /* MsgSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecret.h; sourceTree = "<group>"; };
@@ -127,10 +133,14 @@
 		5385A5071E763ED800425207 /* SubModel(子类) */ = {
 			isa = PBXGroup;
 			children = (
-				5385A4FD1E762DDD00425207 /* MsgSecret.h */,
-				5385A4FE1E762DDD00425207 /* MsgSecret.m */,
 				9FF15CFD1E7848FC00215108 /* Vernt.h */,
 				9FF15CFE1E7848FC00215108 /* Vernt.m */,
+				5385A4FD1E762DDD00425207 /* MsgSecret.h */,
+				5385A4FE1E762DDD00425207 /* MsgSecret.m */,
+				16F1DAA81E7A422E0017A20D /* MsgSecretTest.h */,
+				16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */,
+				16F1DAA51E7A34270017A20D /* SCVector.h */,
+				16F1DAA61E7A34270017A20D /* SCVector.m */,
 			);
 			name = "SubModel(子类)";
 			sourceTree = "<group>";
@@ -378,8 +388,10 @@
 				9FF461311E6E86D000025286 /* LSUDPDataDetail.m in Sources */,
 				538BB69B1E6EE7B3009F850E /* MsgCenterSystemSecret.m in Sources */,
 				16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */,
+				16F1DAA71E7A34270017A20D /* SCVector.m in Sources */,
 				9FFB6F761E7118C3007214B6 /* RegisterModel.mm in Sources */,
 				8D2DDA981D1D1F5400356798 /* README.markdown in Sources */,
+				16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */,
 				8D2DDA9A1D1D1F5400356798 /* GCDAsyncUdpSocket.m in Sources */,
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,

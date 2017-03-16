@@ -13,6 +13,7 @@ typedef struct{
     uint32_t uAssID;
     uint32_t uSecretKey;
     uint32_t uTimeNow;
+    uint8_t u8Test;
 }MsgCntSysSecret;
 
 @interface MsgCenterSystemSecret (){

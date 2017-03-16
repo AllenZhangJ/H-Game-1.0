@@ -13,5 +13,5 @@
 @property (nonatomic, assign) uint32_t uAssID;
 @property (nonatomic, assign) uint32_t uSecretKey;
 @property (nonatomic, assign) uint32_t uTimeNow;
-@property (nonatomic, strong) NSString *hello;
+
 @end

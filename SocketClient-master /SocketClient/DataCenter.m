@@ -9,7 +9,7 @@
 #import "DataCenter.h"
 
 #import "MsgSecret.h"
-
+#import "MsgSecretTest.h"
 #import <objc/runtime.h>
 
 static NSUInteger kDataCenterAgreementLength = 4;
@@ -17,6 +17,7 @@ static NSUInteger kDataCenterAgreementLength = 4;
 typedef NS_ENUM(UInt32, OBJ_InstanceType) {
     OBJ_InstanceType_MCSS = 106102800,
     OBJ_InstanceType_MsgSecret = 106102800,// 包头号,对应的类
+    OBJ_InstanceType_MsgSecretTest = 106102856,
 };
 
 @interface DataCenter (){
@@ -61,7 +62,11 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
             return secret;
         }
             break;
-            
+        case OBJ_InstanceType_MsgSecretTest:{//测试
+            MsgSecretTest *secret = [[MsgSecretTest alloc]initWithData:obj_Data];
+            secret.uAgreementID = _uAgreementID;
+            return secret;
+        }
         default:{
             return nil;
         }

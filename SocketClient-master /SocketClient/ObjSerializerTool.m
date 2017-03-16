@@ -48,7 +48,7 @@
     if (type == BaseModelPropertyType_NSString) {// 判断是否为字符串类型
         //字符串长度获取
         typeLangth = [ObjTypeTool stringByteNumberFormData:[dataCache subdataWithRange:NSMakeRange(*location, dataCache.length - *location)]];
-        typeLangth += sizeof(uint32_t);
+        typeLangth += sizeof(uint16_t);
     }else {
         typeLangth = [ObjTypeTool byteNumberForPropertyType:type];
     }
