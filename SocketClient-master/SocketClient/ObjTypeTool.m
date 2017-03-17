@@ -8,6 +8,9 @@
 
 #import "ObjTypeTool.h"
 #import "SCVector.h"
+
+static const NSUInteger kObjTypeToolStringHeaderLength = sizeof(uint16_t);
+
 NSString *const ObjTypeToolString_UInt8 = @"C";//  UInt8对应的类型字符串
 NSString *const ObjTypeToolString_UInt16 = @"S";// UInt16对应的类型字符串
 NSString *const ObjTypeToolString_UInt32 = @"I";// UInt32对应的类型字符串
@@ -25,11 +28,13 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
             [data getBytes:&tmp length:sizeof(uint8_t)];
             return [NSNumber numberWithInteger:tmp];
         }
+            break;
         case BaseModelPropertyType_UInt16:{
             uint16_t tmp;
             [data getBytes:&tmp length:sizeof(uint16_t)];
             return [NSNumber numberWithInteger:tmp];
         }
+            break;
         case BaseModelPropertyType_UInt32:{
             uint32_t tmp;
             [data getBytes:&tmp length:sizeof(uint32_t)];
@@ -44,7 +49,7 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
             break;
         case BaseModelPropertyType_NSString:{
             NSInteger stringLength = [self stringByteNumberFormData:data];
-            NSData *strData = [data subdataWithRange:NSMakeRange(sizeof(uint16_t), stringLength)];
+            NSData *strData = [data subdataWithRange:NSMakeRange(kObjTypeToolStringHeaderLength, stringLength)];
             return [[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding];
         }
             break;
@@ -87,9 +92,13 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
 }
 //根据传入data
 + (NSUInteger)stringByteNumberFormData:(NSData *)data{
+    if (!data || data.length < sizeof(uint32_t)) {
+        // 如果 data 为空 或者 不够长
+        return 0;
+    }
     uint16_t tmp;
     // 字符描述占的范围
-    NSRange agreementRange = NSMakeRange(0, sizeof(uint16_t));
+    NSRange agreementRange = NSMakeRange(0, kObjTypeToolStringHeaderLength);
     // 获取字符描述内容
     [data getBytes:&tmp range:agreementRange];
     return tmp;
@@ -106,6 +115,7 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
         return [self private_c_PropertyTypeOfProperty:property];
     }
 }
+
 /**
  根据传入类型字符串 获取对应的data
  */
@@ -114,25 +124,25 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
     switch (type) {
         case BaseModelPropertyType_UInt8:{
             NSNumber *tmp = value;
-            uint8_t tmp_8 = tmp.intValue;
+            uint8_t tmp_8 = tmp.unsignedCharValue;
             return [NSData dataWithBytes:&tmp_8 length:sizeof(tmp_8)];
         }
         case BaseModelPropertyType_UInt16:{
             NSNumber *tmp = value;
-            uint16_t tmp_16 = tmp.intValue;
+            uint16_t tmp_16 = tmp.unsignedShortValue;
             return [NSData dataWithBytes:&tmp_16 length:sizeof(tmp_16)];
         }
         case BaseModelPropertyType_UInt32:
         {
             NSNumber *tmp = value;
-            uint32_t tmp_32 = tmp.intValue;
+            uint32_t tmp_32 = tmp.unsignedIntValue;
             return [NSData dataWithBytes:&tmp_32 length:sizeof(tmp_32)];
         }
             break;
         case BaseModelPropertyType_UInt64:
         {
             NSNumber *tmp = value;
-            uint64_t tmp_64 = tmp.intValue;
+            uint64_t tmp_64 = tmp.unsignedLongValue;
             return [NSData dataWithBytes:&tmp_64 length:sizeof(tmp_64)];
         }
             break;

@@ -16,8 +16,6 @@
 
 @property (nonatomic, assign) UInt32 uAgreementID;// 包头
 
-- (void)setData:(NSData *)data;
-
 /**
  反序列化
 

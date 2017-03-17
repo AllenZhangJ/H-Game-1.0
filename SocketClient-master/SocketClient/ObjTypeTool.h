@@ -50,9 +50,9 @@ extern NSString *const ObjTypeToolString_SCVector;
  @return 类型所占的字节数
  */
 + (NSUInteger)byteNumberForPropertyType:(BaseModelPropertyType)propertyType;
+
 /** 
-    字符描述部分获取长度
- 
+ 字符描述部分获取长度
  */
 + (NSUInteger)stringByteNumberFormData:(NSData *)data;
 
