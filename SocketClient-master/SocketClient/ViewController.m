@@ -62,14 +62,16 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
           uTimeNow:%u,\n\
           u8Test:%zi,\n\
           u16Test:%zi,\n\
-          sTest:%@",
+          sTest:%@,\n\
+          ",
           data,
           self.dataTest_obj.uAssID,
           self.dataTest_obj.uSecretKey,
           self.dataTest_obj.uTimeNow,
           self.dataTest_obj.u8Test,
-          self.dataTest_obj.u16Test,
-          self.dataTest_obj.sTest);
+          self.dataTest_obj.u16Test
+          ,self.dataTest_obj.sTest
+          );
     
     //    self.data_obj = [[DataCenter alloc]objFromData:data];
     //    NSLog(@"----------\n\
@@ -118,8 +120,9 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
           vernt_2.vID_8,
           vernt_2.vID_16,
           vernt_2.vID_32,
-          vernt_2.vID_64,
-          vernt_2.vID_string);
+          vernt_2.vID_64
+          ,vernt_2.vID_string
+          );
 }
 
 //发送消息
@@ -150,7 +153,7 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
 }
 
 @end

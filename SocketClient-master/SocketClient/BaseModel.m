@@ -50,6 +50,7 @@
         
         // 得到这个成员变量的值
         id value = [objSerializerTool nextValueWithType:type];
+        
         if (!value) {
             // 返回值为空
             continue;

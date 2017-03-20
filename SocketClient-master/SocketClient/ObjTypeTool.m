@@ -10,89 +10,96 @@
 #import "SCVector.h"
 
 static const NSUInteger kObjTypeToolStringHeaderLength = sizeof(uint16_t);
+static NSDictionary *kTypeCatalogueDic;
 
-NSString *const ObjTypeToolString_UInt8 = @"C";//  UInt8对应的类型字符串
-NSString *const ObjTypeToolString_UInt16 = @"S";// UInt16对应的类型字符串
-NSString *const ObjTypeToolString_UInt32 = @"I";// UInt32对应的类型字符串
-NSString *const ObjTypeToolString_UInt64 = @"Q";// UInt64对应的类型字符串
-NSString *const ObjTypeToolString_NSString = @"@\"NSString\"";// NSString对应的类型字符串
-NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的类型字符串
+@implementation ObjTypeReturnData
+/** 
+    returnData  value
+    dataLangth  总长度
+ */
++ (id)returnData:(id)returnData andDataLangth:(NSUInteger)dataLangth{
+    ObjTypeReturnData *rData = [ObjTypeReturnData new];
+    rData.returnData = returnData;
+    rData.dataLangth = dataLangth;
+    return rData;
+}
+@end
 
 @implementation ObjTypeTool
-
-+ (id)getValueFromData:(NSData *)data forProperty:(NSString *)property{
+//Catalogue listing
+- (instancetype)init{
+    if (self = [super init]) {
+        if (!kTypeCatalogueDic) {
+            //读取类型目录表
+            NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"CataloguelistingPlist"ofType:@"plist"];
+            kTypeCatalogueDic = [[NSMutableDictionary alloc] initWithContentsOfFile:plistPath];
+        }
+    }
+    return self;
+}
+//Methods
++ (ObjTypeReturnData *)getValueFromData:(NSData *)data forProperty:(NSString *)property{
     BaseModelPropertyType type = [self propertyTypeOfProperty:property];
     switch (type) {
         case BaseModelPropertyType_UInt8:{
             uint8_t tmp;
+            //截取对应data
+            data = [data subdataWithRange:NSMakeRange(0, sizeof(uint8_t))];
             [data getBytes:&tmp length:sizeof(uint8_t)];
-            return [NSNumber numberWithInteger:tmp];
+            return [ObjTypeReturnData returnData:[NSNumber numberWithInteger:tmp] andDataLangth:sizeof(uint8_t)];
         }
             break;
         case BaseModelPropertyType_UInt16:{
             uint16_t tmp;
+            //截取对应data
+            data = [data subdataWithRange:NSMakeRange(0, sizeof(uint16_t))];
             [data getBytes:&tmp length:sizeof(uint16_t)];
-            return [NSNumber numberWithInteger:tmp];
+            return [ObjTypeReturnData returnData:[NSNumber numberWithInteger:tmp] andDataLangth:sizeof(uint16_t)];
         }
             break;
         case BaseModelPropertyType_UInt32:{
             uint32_t tmp;
+            //截取对应data
+            data = [data subdataWithRange:NSMakeRange(0, sizeof(uint32_t))];
             [data getBytes:&tmp length:sizeof(uint32_t)];
-            return [NSNumber numberWithUnsignedInteger:tmp];
+            return [ObjTypeReturnData returnData:[NSNumber numberWithInteger:tmp] andDataLangth:sizeof(uint32_t)];
         }
             break;
         case BaseModelPropertyType_UInt64:{
             uint64_t tmp;
+            //截取对应data
+            data = [data subdataWithRange:NSMakeRange(0, sizeof(uint64_t))];
             [data getBytes:&tmp length:sizeof(uint64_t)];
-            return [NSNumber numberWithUnsignedInteger:tmp];
+            return [ObjTypeReturnData returnData:[NSNumber numberWithInteger:tmp] andDataLangth:sizeof(uint64_t)];
         }
             break;
         case BaseModelPropertyType_NSString:{
-            NSInteger stringLength = [self stringByteNumberFormData:data];
+            //字符长度
+            NSInteger stringLength = [self langthByteNumberFormData:data];
+            //截取对应data
+            data = [data subdataWithRange:NSMakeRange(0, stringLength+kObjTypeToolStringHeaderLength)];
             NSData *strData = [data subdataWithRange:NSMakeRange(kObjTypeToolStringHeaderLength, stringLength)];
-            return [[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding];
+            return [ObjTypeReturnData returnData:[[NSString alloc]initWithData:strData encoding:NSUTF8StringEncoding] andDataLangth:stringLength+kObjTypeToolStringHeaderLength];
         }
             break;
-        case BaseModelPropertyType_SCVector:{
             
+        case BaseModelPropertyType_SCMapUInt8UInt16: {
+            NSUInteger number = [self langthByteNumberFormData:data];
+            NSUInteger mapLength = (sizeof(uint8_t) + sizeof(uint16_t))*number;
+            data = [data subdataWithRange:NSMakeRange(0, mapLength+kObjTypeToolStringHeaderLength)];
+            SCMapUInt8UInt16 *mapData = [[SCMapUInt8UInt16 alloc]initWithData:data];
+            return [ObjTypeReturnData returnData:mapData andDataLangth:mapLength+kObjTypeToolStringHeaderLength];
         }
+            break;
         default:
             return nil;
             break;
     }
 }
 
-// 根据传入类型枚举值获取对应的类型所占的字节数
-+ (NSUInteger)byteNumberForPropertyType:(BaseModelPropertyType)propertyType{
-    switch (propertyType) {
-        case BaseModelPropertyType_UInt8:{
-            // 占1字节
-            return sizeof(uint8_t);
-        }
-        case BaseModelPropertyType_UInt16:{
-            // 占2字节
-            return sizeof(uint16_t);
-        }
-        case BaseModelPropertyType_UInt32:{
-            // 占4字节
-            return sizeof(uint32_t);
-        }
-            break;
-            
-        case BaseModelPropertyType_UInt64:{
-            // 占8字节
-            return sizeof(uint64_t);
-        }
-            break;
-        default:
-            // 默认0字节
-            return 0;
-            break;
-    }
-}
 //根据传入data
-+ (NSUInteger)stringByteNumberFormData:(NSData *)data{
-    if (!data || data.length < sizeof(uint32_t)) {
++ (NSUInteger)langthByteNumberFormData:(NSData *)data{
+    if (!data || data.length < sizeof(kObjTypeToolStringHeaderLength)) {
         // 如果 data 为空 或者 不够长
         return 0;
     }
@@ -106,14 +113,18 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
 
 // 根据传入类型字符串获取对应的枚举值
 + (BaseModelPropertyType)propertyTypeOfProperty:(NSString *)property{
+    NSString *keyStr;
     // 现在只考虑 Uint32 占4个字节
     if ([property hasPrefix:@"@"]) {
-        // oc 类型
-        return [self private_oc_PropertyTypeOfProperty:property];
+        /** 
+         OC类型进来有前后缀 @“xxx" 截取xxx
+         */
+        keyStr = [property substringWithRange:NSMakeRange(2, property.length - 3)];
     }else{
         // c 类型
-        return [self private_c_PropertyTypeOfProperty:property];
+        keyStr = property;
     }
+    return [[kTypeCatalogueDic valueForKey:keyStr] integerValue];
 }
 
 /**
@@ -142,7 +153,7 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
         case BaseModelPropertyType_UInt64:
         {
             NSNumber *tmp = value;
-            uint64_t tmp_64 = tmp.unsignedLongValue;
+            uint64_t tmp_64 = tmp.unsignedLongLongValue;
             return [NSData dataWithBytes:&tmp_64 length:sizeof(tmp_64)];
         }
             break;
@@ -162,30 +173,28 @@ NSString *const ObjTypeToolString_Vector = @"@\"SCVector\"";// Vector对应的�
     return nil;
 }
 #pragma mark - Private
-+ (BaseModelPropertyType)private_c_PropertyTypeOfProperty:(NSString *)property{
-    if ([property isEqualToString:ObjTypeToolString_UInt8]) {
-        return BaseModelPropertyType_UInt8;
+//根据传入data获得key和Velue
+//+ (NSDictionary)private_ReturnDicData
+//根据传入data获得数组总长度
++ (NSUInteger)private_vectorByteNumberFormData:(NSData *)data DataAllNumber:(NSUInteger )allNumber{
+    NSUInteger curLocation = 0;
+    if (!data || data.length < sizeof(kObjTypeToolStringHeaderLength)) {
+        // 如果 data 为空 或者 不够长
+        return 0;
     }
-    if ([property isEqualToString:ObjTypeToolString_UInt16]) {
-        return BaseModelPropertyType_UInt16;
+    
+    for (int i=0; i<curLocation; i++) {
+        uint16_t tmp;
+        // 字符描述占的范围
+        NSRange agreementRange = NSMakeRange(curLocation, kObjTypeToolStringHeaderLength);
+        // 获取字符描述内容
+        [data getBytes:&tmp range:agreementRange];
+        curLocation += kObjTypeToolStringHeaderLength + tmp;
+        
     }
-    if ([property isEqualToString:ObjTypeToolString_UInt32]) {
-        return BaseModelPropertyType_UInt32;
-    }
-    if ([property isEqualToString:ObjTypeToolString_UInt64]) {
-        return BaseModelPropertyType_UInt64;
-    }
-    if ([property isEqualToString:ObjTypeToolString_NSString]) {
-        return BaseModelPropertyType_NSString;
-    }
-    return BaseModelPropertyType_Error;
+    return curLocation;
+    
 }
 
-+ (BaseModelPropertyType)private_oc_PropertyTypeOfProperty:(NSString *)property{
-    if ([property isEqualToString:ObjTypeToolString_NSString]) {
-        return BaseModelPropertyType_NSString;
-    }
-    return BaseModelPropertyType_Error;
-}
 
 @end

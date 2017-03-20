@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SCMapUInt8UInt16</key>
+	<string>6</string>
+	<key>NSString</key>
+	<integer>5</integer>
+	<key>Q</key>
+	<integer>4</integer>
+	<key>I</key>
+	<integer>3</integer>
+	<key>S</key>
+	<integer>2</integer>
+	<key>C</key>
+	<integer>1</integer>
+</dict>
+</plist>

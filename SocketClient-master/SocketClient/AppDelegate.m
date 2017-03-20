@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import "ObjTypeTool.h"
 @interface AppDelegate ()
 
 @end
@@ -16,7 +16,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    //初始化dataConter
+    ObjTypeTool *tool = [ObjTypeTool new];
+    
     return YES;
 }
 

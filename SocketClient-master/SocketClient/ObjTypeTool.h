@@ -8,21 +8,24 @@
 
 #import <Foundation/Foundation.h>
 
-typedef NS_ENUM(NSUInteger, BaseModelPropertyType) {
+typedef NS_ENUM(NSInteger, BaseModelPropertyType) {
+    //***CataloguelistingPlist加入***
     BaseModelPropertyType_Error = -1,
     BaseModelPropertyType_UInt8 = 1,
     BaseModelPropertyType_UInt16,
     BaseModelPropertyType_UInt32,
     BaseModelPropertyType_UInt64,
     BaseModelPropertyType_NSString,
-    BaseModelPropertyType_SCVector
+    BaseModelPropertyType_SCMapUInt8UInt16
 };
-extern NSString *const ObjTypeToolString_UInt8;
-extern NSString *const ObjTypeToolString_UInt16;
-extern NSString *const ObjTypeToolString_UInt32;
-extern NSString *const ObjTypeToolString_UInt64;
-extern NSString *const ObjTypeToolString_NSString;
-extern NSString *const ObjTypeToolString_SCVector;
+
+@interface ObjTypeReturnData : NSObject
+@property (nonatomic ,copy) id returnData;
+@property (nonatomic ,assign) NSUInteger dataLangth;
++ (id)returnData:(id)returnData andDataLangth:(NSUInteger)dataLangth;
+@end
+
+
 
 @interface ObjTypeTool : NSObject
 
@@ -31,9 +34,9 @@ extern NSString *const ObjTypeToolString_SCVector;
  
  @param data Data
  @param property 类型字符串
- @return OC值
+ @return OC值+长度
  */
-+ (id)getValueFromData:(NSData *)data forProperty:(NSString *)property;
++ (ObjTypeReturnData *)getValueFromData:(NSData *)data forProperty:(NSString *)property;
 
 /**
  根据传入类型字符串获取对应的枚举值
@@ -43,18 +46,10 @@ extern NSString *const ObjTypeToolString_SCVector;
  */
 + (BaseModelPropertyType)propertyTypeOfProperty:(NSString *)property;
 
-/**
- 根据传入类型枚举值获取对应的类型所占的字节数
- 
- @param propertyType 类型枚举值
- @return 类型所占的字节数
- */
-+ (NSUInteger)byteNumberForPropertyType:(BaseModelPropertyType)propertyType;
-
 /** 
  字符描述部分获取长度
  */
-+ (NSUInteger)stringByteNumberFormData:(NSData *)data;
++ (NSUInteger)langthByteNumberFormData:(NSData *)data;
 
 /** 
  根据传入类型字符串 获取对应的C值

@@ -36,5 +36,7 @@
  @return  YES: 拼接成功;NO: 拼接不成功
  */
 - (BOOL)appendDataForValue:(id)value andType:(const char *)propertyType;
-
+/** 
+ 数组类型更具传入的data
+ */
 @end

@@ -86,37 +86,28 @@
                                                encoding:NSUTF8StringEncoding];
     // 获取类型
     BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
-    
-    NSUInteger typeLangth = 0;
-    //获得长度
-    if (type == BaseModelPropertyType_NSString) {// 判断是否为字符串类型
-        //字符串长度获取
-        typeLangth = [ObjTypeTool stringByteNumberFormData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length - _curLocation)]];
-        typeLangth += sizeof(uint16_t);
-    }else {
-        typeLangth = [ObjTypeTool byteNumberForPropertyType:type];
+        
+    ObjTypeReturnData *returnData = [ObjTypeTool getValueFromData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length-_curLocation)] forProperty:stringType];
+    if (!returnData.returnData) {
+        // 值为空
+        return nil;
     }
-    //获得长度
-    NSRange rangeTmp = NSMakeRange(_curLocation, typeLangth);
     
+    NSUInteger typeLangth = returnData.dataLangth;
+    //获得长度
+//    if (type == BaseModelPropertyType_NSString) {// 判断是否为字符串类型
+//        typeLangth += sizeof(uint16_t);
+//    }
     // 验证 Range 越界
     if (_curLocation + typeLangth > _objData.length) {
         // 越界
         return nil;
     }
     
-    //获得Value
-    id value = [ObjTypeTool getValueFromData:[_objData subdataWithRange:rangeTmp]
-                                 forProperty:stringType];
-    
-    if (!value) {
-        // 值为空
-        return nil;
-    }
     // 更新位置
     _curLocation += typeLangth;
     
-    return value;
+    return returnData.returnData;
 }
 
 #pragma mark - Getters

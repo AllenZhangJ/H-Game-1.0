@@ -1,13 +1,20 @@
 //
-//  Vector.h
+//  SCVector.h
 //  SocketClient
 //
-//  Created by you hao on 2017/3/16.
+//  Created by you hao on 2017/3/20.
 //  Copyright © 2017年 Edward. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "SCVectorBase.h"
 
-@interface SCVector : NSObject
-
+@interface SCVector : SCVectorBase
+@end
+@interface SCVectorInt : SCVectorBase
+@end
+@interface SCVectorString : SCVectorBase
+@end
+@interface SCMapUInt8UInt16 : SCMapBase
+@property (nonatomic, assign) uint8_t key;
+@property (nonatomic, assign) uint16_t value;
 @end
