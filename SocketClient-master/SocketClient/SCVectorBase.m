@@ -8,8 +8,6 @@
 
 #import "SCVectorBase.h"
 
-#import "ObjTypeTool.h"
-
 #import "ObjSerializerTool.h"
 
 #import <objc/runtime.h>
@@ -67,7 +65,7 @@
             }
             
             // 得到这个成员变量的值
-            id value = [objSerializerTool nextValueWithType:type];
+            id value = [objSerializerTool nextValueWithType:type andRegulation:nil];
             
             if (!value) {
                 // 返回值为空
@@ -119,7 +117,7 @@
         const char *type = attList[0].value;
         
         //拼接
-        if (![objSerializerTool appendDataForValue:value andType:type]) {
+        if (![objSerializerTool appendDataForValue:value andType:type andRegulation:nil]) {
             // 如果拼接不成功
             free(properties);
             return nil;

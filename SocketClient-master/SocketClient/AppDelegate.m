@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ObjTypeTool.h"
+#import "ObjSerializerTool.h"
 @interface AppDelegate ()
 
 @end

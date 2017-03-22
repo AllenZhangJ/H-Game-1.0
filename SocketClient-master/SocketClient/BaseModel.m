@@ -8,12 +8,16 @@
 
 #import "BaseModel.h"
 
-#import "ObjTypeTool.h"
+#import "ObjModelPropertyType.h"
 
 #import "ObjSerializerTool.h"
 
 #import <objc/runtime.h>
-
+@interface BaseModel()
+{
+    NSUInteger _length;
+}
+@end
 @implementation BaseModel
 
 #pragma mark - Interface (接口)
@@ -47,19 +51,30 @@
             // 如果没有下一个
             break;
         }
+        // 获得变量名
+        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+        //查找规则
+        NSArray *regulation ;
+        if ([[self getRegulation] valueForKey:propertyName]) {
+            //有
+            regulation = [[self getRegulation] valueForKey:propertyName];
+        }else{
+            //没有
+            regulation = nil;
+        }
         
         // 得到这个成员变量的值
-        id value = [objSerializerTool nextValueWithType:type];
+        id value = [objSerializerTool nextValueWithType:type andRegulation:regulation];
         
         if (!value) {
             // 返回值为空
             continue;
         }
-        // 解析属性
-        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
+        
         // 为当前实例赋值
         [self setValue:value forKey:propertyName];
     }
+    _length = objSerializerTool.getLength;
     free(properties);
     return self;
 }
@@ -95,8 +110,18 @@
         objc_property_attribute_t *attList = property_copyAttributeList(property, &attCount);
         const char *type = attList[0].value;
         
+        //查找规则
+        NSArray *regulation ;
+        if ([[self getRegulation] valueForKey:propertyName]) {
+            //有
+            regulation = [[self getRegulation] valueForKey:propertyName];
+        }else{
+            //没有
+            regulation = nil;
+        }
+        
         //拼接
-        if (![objSerializerTool appendDataForValue:value andType:type]) {
+        if (![objSerializerTool appendDataForValue:value andType:type andRegulation:regulation]) {
             // 如果拼接不成功
             free(properties);
             return nil;
@@ -106,6 +131,12 @@
     return objSerializerTool.objData;
 }
 
+- (NSDictionary *)getRegulation{
+    return nil;
+}
+- (NSUInteger)returnModelLength{
+    return _length;
+}
 #pragma mark - ModelDelegate (ModelDelegate代理)
 - (instancetype)initWithData:(NSData *)data{
     if (self = [super init]) {

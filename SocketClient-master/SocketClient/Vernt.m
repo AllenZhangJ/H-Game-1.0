@@ -7,16 +7,12 @@
 //
 
 #import "Vernt.h"
-
+#import "ObjModelPropertyType.h"
 @implementation Vernt
-- (instancetype)initWithData:(NSData *)data{
-    if (self = [super init]) {
-        [self reserializeObj:data];
-    }
-    return self;
-}
-
-- (NSData *)toSecretData{
-    return [self serializeObj];
+- (NSDictionary *)getRegulation{
+    return @{
+             @"vID_array":@[@"NSArray",ObjTypeNSString],
+             @"vID_Dictionary":@[@"NSDictionary",ObjTypeUInt16,ObjTypeNSString],
+             };
 }
 @end

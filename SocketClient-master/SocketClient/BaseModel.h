@@ -31,4 +31,13 @@
  */
 - (NSData *)serializeObj;
 
+/**
+ 规则目录
+*/
+- (NSDictionary *)getRegulation;
+
+/** 
+ 长度
+ */
+- (NSUInteger)returnModelLength;
 @end

@@ -7,16 +7,15 @@
 //
 
 #import "MsgSecretTest.h"
+#import "ObjSerializerTool.h"
 
 @implementation MsgSecretTest
-- (instancetype)initWithData:(NSData *)data{
-    if (self = [super init]) {
-        [self reserializeObj:data];
-    }
-    return self;
-}
-
-- (NSData *)toSecretData{
-    return [self serializeObj];
+- (NSDictionary *)getRegulation{
+    return @{
+             @"vU8U16Test":@[@"NSDictionary",ObjTypeUInt8,ObjTypeUInt16],
+             @"vStringTest":@[@"NSArray",ObjTypeNSString],
+             @"vStringIntTest":@[@"NSDictionary",ObjTypeNSString,ObjTypeUInt32],
+             @"vStructTest":@[@"NSDictionary", ObjTypeUInt32,ObjTypeXTest],
+             };
 }
 @end

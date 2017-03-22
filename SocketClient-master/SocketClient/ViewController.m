@@ -60,17 +60,25 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
           uAssID:%u,\n\
           uScretKey:%u,\n\
           uTimeNow:%u,\n\
-          u8Test:%zi,\n\
-          u16Test:%zi,\n\
+          u8Test:%d,\n\
+          u16Test:%d,\n\
           sTest:%@,\n\
+          vU8U16Test:%@,\n\
+          vStringTest:%@,\n\
+          vStringIntTest:%@,\n\
+          vStructTest:%@\n\
           ",
           data,
           self.dataTest_obj.uAssID,
           self.dataTest_obj.uSecretKey,
           self.dataTest_obj.uTimeNow,
           self.dataTest_obj.u8Test,
-          self.dataTest_obj.u16Test
-          ,self.dataTest_obj.sTest
+          self.dataTest_obj.u16Test,
+          self.dataTest_obj.sTest,
+          self.dataTest_obj.vU8U16Test,
+          self.dataTest_obj.vStringTest,
+          self.dataTest_obj.vStringIntTest,
+          self.dataTest_obj.vStructTest
           );
     
     //    self.data_obj = [[DataCenter alloc]objFromData:data];
@@ -108,6 +116,8 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
     vernt.vID_32 = 33;
     vernt.vID_64 = 65;
     vernt.vID_string = @"string_string";
+    vernt.vID_array = @[@"string",@"test"];
+//    vernt.vID_Dictionary = @{@"12":@"test",@"99":@"string"};
     NSLog(@"vernt NSData:%@", [vernt serializeObj]);
     
     Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
@@ -116,12 +126,16 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
           ID_16:%u, \n\
           ID_32:%u,\n\
           ID_64:%llu,\n\
-          ID_str:%@",
+          ID_str:%@,\n\
+          ID_array:%@\n\
+          ",
           vernt_2.vID_8,
           vernt_2.vID_16,
           vernt_2.vID_32,
-          vernt_2.vID_64
-          ,vernt_2.vID_string
+          vernt_2.vID_64,
+          vernt_2.vID_string,
+          vernt_2.vID_array
+//          ,vernt_2.vID_Dictionary
           );
 }
 
