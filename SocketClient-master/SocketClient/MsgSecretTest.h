@@ -7,7 +7,6 @@
 //
 
 #import "BaseModel.h"
-#import "SCVector.h"
 @interface MsgSecretTest : BaseModel
 
 @property (nonatomic, assign) uint32_t uAssID;

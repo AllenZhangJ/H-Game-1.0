@@ -87,7 +87,7 @@ typedef struct{
     
 //    NSString *str = [NSString stringWithFormat:@"%zi%@%@%zi%zi%@%@%zi%@%zi%@", regModel.eRegistType, regModel.sAccount, regModel.sChannel, regModel.uPasscode, regModel.ePlatform, regModel.sPlatformVer,regModel.sModel,regModel.nGameVer,regModel.sIP,regModel.bAutoRegist,regModel.vChannnelArg];
     
-    [EncryptionModel getEncryptionForKey:secret.uSecretKey andBuffer:pBuffer andLength:length];
+//  [EncryptionModel getEncryptionForKey:secret.uSecretKey andBuffer:pBuffer andLength:length];
     
     /* todo : 在pBuffer前拼接包头 */
 //  secret.uAgreementID + pBuffer

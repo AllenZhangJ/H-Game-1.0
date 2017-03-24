@@ -15,12 +15,67 @@
 static const NSUInteger kObjTypeToolStringHeaderLength = sizeof(uint16_t);
 static NSDictionary *kTypeCatalogueDic;
 
+
+///////////////////////////////////////////////////////////////////////////
+
+                    /* ObjPacketHeader */
+
+///////////////////////////////////////////////////////////////////////////
+#pragma mark - ObjPacketHeader
+@implementation ObjPacketHeader
+/**
+ 接到objData拆分包头
+ @return  ObjPacketHeader
+ */
++ (ObjPacketHeader *)returnPacketHeaderForData:(NSData *)objData{
+    ObjPacketHeader *packetHeader = [ObjPacketHeader new];
+    
+    uint16_t tmpLength;
+    //得到长度
+    NSData *lengthData = [objData subdataWithRange:NSMakeRange(0, sizeof(uint16_t))];
+    [lengthData getBytes:&tmpLength length:sizeof(uint16_t)];
+    packetHeader.packetLength = tmpLength;
+    
+    uint16_t tmpAgreement;
+    //得到协议号
+    NSData *agreementData = [objData subdataWithRange:NSMakeRange(sizeof(uint16_t), sizeof(uint16_t))];
+    [agreementData getBytes:&tmpAgreement length:sizeof(uint16_t)];
+    packetHeader.packetAgreementID = tmpAgreement;
+    
+    return packetHeader;
+}
+
+/**
+ 根据包长度及协议号 拼接出Data
+ @return  NSData
+ */
++ (NSData *)returnDataForPacketLength:(uint16_t)packetLength andpacketAgreementID:(uint16_t)packetAgreementID{
+    NSMutableData *returnData = [NSMutableData data];
+    
+    uint16_t tmpPacketLength = packetLength;
+    //加上包头长度
+    tmpPacketLength += sizeof(uint32_t);
+    
+    //拼接长度
+    [returnData appendData:[NSData dataWithBytes:&tmpPacketLength length:sizeof(uint16_t)]];
+    
+    //拼接协议号
+    [returnData appendData:[NSData dataWithBytes:&packetAgreementID length:sizeof(uint16_t)]];
+    
+    return [returnData mutableCopy];
+}
++ (NSData *)returnDataForPacketHeader:(ObjPacketHeader *)packetHeader{
+    return [self returnDataForPacketLength:packetHeader.packetLength andpacketAgreementID:packetHeader.packetAgreementID];
+}
+
+@end
+
 ///////////////////////////////////////////////////////////////////////////
 
                     /* ObjTypeReturnData */
 
 ///////////////////////////////////////////////////////////////////////////
-
+#pragma mark - ObjTypeReturnData
 @implementation ObjTypeReturnData
 + (id)returnData:(id)returnData andDataLangth:(NSUInteger)dataLangth{
     ObjTypeReturnData *rData = [ObjTypeReturnData new];
@@ -35,7 +90,7 @@ static NSDictionary *kTypeCatalogueDic;
                     /* ObjSerializerTool */
 
 ///////////////////////////////////////////////////////////////////////////
-
+#pragma mark - ObjSerializerTool
 @interface ObjSerializerTool(){
     NSUInteger _curLocation;// 记录当前解析的位置
 }
@@ -45,8 +100,6 @@ static NSDictionary *kTypeCatalogueDic;
 @end
 
 @implementation ObjSerializerTool
-
-#pragma mark - Interface
 - (BOOL)hasNext{
     if (_objData.length > _curLocation) {
         return YES;
@@ -115,7 +168,7 @@ static NSDictionary *kTypeCatalogueDic;
     NSString *stringType =  [NSString stringWithCString:propertyType
                                                encoding:NSUTF8StringEncoding];
     // 获取类型
-    BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
+  //BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
         
     ObjTypeReturnData *returnData = [ObjTypeTool getValueFromData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length-_curLocation)] forProperty:stringType andRegulation:regulation];
     
@@ -162,7 +215,7 @@ static NSDictionary *kTypeCatalogueDic;
                             /* ObjTypeTool */
 
 ///////////////////////////////////////////////////////////////////////////
-
+#pragma mark - ObjTypeTool
 @implementation ObjTypeTool
 //Catalogue listing
 - (instancetype)init{
@@ -241,10 +294,10 @@ static NSDictionary *kTypeCatalogueDic;
 
 //根据传入data
 + (NSUInteger)langthByteNumberFormData:(NSData *)data{
-//    if (!data || data.length <= sizeof(kObjTypeToolStringHeaderLength)) {
-//        // 如果 data 为空 或者 不够长
-//        return 0;
-//    }
+    if (!data || data.length <= kObjTypeToolStringHeaderLength) {
+        // 如果 data 为空 或者 不够长
+        return 0;
+    }
     uint16_t tmp;
     // 字符描述占的范围
     NSRange agreementRange = NSMakeRange(0, kObjTypeToolStringHeaderLength);
@@ -319,6 +372,10 @@ static NSDictionary *kTypeCatalogueDic;
             return [ObjContainerTool getDataForDictionary:tmp_dic andRegulation:regulation];
         }
             break;
+        case BaseModelPropertyType_XTest:{
+            XTest *tmp_xTest = value;
+            return [tmp_xTest serializeObj];
+        }
         default:
             break;
     }
@@ -354,6 +411,7 @@ static NSDictionary *kTypeCatalogueDic;
     /* ObjContainerTool */
 
 ///////////////////////////////////////////////////////////////////////////
+#pragma mark - ObjContainerTool
 @interface ObjContainerTool (){
     NSUInteger _curLocation;// 记录当前解析的位置
 }
@@ -389,7 +447,7 @@ static NSDictionary *kTypeCatalogueDic;
         curLocation += valueData.dataLangth;
         
 #warning 可以加验证
-        [mDic setValue:valueData.returnData forKey:keyData.returnData];
+        [mDic setObject:valueData.returnData forKey:keyData.returnData];
     }
     
 
@@ -425,7 +483,6 @@ static NSDictionary *kTypeCatalogueDic;
 #warning 可以加验证
         [mArray addObject:arrayData.returnData];
     }
-
     
     // 验证 Range 越界
     if (curLocation > data.length) {
@@ -452,7 +509,7 @@ static NSDictionary *kTypeCatalogueDic;
         NSData *keyData = [ObjTypeTool getDataFormValue:key forProperty:regulation[1] andRegulation:nil];
         [objData appendData:keyData];
         
-        id value = [dictionary valueForKey:[NSString stringWithFormat:@"%@", key]];
+        id value = [dictionary objectForKey:key];
         NSData *valueData = [ObjTypeTool getDataFormValue:value forProperty:regulation[2] andRegulation:nil];
         [objData appendData:valueData];
     }
@@ -463,7 +520,6 @@ static NSDictionary *kTypeCatalogueDic;
  */
 + (NSData *)getDataForArrya:(NSArray *)array andRegulation:(NSArray *)regulation{
 //空返回 uint16 0
-    
     uint16_t number = array.count;
     NSMutableData *objData = [NSMutableData data];
     [objData appendData:[NSData dataWithBytes:&number length:sizeof(number)]];

@@ -8,20 +8,27 @@
 
 #import "DataCenter.h"
 
+//内库
+#import <objc/runtime.h>
+
+//model
 #import "MsgSecret.h"
 #import "MsgSecretTest.h"
-#import <objc/runtime.h>
+#import "SCLogIn.h"
+#import "SCLogInMsg.h"
+
+//工具
+#import "ObjSerializerTool.h"
+#import "EncryptionModel.h"
 
 static NSUInteger kDataCenterAgreementLength = 4;
 
-typedef NS_ENUM(UInt32, OBJ_InstanceType) {
-    OBJ_InstanceType_MCSS = 106102800,
-    OBJ_InstanceType_MsgSecret = 106102800,// 包头号,对应的类
-    OBJ_InstanceType_MsgSecretTest = 106102856,
-};
+
 
 @interface DataCenter (){
-    UInt32 _uAgreementID;
+    uint32_t _uAgreementID;
+    
+    uint32_t _uScretKey;
 }
 
 @end
@@ -39,20 +46,14 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
 
 #pragma mark - Private
 - (id<ModelDelegate>)private_getInstanceFromData:(NSData *)data{
-    
-    // 包头占的范围
-    NSRange agreementRange = NSMakeRange(0, kDataCenterAgreementLength);
-    
-    // 获取包头,两个方法都可以
-    // 方法1
-    [data getBytes:&_uAgreementID range:agreementRange];
-    // 方法2
-    NSData *agreement_Data = [data subdataWithRange:agreementRange];
-    [agreement_Data getBytes:&_uAgreementID length:sizeof(_uAgreementID)];
+    ObjPacketHeader *packetHeader = [ObjPacketHeader returnPacketHeaderForData:data];
+    _uAgreementID = packetHeader.packetAgreementID;
     
     // 获取具体数据的 Data
     NSRange objRange = NSMakeRange(kDataCenterAgreementLength, data.length - kDataCenterAgreementLength);
     NSData *obj_Data = [data subdataWithRange:objRange];
+    
+    //选择SubModel
     switch (_uAgreementID) {
         case OBJ_InstanceType_MsgSecret:{
             // 解析
@@ -65,39 +66,20 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
         case OBJ_InstanceType_MsgSecretTest:{//测试
             MsgSecretTest *secret = [[MsgSecretTest alloc]initWithData:obj_Data];
             secret.uAgreementID = _uAgreementID;
+            _uScretKey = secret.uSecretKey;
             return secret;
+        }
+            break;
+        case OBJ_InstanceType_LoginMsg:{
+            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
+            SCLogInMsg *loginMsg = [[SCLogInMsg alloc]initWithData:decodeData];
+            loginMsg.uAgreementID = _uAgreementID;
         }
         default:{
             return nil;
         }
             break;
     }
-    
-    
-//    NSMutableArray *array = [NSMutableArray arrayWithCapacity:data.length];
-//    NSUInteger i = 0;
-//    if (data.length > 0)
-//    {
-//        NSMutableArray *array = [NSMutableArray arrayWithCapacity:data.length];
-//        NSUInteger i = 0;
-//        for (i = 0; i < data.length; i++)
-//        {
-//            unsigned char byteFromArray = (unsigned char)data.bytes[i];
-//            [array addObject:[NSValue valueWithBytes:&byteFromArray
-//                                            objCType:@encode(unsigned char)]];
-//        }
-//        return [NSArray arrayWithArray:array];
-//    }
-    
-//    unsigned char *bytes = [data bytes];
-    //如果你要编辑的数据，还有关于NSData的才会这样。
-    // Make your array to hold the bytes
-//    NSUInteger length = [data length];
-//    unsigned char *bytes = malloc( length * sizeof(unsigned char) );
-//    // Get the data
-//    [data getBytes:bytes length:length];
-//    
-//    return self;
 }
 
 //
@@ -114,9 +96,22 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
             }
         }
             break;
-            
+        case OBJ_InstanceType_MsgSecretTest:{//测试
+            if ([object isKindOfClass:[MsgSecretTest class]]) {
+                instance_Data = [((MsgSecretTest *)object) toData];
+            }
+        }
+            break;
+        case OBJ_InstanceType_Login:{
+            if ([object isKindOfClass:[SCLogIn class]]) {
+                instance_Data = [((SCLogIn *)object) toData];
+                //if (!_uAgreementID)_uAgreementID = OBJ_InstanceType_Login;
+            }
+        }
+            break;
         default:{
             // 如果没有找到对应的类
+            
             return instance_Data;
         }
             break;
@@ -127,14 +122,28 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
         return instance_Data;
     }
     
+    
+    
     // 拼接包头 Data 跟数据 Data
-    NSMutableData *mutableData;
+    NSMutableData *mutableData = [NSMutableData data];
     
-    NSData *agreement_Data = [NSData dataWithBytes:&_uAgreementID length:sizeof(_uAgreementID)];
-    [mutableData appendData:(NSData *)agreement_Data];
-    [mutableData appendData:(NSData *)instance_Data];
+    NSData *agreement_Data = [ObjPacketHeader returnDataForPacketLength:instance_Data.length andpacketAgreementID:_uAgreementID];
     
-    return [mutableData copy];
+    [mutableData appendData:agreement_Data];
+    
+    NSData *instance = [EncryptionModel getEncryptionForKey:_uScretKey andBuffer:instance_Data andLength:instance_Data.length];
+    if (instance) {
+        [mutableData appendData:instance];
+        NSLog(@"——————Encryption Data: %@", mutableData);
+        
+//        NSRange objRange = NSMakeRange(kDataCenterAgreementLength, mutableData.length - kDataCenterAgreementLength);
+//        NSData *data_decode = [mutableData subdataWithRange:objRange];
+//        NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:data_decode andLength:data_decode.length];
+//        SCLogIn *login = [[SCLogIn alloc]initWithData:decodeData];
+//        NSLog(@"login:%@", login);
+        return [mutableData copy];
+    }
+    return nil;
 }
 
 @end

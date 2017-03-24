@@ -9,11 +9,39 @@
 #import <Foundation/Foundation.h>
 #import "ObjModelPropertyType.h"
 
+#pragma mark - ObjPacketHeader
+///////////////////////////////////////////////////////////////////////////
+
+                    /* ObjPacketHeader */
+
+///////////////////////////////////////////////////////////////////////////
+
+@interface ObjPacketHeader : NSObject
+@property (nonatomic ,assign) uint16_t packetLength;
+
+@property (nonatomic ,assign) uint16_t packetAgreementID;
+
+/** 
+    接到objData拆分包头
+    @return  ObjPacketHeader
+ */
++ (ObjPacketHeader *)returnPacketHeaderForData:(NSData *)objData;
+
+/**
+    根据包长度及协议号 拼接出Data
+    @return  NSData
+ */
++ (NSData *)returnDataForPacketHeader:(ObjPacketHeader *)packetHeader;
++ (NSData *)returnDataForPacketLength:(uint16_t)packetLength andpacketAgreementID:(uint16_t)packetAgreementID;
+
+@end
+
 ///////////////////////////////////////////////////////////////////////////
 
                     /* ObjTypeReturnData */
 
 ///////////////////////////////////////////////////////////////////////////
+#pragma mark - ObjTypeReturnData
 @interface ObjTypeReturnData : NSObject
 
 @property (nonatomic ,strong) id returnData;
@@ -32,6 +60,7 @@
                     /* ObjSerializerTool */
 
 ///////////////////////////////////////////////////////////////////////////
+#pragma mark - ObjSerializerTool
 @interface ObjSerializerTool : NSObject
 
 @property (nonatomic, copy) NSData *objData;
@@ -70,7 +99,7 @@
                         /* ObjTypeTool */
 
 ///////////////////////////////////////////////////////////////////////////
-
+#pragma mark - ObjTypeTool
 @interface ObjTypeTool : NSObject
 
 /**
@@ -100,9 +129,10 @@
 
 ///////////////////////////////////////////////////////////////////////////
 
-                    /* ObjContainerTool */
+                        /* ObjContainerTool */
 
 ///////////////////////////////////////////////////////////////////////////
+#pragma mark - ObjContainerTool
 @interface ObjContainerTool : NSObject
 /**  
  传入data返回NSDictionary 反序列化

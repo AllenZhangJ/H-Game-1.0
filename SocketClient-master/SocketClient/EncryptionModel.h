@@ -14,18 +14,18 @@
  加密
 
  @param uSecretKey Key
- @param pBuffer 拼接好的字符串
- @param uLength 拼接好的字符串长度
- @return 是否成功
+ @param pBuffer 拼接好的Data
+ @param uLength 拼接好的Data.length
+ @return NSData
  */
-+ (BOOL)getEncryptionForKey:(uint32_t)uSecretKey andBuffer:(char *)pBuffer andLength:(uint)uLength;
++ (NSData *)getEncryptionForKey:(uint32_t)uSecretKey andBuffer:(NSData *)pBuffer andLength:(uint16_t)uLength;
 /**
  解密
  
  @param uSecretKey Key
- @param pBuffer 拼接好的字符串
- @param uLength 拼接好的字符串长度
- @return 是否成功
+ @param pBuffer 拼接好的Data
+ @param uLength 拼接好的Data.length
+ @return NSData
  */
-+ (BOOL)getDecodeForKey:(uint32_t)uSecretKey andBuffer:(char *)pBuffer andLength:(uint)uLength;
++ (NSData *)getDecodeForKey:(uint32_t)uSecretKey andBuffer:(NSData *)pBuffer andLength:(uint16_t)uLength;
 @end

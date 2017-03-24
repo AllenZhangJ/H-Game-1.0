@@ -8,16 +8,19 @@
 
 #import "ViewController.h"
 
+/** 3f */
 #import "GCDAsyncSocket.h"
 #import "LSUDPDataDetail.h"
 
+/** Model */
 #import "DataCenter.h"
+
+/** SubModel */
+#import "SCLogIn.h"
+#import "SCLogInMsg.h"
+#import "Vernt.h"
 #import "MsgSecret.h"
 #import "MsgSecretTest.h"
-#import "Vernt.h"
-#import "RegisterModel.h"
-#import "MsgCenterSystemSecret.h"
-
 
 //#define URLstr = @"hydemo.hao-games.com"
 
@@ -36,11 +39,10 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
 @property (nonatomic) GCDAsyncSocket *clinetSocket;
 
 @property (nonatomic, strong) MsgSecret *data_obj;
-//测试
+//test
 @property (nonatomic, strong) MsgSecretTest *dataTest_obj;
 
-@property (nonatomic, strong) MsgCenterSystemSecret *secret_obj;
-
+@property (nonatomic, strong) DataCenter *dataCenter;
 @end
 
 @implementation ViewController
@@ -53,48 +55,40 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
 
 //收到消息
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
-    self.dataTest_obj = [[DataCenter alloc]objFromData:data];
+    id objModel = [self.dataCenter objFromData:data];
+    if ([[objModel class] isSubclassOfClass:[MsgSecretTest class]]) {
+        self.dataTest_obj = objModel;
+        
+        NSLog(@"——————receive NSData:%@\n\
+              ---------\n\
+              uAssID:%u,\n\
+              uScretKey:%u,\n\
+              uTimeNow:%u,\n\
+              u8Test:%d,\n\
+              u16Test:%d,\n\
+              sTest:%@,\n\
+              vU8U16Test:%@,\n\
+              vStringTest:%@,\n\
+              vStringIntTest:%@,\n\
+              vStructTest:%@\n\
+              ",
+              data,
+              self.dataTest_obj.uAssID,
+              self.dataTest_obj.uSecretKey,
+              self.dataTest_obj.uTimeNow,
+              self.dataTest_obj.u8Test,
+              self.dataTest_obj.u16Test,
+              self.dataTest_obj.sTest,
+              self.dataTest_obj.vU8U16Test,
+              self.dataTest_obj.vStringTest,
+              self.dataTest_obj.vStringIntTest,
+              self.dataTest_obj.vStructTest
+              );
+    }else if ([[objModel class] isSubclassOfClass:[SCLogInMsg class]]){
+        SCLogInMsg *loginMsg = objModel;
+        
+    }
     
-    NSLog(@"dataTest_obj NSData:%@\n\
-          ---------\n\
-          uAssID:%u,\n\
-          uScretKey:%u,\n\
-          uTimeNow:%u,\n\
-          u8Test:%d,\n\
-          u16Test:%d,\n\
-          sTest:%@,\n\
-          vU8U16Test:%@,\n\
-          vStringTest:%@,\n\
-          vStringIntTest:%@,\n\
-          vStructTest:%@\n\
-          ",
-          data,
-          self.dataTest_obj.uAssID,
-          self.dataTest_obj.uSecretKey,
-          self.dataTest_obj.uTimeNow,
-          self.dataTest_obj.u8Test,
-          self.dataTest_obj.u16Test,
-          self.dataTest_obj.sTest,
-          self.dataTest_obj.vU8U16Test,
-          self.dataTest_obj.vStringTest,
-          self.dataTest_obj.vStringIntTest,
-          self.dataTest_obj.vStructTest
-          );
-    
-    //    self.data_obj = [[DataCenter alloc]objFromData:data];
-    //    NSLog(@"----------\n\
-    //          tag=%ld,\n\
-    //          uAssID:%u,\n\
-    //          uSecretKey:%u,\n\
-    //          uTimeNow:%u,\n\
-    //          hello",
-    //          tag,
-    //          self.data_obj.uAssID,
-    //          self.data_obj.uSecretKey,
-    //          self.data_obj.uTimeNow);
-    
-    //    self.secret_obj = [[MsgCenterSystemSecret alloc]initWithData:data];
-    //    NSLog(@"tag=%ld,uAssID:%ld,uSecretKey:%u,uTimeNow:%ld,u8Test:%zi", tag, self.secret_obj.uAssID, self.secret_obj.uSecretKey, self.secret_obj.uTimeNow,self.secret_obj.u8Test);
     
     [self.clinetSocket readDataWithTimeout:-1 tag:0];
     [self.sendButton setEnabled:YES];
@@ -118,7 +112,8 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
     vernt.vID_string = @"string_string";
     vernt.vID_array = @[@"string",@"test"];
 //    vernt.vID_Dictionary = @{@"12":@"test",@"99":@"string"};
-    NSLog(@"vernt NSData:%@", [vernt serializeObj]);
+    
+    
     
     Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
     NSLog(@"vernt \n\
@@ -141,12 +136,29 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
 
 //发送消息
 - (IBAction)sendMessageAction:(id)sender {
-    RegisterModel *regModel = [RegisterModel getRegisterData];
-    //withTimeout -1 :无穷大
+    SCLogIn *login = [[SCLogIn alloc]init];
+    login.opType = OP_LOGIN_LOGIN_PLAYER;
+    login.eRegistType = 2;
+    login.sAccount = @"qqqqqq";
+    login.sChannel = @"OFFICIAL";
+    login.uPasscode = 1835900736;
+    login.ePlatform = 3;
+    login.sPlatformVer = @"Windows 8";
+    login.sModel = @"Windows";
+    login.nGameVer = 0;
+    login.sIP = @"";
+    login.bAutoRegist = 0;
+    login.vChannnelArg = @{};
+    login.uAgreementID = OBJ_InstanceType_Login;
     
-    NSData *data = [regModel getResultDataWithSecret:self.secret_obj];
+    
+    NSData *ObjdData = [self.dataCenter dataFromInstance:login];
+    [self.clinetSocket writeData:ObjdData withTimeout:1 tag:0];
+    
+    
+    //withTimeout -1 :无穷大
     //tag： 消息标记
-    [self.clinetSocket writeData:data withTimeout:-1 tag:0];
+    
 }
 
 //接收消息
@@ -169,5 +181,11 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
     [super didReceiveMemoryWarning];
     
 }
-
+#pragma mark - load
+- (DataCenter *)dataCenter{
+    if (!_dataCenter) {
+        _dataCenter = [DataCenter alloc];
+    }
+    return _dataCenter;
+}
 @end

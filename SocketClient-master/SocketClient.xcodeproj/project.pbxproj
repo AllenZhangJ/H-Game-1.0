@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */ = {isa = PBXBuildFile; fileRef = 16231BB51E8213BA00979CC6 /* ObjModelPropertyType.m */; };
+		165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 165B8E721E84C627000E3C15 /* SCLogIn.m */; };
+		165B8E761E850287000E3C15 /* SCLogInMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = 165B8E751E850287000E3C15 /* SCLogInMsg.m */; };
 		165C6FB11E7B93A50074972E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB01E7B93A50074972E /* CoreGraphics.framework */; };
 		165C6FB31E7B93AC0074972E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB21E7B93AC0074972E /* UIKit.framework */; };
 		165C6FB51E7B93B60074972E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB41E7B93B60074972E /* Foundation.framework */; };
@@ -43,6 +45,10 @@
 /* Begin PBXFileReference section */
 		16231BB41E8213BA00979CC6 /* ObjModelPropertyType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjModelPropertyType.h; sourceTree = "<group>"; };
 		16231BB51E8213BA00979CC6 /* ObjModelPropertyType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ObjModelPropertyType.m; sourceTree = "<group>"; };
+		165B8E711E84C627000E3C15 /* SCLogIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLogIn.h; sourceTree = "<group>"; };
+		165B8E721E84C627000E3C15 /* SCLogIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLogIn.m; sourceTree = "<group>"; };
+		165B8E741E850287000E3C15 /* SCLogInMsg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLogInMsg.h; sourceTree = "<group>"; };
+		165B8E751E850287000E3C15 /* SCLogInMsg.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLogInMsg.m; sourceTree = "<group>"; };
 		165C6FAE1E7B92CE0074972E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		165C6FB01E7B93A50074972E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		165C6FB21E7B93AC0074972E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -174,6 +180,10 @@
 				5385A4FE1E762DDD00425207 /* MsgSecret.m */,
 				16F1DAA81E7A422E0017A20D /* MsgSecretTest.h */,
 				16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */,
+				165B8E711E84C627000E3C15 /* SCLogIn.h */,
+				165B8E721E84C627000E3C15 /* SCLogIn.m */,
+				165B8E741E850287000E3C15 /* SCLogInMsg.h */,
+				165B8E751E850287000E3C15 /* SCLogInMsg.m */,
 			);
 			name = "SubModel(子类)";
 			sourceTree = "<group>";
@@ -415,6 +425,7 @@
 				5385A5021E76344300425207 /* BaseModel.m in Sources */,
 				8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */,
 				9FF15CFF1E7848FC00215108 /* Vernt.m in Sources */,
+				165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */,
 				5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */,
 				8D2DDA991D1D1F5400356798 /* GCDAsyncSocket.m in Sources */,
 				8D2DDA781D1D1F3300356798 /* AppDelegate.m in Sources */,
@@ -434,6 +445,7 @@
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
 				8D2DDA9B1D1D1F5400356798 /* AsyncSocket.m in Sources */,
 				16742A851E7F71F9008B6E8B /* SCVector.m in Sources */,
+				165B8E761E850287000E3C15 /* SCLogInMsg.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
