@@ -18,7 +18,8 @@ typedef NS_ENUM(NSInteger, BaseModelPropertyType) {
     BaseModelPropertyType_NSDictionary,
     BaseModelPropertyType_NSArray,
     //结构体类型
-    BaseModelPropertyType_XTest
+    BaseModelPropertyType_XTest,
+    BaseModelPropertyType_XAccountInfo,
 };
 
 
@@ -31,6 +32,7 @@ extern NSString *const ObjTypeNSDictionary;
 extern NSString *const ObjTypeNSArray;
 //结构体类型
 extern NSString *const ObjTypeXTest;
+extern NSString *const ObjTypeXAccountInfo;
 
 @interface ObjModelPropertyType : NSObject
 

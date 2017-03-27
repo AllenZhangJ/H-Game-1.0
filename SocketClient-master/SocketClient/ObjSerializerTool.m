@@ -10,7 +10,9 @@
 
 #include "ObjModelPropertyType.h"
 
+/** 结构体 */
 #import "XTest.h"
+#import "XAccountInfo.h"
 
 static const NSUInteger kObjTypeToolStringHeaderLength = sizeof(uint16_t);
 static NSDictionary *kTypeCatalogueDic;
@@ -286,6 +288,11 @@ static NSDictionary *kTypeCatalogueDic;
             return [ObjTypeReturnData returnData:xTestData andDataLangth:[xTestData returnModelLength]];
         }
             break;
+        case BaseModelPropertyType_XAccountInfo:{
+            XAccountInfo *xAccounInfo = [[XAccountInfo alloc]reserializeObj:data];
+            return [ObjTypeReturnData returnData:xAccounInfo andDataLangth:[xAccounInfo returnModelLength]];
+        }
+            break;
         default:
             return nil;
             break;
@@ -408,7 +415,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-    /* ObjContainerTool */
+                            /* ObjContainerTool */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjContainerTool

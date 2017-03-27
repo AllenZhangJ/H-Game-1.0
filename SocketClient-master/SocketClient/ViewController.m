@@ -18,14 +18,18 @@
 /** SubModel */
 #import "SCLogIn.h"
 #import "SCLogInMsg.h"
+#import "SCMsgCenterLoginRep.h"
+#import "SCMsgCenterAccountNtf.h"
 #import "Vernt.h"
 #import "MsgSecret.h"
 #import "MsgSecretTest.h"
+
 
 //#define URLstr = @"hydemo.hao-games.com"
 
 static NSString *const LANURLstr = @"192.168.1.139";
 static NSString *const LANURLstr_text = @"192.168.1.138";
+static NSString *const LANLJURL = @"192.168.1.140";
 static NSString *const URLStr = @"hydemo.hao-games.com";
 
 @interface ViewController ()<GCDAsyncSocketDelegate>
@@ -86,9 +90,22 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
               );
     }else if ([[objModel class] isSubclassOfClass:[SCLogInMsg class]]){
         SCLogInMsg *loginMsg = objModel;
-        
+        NSLog(@"loginMsgOpType:%@", loginMsg.uOpType==1?@"登录错误":@"");
+    }else if([[objModel class] isSubclassOfClass:[SCMsgCenterLoginRep class]]){
+        SCMsgCenterLoginRep *msgCenterLoginRep = objModel;
+        NSLog(@"Download success!\n\
+              PlayerID:%u", msgCenterLoginRep.uPlayerID);
+    }else if([[objModel class] isSubclassOfClass:[SCMsgCenterAccountNtf class]]){
+        SCMsgCenterAccountNtf *msgCenterAccountNtf = objModel;
+        NSLog(@"UserInfo\n\
+              uPlayerID:%u\n\
+              nRights:%hhu\n\
+              uMoney:%u\n\
+              uProceessTime:%llu", msgCenterAccountNtf.xAccountInfo.uPlayerID,
+              msgCenterAccountNtf.xAccountInfo.nRights,
+              msgCenterAccountNtf.xAccountInfo.uMoney,
+              msgCenterAccountNtf.xAccountInfo.uProcessTime);
     }
-    
     
     [self.clinetSocket readDataWithTimeout:-1 tag:0];
     [self.sendButton setEnabled:YES];
@@ -98,40 +115,11 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
     [self.view endEditing:YES];
 }
 
+#pragma mark - Action
 //开始连接
 - (IBAction)connectAction:(id)sender {
     //2、连接服务器
     [self.clinetSocket connectToHost:LANURLstr_text onPort:self.portTF.text.integerValue withTimeout:-1 error:nil];
-    
-    //test
-    Vernt *vernt = [Vernt new];
-    vernt.vID_8 = 9;
-    vernt.vID_16 = 17;
-    vernt.vID_32 = 33;
-    vernt.vID_64 = 65;
-    vernt.vID_string = @"string_string";
-    vernt.vID_array = @[@"string",@"test"];
-//    vernt.vID_Dictionary = @{@"12":@"test",@"99":@"string"};
-    
-    
-    
-    Vernt *vernt_2 = [[Vernt alloc]reserializeObj:[vernt serializeObj]];
-    NSLog(@"vernt \n\
-          ID_8:%u,\n\
-          ID_16:%u, \n\
-          ID_32:%u,\n\
-          ID_64:%llu,\n\
-          ID_str:%@,\n\
-          ID_array:%@\n\
-          ",
-          vernt_2.vID_8,
-          vernt_2.vID_16,
-          vernt_2.vID_32,
-          vernt_2.vID_64,
-          vernt_2.vID_string,
-          vernt_2.vID_array
-//          ,vernt_2.vID_Dictionary
-          );
 }
 
 //发送消息
@@ -177,14 +165,10 @@ static NSString *const URLStr = @"hydemo.hao-games.com";
     self.clinetSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
 #pragma mark - load
 - (DataCenter *)dataCenter{
     if (!_dataCenter) {
-        _dataCenter = [DataCenter alloc];
+        _dataCenter = [DataCenter sharedManager];
     }
     return _dataCenter;
 }

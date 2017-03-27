@@ -16,6 +16,7 @@ NSString *const ObjTypeNSDictionary = @"NSDictionary";
 NSString *const ObjTypeNSArray = @"NSArray";
 //结构体类型
 NSString *const ObjTypeXTest = @"XTest";
+NSString *const ObjTypeXAccountInfo = @"XAccountInfo";
 
 @implementation ObjModelPropertyType
 

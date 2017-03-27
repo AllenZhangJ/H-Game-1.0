@@ -13,6 +13,9 @@
 		165C6FB11E7B93A50074972E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB01E7B93A50074972E /* CoreGraphics.framework */; };
 		165C6FB31E7B93AC0074972E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB21E7B93AC0074972E /* UIKit.framework */; };
 		165C6FB51E7B93B60074972E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB41E7B93B60074972E /* Foundation.framework */; };
+		1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */; };
+		1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */; };
+		1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3691E88FF0C00157FAF /* XAccountInfo.m */; };
 		16742A851E7F71F9008B6E8B /* SCVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16742A841E7F71F9008B6E8B /* SCVector.m */; };
 		16742A871E7FCA8A008B6E8B /* CataloguelistingPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */; };
 		16952B0C1E824CB100818630 /* XTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16952B0B1E824CB100818630 /* XTest.m */; };
@@ -53,6 +56,12 @@
 		165C6FB01E7B93A50074972E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		165C6FB21E7B93AC0074972E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		165C6FB41E7B93B60074972E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1665A3621E88EE8700157FAF /* SCMsgCenterLoginRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterLoginRep.h; sourceTree = "<group>"; };
+		1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMsgCenterLoginRep.m; sourceTree = "<group>"; };
+		1665A3651E88F88B00157FAF /* SCMsgCenterAccountNtf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterAccountNtf.h; sourceTree = "<group>"; };
+		1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMsgCenterAccountNtf.m; sourceTree = "<group>"; };
+		1665A3681E88FF0C00157FAF /* XAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XAccountInfo.h; sourceTree = "<group>"; };
+		1665A3691E88FF0C00157FAF /* XAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XAccountInfo.m; sourceTree = "<group>"; };
 		16742A831E7F71F9008B6E8B /* SCVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVector.h; sourceTree = "<group>"; };
 		16742A841E7F71F9008B6E8B /* SCVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVector.m; sourceTree = "<group>"; };
 		16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CataloguelistingPlist.plist; sourceTree = "<group>"; };
@@ -142,6 +151,8 @@
 				5385A5011E76344300425207 /* BaseModel.m */,
 				16952B0A1E824CB100818630 /* XTest.h */,
 				16952B0B1E824CB100818630 /* XTest.m */,
+				1665A3681E88FF0C00157FAF /* XAccountInfo.h */,
+				1665A3691E88FF0C00157FAF /* XAccountInfo.m */,
 				5385A5071E763ED800425207 /* SubModel(子类) */,
 			);
 			name = Model;
@@ -184,6 +195,10 @@
 				165B8E721E84C627000E3C15 /* SCLogIn.m */,
 				165B8E741E850287000E3C15 /* SCLogInMsg.h */,
 				165B8E751E850287000E3C15 /* SCLogInMsg.m */,
+				1665A3621E88EE8700157FAF /* SCMsgCenterLoginRep.h */,
+				1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */,
+				1665A3651E88F88B00157FAF /* SCMsgCenterAccountNtf.h */,
+				1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */,
 			);
 			name = "SubModel(子类)";
 			sourceTree = "<group>";
@@ -423,6 +438,7 @@
 				9FF461361E6EA1C800025286 /* EncryptionModel.m in Sources */,
 				5385A4FC1E76255E00425207 /* DataCenter.m in Sources */,
 				5385A5021E76344300425207 /* BaseModel.m in Sources */,
+				1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */,
 				8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */,
 				9FF15CFF1E7848FC00215108 /* Vernt.m in Sources */,
 				165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */,
@@ -443,7 +459,9 @@
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
+				1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */,
 				8D2DDA9B1D1D1F5400356798 /* AsyncSocket.m in Sources */,
+				1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */,
 				16742A851E7F71F9008B6E8B /* SCVector.m in Sources */,
 				165B8E761E850287000E3C15 /* SCLogInMsg.m in Sources */,
 			);
