@@ -2,8 +2,8 @@
 //  ViewController.h
 //  SocketClient
 //
-//  Created by Edward on 16/6/24.
-//  Copyright © 2016年 Edward. All rights reserved.
+//  Created by Architray on 13/03/17.
+//  Copyright © 2017 Allen. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

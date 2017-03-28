@@ -3,7 +3,7 @@
 //  SocketClient
 //
 //  Created by Architray on 13/03/17.
-//  Copyright © 2017 Edward. All rights reserved.
+//  Copyright © 2017 Allen. All rights reserved.
 //
 
 #import "BaseModel.h"

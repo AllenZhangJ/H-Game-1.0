@@ -3,11 +3,21 @@
 //  SocketClient
 //
 //  Created by Architray on 13/03/17.
-//  Copyright © 2017 Edward. All rights reserved.
+//  Copyright © 2017 Allen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
+/** SubModel */
+#import "SCLogIn.h"
+#import "SCLogInMsg.h"
+#import "SCMsgCenterLoginRep.h"
+#import "SCMsgCenterAccountNtf.h"
+#import "Vernt.h"
+#import "MsgSecret.h"
+#import "MsgSecretTest.h"
+
+/** Delegate */
 #import "ModelDelegate.h"
 
 typedef NS_ENUM(UInt32, OBJ_InstanceType) {

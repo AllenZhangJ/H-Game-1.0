@@ -18,6 +18,9 @@
 		1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3691E88FF0C00157FAF /* XAccountInfo.m */; };
 		16742A851E7F71F9008B6E8B /* SCVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16742A841E7F71F9008B6E8B /* SCVector.m */; };
 		16742A871E7FCA8A008B6E8B /* CataloguelistingPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */; };
+		167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF911E8A0A7100901319 /* SCLoginService.m */; };
+		167DFF951E8A386E00901319 /* SCSocketConter.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF941E8A386E00901319 /* SCSocketConter.m */; };
+		167DFF9A1E8A621C00901319 /* loginbackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 167DFF991E8A621C00901319 /* loginbackground.jpg */; };
 		16952B0C1E824CB100818630 /* XTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16952B0B1E824CB100818630 /* XTest.m */; };
 		16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */; };
 		16F1DAA71E7A34270017A20D /* SCVectorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA61E7A34270017A20D /* SCVectorBase.m */; };
@@ -65,6 +68,12 @@
 		16742A831E7F71F9008B6E8B /* SCVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVector.h; sourceTree = "<group>"; };
 		16742A841E7F71F9008B6E8B /* SCVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVector.m; sourceTree = "<group>"; };
 		16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CataloguelistingPlist.plist; sourceTree = "<group>"; };
+		167DFF901E8A0A7100901319 /* SCLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginService.h; sourceTree = "<group>"; };
+		167DFF911E8A0A7100901319 /* SCLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginService.m; sourceTree = "<group>"; };
+		167DFF931E8A386E00901319 /* SCSocketConter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketConter.h; sourceTree = "<group>"; };
+		167DFF941E8A386E00901319 /* SCSocketConter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSocketConter.m; sourceTree = "<group>"; };
+		167DFF961E8A3CCA00901319 /* SCSocketDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketDelegate.h; sourceTree = "<group>"; };
+		167DFF991E8A621C00901319 /* loginbackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginbackground.jpg; sourceTree = "<group>"; };
 		16952B0A1E824CB100818630 /* XTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTest.h; sourceTree = "<group>"; };
 		16952B0B1E824CB100818630 /* XTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XTest.m; sourceTree = "<group>"; };
 		16F1DAA21E7A2FCF0017A20D /* ObjSerializerTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjSerializerTool.h; sourceTree = "<group>"; };
@@ -141,18 +150,77 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		5385A5041E763E8100425207 /* Model */ = {
+		1665A36B1E891C6200157FAF /* StructuralModel */ = {
 			isa = PBXGroup;
 			children = (
-				5385A4FA1E76255E00425207 /* DataCenter.h */,
-				5385A4FB1E76255E00425207 /* DataCenter.m */,
-				5385A5031E763A6400425207 /* ModelDelegate.h */,
-				5385A5001E76344300425207 /* BaseModel.h */,
-				5385A5011E76344300425207 /* BaseModel.m */,
 				16952B0A1E824CB100818630 /* XTest.h */,
 				16952B0B1E824CB100818630 /* XTest.m */,
 				1665A3681E88FF0C00157FAF /* XAccountInfo.h */,
 				1665A3691E88FF0C00157FAF /* XAccountInfo.m */,
+			);
+			name = StructuralModel;
+			sourceTree = "<group>";
+		};
+		167DFF8A1E89F7BF00901319 /* Connection(链接界面) */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Connection(链接界面)";
+			sourceTree = "<group>";
+		};
+		167DFF8B1E89F80400901319 /* Login(登录) */ = {
+			isa = PBXGroup;
+			children = (
+				8D2DDA791D1D1F3300356798 /* ViewController.h */,
+				8D2DDA7A1D1D1F3300356798 /* ViewController.m */,
+				167DFF8D1E89F88800901319 /* Service */,
+				167DFF8C1E89F87700901319 /* Views */,
+			);
+			name = "Login(登录)";
+			sourceTree = "<group>";
+		};
+		167DFF8C1E89F87700901319 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		167DFF8D1E89F88800901319 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				167DFF901E8A0A7100901319 /* SCLoginService.h */,
+				167DFF911E8A0A7100901319 /* SCLoginService.m */,
+			);
+			name = Service;
+			sourceTree = "<group>";
+		};
+		167DFF8E1E89F8CC00901319 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				5385A4FA1E76255E00425207 /* DataCenter.h */,
+				5385A4FB1E76255E00425207 /* DataCenter.m */,
+			);
+			name = DataManager;
+			sourceTree = "<group>";
+		};
+		167DFF8F1E89F90800901319 /* SocketManager */ = {
+			isa = PBXGroup;
+			children = (
+				167DFF931E8A386E00901319 /* SCSocketConter.h */,
+				167DFF941E8A386E00901319 /* SCSocketConter.m */,
+			);
+			name = SocketManager;
+			sourceTree = "<group>";
+		};
+		5385A5041E763E8100425207 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				5385A5031E763A6400425207 /* ModelDelegate.h */,
+				167DFF961E8A3CCA00901319 /* SCSocketDelegate.h */,
+				5385A5001E76344300425207 /* BaseModel.h */,
+				5385A5011E76344300425207 /* BaseModel.m */,
+				1665A36B1E891C6200157FAF /* StructuralModel */,
 				5385A5071E763ED800425207 /* SubModel(子类) */,
 			);
 			name = Model;
@@ -207,8 +275,8 @@
 			isa = PBXGroup;
 			children = (
 				8D2DDA7C1D1D1F3300356798 /* Main.storyboard */,
-				8D2DDA791D1D1F3300356798 /* ViewController.h */,
-				8D2DDA7A1D1D1F3300356798 /* ViewController.m */,
+				167DFF8B1E89F80400901319 /* Login(登录) */,
+				167DFF8A1E89F7BF00901319 /* Connection(链接界面) */,
 				5385A50D1E763FCD00425207 /* Launch(欢迎界面) */,
 			);
 			name = ViewControllers;
@@ -217,6 +285,8 @@
 		5385A5091E763F2C00425207 /* Utilits(工具) */ = {
 			isa = PBXGroup;
 			children = (
+				167DFF8E1E89F8CC00901319 /* DataManager */,
+				167DFF8F1E89F90800901319 /* SocketManager */,
 				5385A50E1E767D7A00425207 /* ObjTypeTool(数据类型工具) */,
 				5385A5061E763EB500425207 /* Encryption(加密) */,
 			);
@@ -248,6 +318,7 @@
 		5385A50C1E763F9C00425207 /* Resource(资源文件) */ = {
 			isa = PBXGroup;
 			children = (
+				167DFF991E8A621C00901319 /* loginbackground.jpg */,
 				8D2DDA841D1D1F3300356798 /* Info.plist */,
 				8D2DDA7F1D1D1F3300356798 /* Assets.xcassets */,
 			);
@@ -422,6 +493,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				16742A871E7FCA8A008B6E8B /* CataloguelistingPlist.plist in Resources */,
+				167DFF9A1E8A621C00901319 /* loginbackground.jpg in Resources */,
 				8D2DDA831D1D1F3300356798 /* LaunchScreen.storyboard in Resources */,
 				8D2DDA801D1D1F3300356798 /* Assets.xcassets in Resources */,
 				8D2DDA7E1D1D1F3300356798 /* Main.storyboard in Resources */,
@@ -440,6 +512,7 @@
 				5385A5021E76344300425207 /* BaseModel.m in Sources */,
 				1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */,
 				8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */,
+				167DFF951E8A386E00901319 /* SCSocketConter.m in Sources */,
 				9FF15CFF1E7848FC00215108 /* Vernt.m in Sources */,
 				165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */,
 				5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */,
@@ -459,6 +532,7 @@
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
+				167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */,
 				1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */,
 				8D2DDA9B1D1D1F5400356798 /* AsyncSocket.m in Sources */,
 				1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */,
