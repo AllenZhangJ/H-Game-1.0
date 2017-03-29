@@ -1,5 +1,5 @@
 //
-//  SCSocketConter.h
+//  SCSocketCenter.h
 //  SocketClient
 //
 //  Created by you hao on 2017/3/28.
@@ -11,7 +11,7 @@
 /** Delegate */
 #import "SCSocketDelegate.h"
 
-@interface SCSocketConter : NSObject
+@interface SCSocketCenter : NSObject
 
 @property (nonatomic, weak) id<SCSocketDelegate> socketdelegate;
 
@@ -27,5 +27,5 @@
 - (void)sendMessageToTheServer:(id)obj;
 
 /** shared */
-+ (SCSocketConter *)sharedManager;
++ (SCSocketCenter *)sharedManager;
 @end

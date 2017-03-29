@@ -1,12 +1,12 @@
 //
-//  SCSocketConter.m
+//  SCSocketCenter.m
 //  SocketClient
 //
 //  Created by you hao on 2017/3/28.
 //  Copyright © 2017年 Edward. All rights reserved.
 //
 
-#import "SCSocketConter.h"
+#import "SCSocketCenter.h"
 
 /** 3f */
 #import "GCDAsyncSocket.h"
@@ -14,14 +14,14 @@
 /** Model */
 #import "DataCenter.h"
 
-static SCSocketConter *socketConter = nil;
+static SCSocketCenter *socketCenter = nil;
 static NSString *const LANURLstr = @"192.168.1.139";
 static NSString *const LANURLstr_text = @"192.168.1.138";
 static NSString *const LANURLstr_LJ = @"192.168.1.140";
 static NSString *const URLstr = @"hydemo.hao-games.com";
 static NSInteger const PortInt = 11000;
 
-@interface SCSocketConter ()<GCDAsyncSocketDelegate>
+@interface SCSocketCenter ()<GCDAsyncSocketDelegate>
 
 @property (nonatomic, strong) DataCenter *dataCenter;
 
@@ -30,22 +30,24 @@ static NSInteger const PortInt = 11000;
 
 @end
 
-@implementation SCSocketConter
+@implementation SCSocketCenter
 
 #pragma mark - Shared
-+(SCSocketConter *)sharedManager{
++(SCSocketCenter *)sharedManager{
     static dispatch_once_t token;
     dispatch_once(&token,^{
-        if(!socketConter) socketConter = [[SCSocketConter alloc]init];
+        if(!socketCenter){
+            socketCenter = [[SCSocketCenter alloc]init];
+        }
     });
-    return socketConter;
+    return socketCenter;
 }
 
 +(id)allocWithZone:(NSZone *)zone{
     @synchronized(self){
-        if (!socketConter) {
-            socketConter = [super allocWithZone:zone];
-            return socketConter;
+        if (!socketCenter) {
+            socketCenter = [super allocWithZone:zone];
+            return socketCenter;
         }
         return nil;
     }
@@ -53,6 +55,7 @@ static NSInteger const PortInt = 11000;
 
 - (id)init{
     if (self = [super init]) {
+        self = socketCenter;
         self.clinetSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     }
     return self;
@@ -90,7 +93,7 @@ static NSInteger const PortInt = 11000;
 //收到消息
 - (void)socket:(GCDAsyncSocket *)sock didReadData:(NSData *)data withTag:(long)tag{
     [self receiveDataForServiceReadData:data withTag:tag];
-    [self.clinetSocket readDataWithTimeout:-1 tag:0];
+    [self.clinetSocket readDataWithTimeout:-1 tag:tag];
 }
 
 //连接服务器

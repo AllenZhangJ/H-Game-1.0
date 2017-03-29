@@ -1,0 +1,29 @@
+//
+//  SocketClientPCH.pch
+//  SocketClient
+//
+//  Created by you hao on 2017/3/29.
+//  Copyright © 2017年 Edward. All rights reserved.
+//
+
+#ifndef SocketClientPCH_pch
+#define SocketClientPCH_pch
+
+/** base */
+#import "SCBaseLabel.h"
+#import "SCBaseButton.h"
+#import "SCBaseNavigationController.h"
+#import "SCBaseTextField.h"
+
+/** 3f */
+#import <SDAutoLayout.h>
+#import <MBProgressHUD.h>
+
+/** Color */
+#define kMassToneAttuneColor [UIColor colorWithWhite:0.5 alpha:1]
+#define kViceTonalColor [UIColor colorWithWhite:0.9 alpha:1]
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* SocketClientPCH_pch */

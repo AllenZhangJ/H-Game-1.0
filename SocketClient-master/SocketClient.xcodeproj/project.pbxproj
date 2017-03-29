@@ -13,18 +13,26 @@
 		165C6FB11E7B93A50074972E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB01E7B93A50074972E /* CoreGraphics.framework */; };
 		165C6FB31E7B93AC0074972E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB21E7B93AC0074972E /* UIKit.framework */; };
 		165C6FB51E7B93B60074972E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 165C6FB41E7B93B60074972E /* Foundation.framework */; };
+		1663B6CF1E8B92E900818022 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6CE1E8B92E900818022 /* BaseViewController.m */; };
+		1663B6D21E8B931B00818022 /* SCLoginVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6D11E8B931B00818022 /* SCLoginVC.m */; };
+		1663B6D61E8B9B5200818022 /* SCBaseLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6D51E8B9B5200818022 /* SCBaseLabel.m */; };
+		1663B6D91E8BADA400818022 /* SCBaseButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6D81E8BADA400818022 /* SCBaseButton.m */; };
+		1663B6DE1E8BCBB700818022 /* SCSignOnPlatformVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6DD1E8BCBB700818022 /* SCSignOnPlatformVC.m */; };
+		1663B6E11E8BCCE800818022 /* SCBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6E01E8BCCE800818022 /* SCBaseNavigationController.m */; };
+		1663B6E41E8BCE6500818022 /* SCBaseTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 1663B6E31E8BCE6500818022 /* SCBaseTextField.m */; };
 		1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */; };
 		1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */; };
 		1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3691E88FF0C00157FAF /* XAccountInfo.m */; };
 		16742A851E7F71F9008B6E8B /* SCVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16742A841E7F71F9008B6E8B /* SCVector.m */; };
 		16742A871E7FCA8A008B6E8B /* CataloguelistingPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */; };
 		167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF911E8A0A7100901319 /* SCLoginService.m */; };
-		167DFF951E8A386E00901319 /* SCSocketConter.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF941E8A386E00901319 /* SCSocketConter.m */; };
+		167DFF951E8A386E00901319 /* SCSocketCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF941E8A386E00901319 /* SCSocketCenter.m */; };
 		167DFF9A1E8A621C00901319 /* loginbackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 167DFF991E8A621C00901319 /* loginbackground.jpg */; };
 		16952B0C1E824CB100818630 /* XTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16952B0B1E824CB100818630 /* XTest.m */; };
 		16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */; };
 		16F1DAA71E7A34270017A20D /* SCVectorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA61E7A34270017A20D /* SCVectorBase.m */; };
 		16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */; };
+		35E9862F842560F43C35251C /* libPods-SocketClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3009D9ED414D32326437EB3E /* libPods-SocketClient.a */; };
 		5385A4FC1E76255E00425207 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FB1E76255E00425207 /* DataCenter.m */; };
 		5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FE1E762DDD00425207 /* MsgSecret.m */; };
 		5385A5021E76344300425207 /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A5011E76344300425207 /* BaseModel.m */; };
@@ -59,6 +67,21 @@
 		165C6FB01E7B93A50074972E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		165C6FB21E7B93AC0074972E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		165C6FB41E7B93B60074972E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1663B6CD1E8B92E900818022 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		1663B6CE1E8B92E900818022 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		1663B6D01E8B931B00818022 /* SCLoginVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginVC.h; sourceTree = "<group>"; };
+		1663B6D11E8B931B00818022 /* SCLoginVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginVC.m; sourceTree = "<group>"; };
+		1663B6D41E8B9B5200818022 /* SCBaseLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseLabel.h; sourceTree = "<group>"; };
+		1663B6D51E8B9B5200818022 /* SCBaseLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseLabel.m; sourceTree = "<group>"; };
+		1663B6D71E8BADA400818022 /* SCBaseButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseButton.h; sourceTree = "<group>"; };
+		1663B6D81E8BADA400818022 /* SCBaseButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseButton.m; sourceTree = "<group>"; };
+		1663B6DB1E8BB1C400818022 /* SocketClientPCH.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SocketClientPCH.pch; sourceTree = "<group>"; };
+		1663B6DC1E8BCBB700818022 /* SCSignOnPlatformVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSignOnPlatformVC.h; sourceTree = "<group>"; };
+		1663B6DD1E8BCBB700818022 /* SCSignOnPlatformVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSignOnPlatformVC.m; sourceTree = "<group>"; };
+		1663B6DF1E8BCCE800818022 /* SCBaseNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseNavigationController.h; sourceTree = "<group>"; };
+		1663B6E01E8BCCE800818022 /* SCBaseNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseNavigationController.m; sourceTree = "<group>"; };
+		1663B6E21E8BCE6500818022 /* SCBaseTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCBaseTextField.h; sourceTree = "<group>"; };
+		1663B6E31E8BCE6500818022 /* SCBaseTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCBaseTextField.m; sourceTree = "<group>"; };
 		1665A3621E88EE8700157FAF /* SCMsgCenterLoginRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterLoginRep.h; sourceTree = "<group>"; };
 		1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMsgCenterLoginRep.m; sourceTree = "<group>"; };
 		1665A3651E88F88B00157FAF /* SCMsgCenterAccountNtf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterAccountNtf.h; sourceTree = "<group>"; };
@@ -70,8 +93,8 @@
 		16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CataloguelistingPlist.plist; sourceTree = "<group>"; };
 		167DFF901E8A0A7100901319 /* SCLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginService.h; sourceTree = "<group>"; };
 		167DFF911E8A0A7100901319 /* SCLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginService.m; sourceTree = "<group>"; };
-		167DFF931E8A386E00901319 /* SCSocketConter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketConter.h; sourceTree = "<group>"; };
-		167DFF941E8A386E00901319 /* SCSocketConter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSocketConter.m; sourceTree = "<group>"; };
+		167DFF931E8A386E00901319 /* SCSocketCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketCenter.h; sourceTree = "<group>"; };
+		167DFF941E8A386E00901319 /* SCSocketCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCSocketCenter.m; sourceTree = "<group>"; };
 		167DFF961E8A3CCA00901319 /* SCSocketDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketDelegate.h; sourceTree = "<group>"; };
 		167DFF991E8A621C00901319 /* loginbackground.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = loginbackground.jpg; sourceTree = "<group>"; };
 		16952B0A1E824CB100818630 /* XTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XTest.h; sourceTree = "<group>"; };
@@ -82,6 +105,7 @@
 		16F1DAA61E7A34270017A20D /* SCVectorBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVectorBase.m; sourceTree = "<group>"; };
 		16F1DAA81E7A422E0017A20D /* MsgSecretTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecretTest.h; sourceTree = "<group>"; };
 		16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSecretTest.m; sourceTree = "<group>"; };
+		3009D9ED414D32326437EB3E /* libPods-SocketClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocketClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5385A4FA1E76255E00425207 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		5385A4FB1E76255E00425207 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
 		5385A4FD1E762DDD00425207 /* MsgSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecret.h; sourceTree = "<group>"; };
@@ -91,6 +115,7 @@
 		5385A5031E763A6400425207 /* ModelDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ModelDelegate.h; sourceTree = "<group>"; };
 		538BB6991E6EE7B3009F850E /* MsgCenterSystemSecret.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgCenterSystemSecret.h; sourceTree = "<group>"; };
 		538BB69A1E6EE7B3009F850E /* MsgCenterSystemSecret.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgCenterSystemSecret.m; sourceTree = "<group>"; };
+		8D16913FA2ACA1D8628F7690 /* Pods-SocketClient.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketClient.release.xcconfig"; path = "Pods/Target Support Files/Pods-SocketClient/Pods-SocketClient.release.xcconfig"; sourceTree = "<group>"; };
 		8D2DDA701D1D1F3300356798 /* SocketClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SocketClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D2DDA741D1D1F3300356798 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D2DDA761D1D1F3300356798 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,6 +136,7 @@
 		8D2DDA951D1D1F5400356798 /* AsyncSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncSocket.m; sourceTree = "<group>"; };
 		8D2DDA961D1D1F5400356798 /* AsyncUdpSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AsyncUdpSocket.h; sourceTree = "<group>"; };
 		8D2DDA971D1D1F5400356798 /* AsyncUdpSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncUdpSocket.m; sourceTree = "<group>"; };
+		8E4FCFCBE8365B310CC804CE /* Pods-SocketClient.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SocketClient.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SocketClient/Pods-SocketClient.debug.xcconfig"; sourceTree = "<group>"; };
 		9FF15CFD1E7848FC00215108 /* Vernt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vernt.h; sourceTree = "<group>"; };
 		9FF15CFE1E7848FC00215108 /* Vernt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vernt.m; sourceTree = "<group>"; };
 		9FF4612B1E6E86D000025286 /* LSUDPDataDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSUDPDataDetail.h; sourceTree = "<group>"; };
@@ -133,6 +159,7 @@
 				165C6FB51E7B93B60074972E /* Foundation.framework in Frameworks */,
 				165C6FB31E7B93AC0074972E /* UIKit.framework in Frameworks */,
 				165C6FB11E7B93A50074972E /* CoreGraphics.framework in Frameworks */,
+				35E9862F842560F43C35251C /* libPods-SocketClient.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,8 +173,26 @@
 				165C6FB21E7B93AC0074972E /* UIKit.framework */,
 				165C6FB01E7B93A50074972E /* CoreGraphics.framework */,
 				165C6FAE1E7B92CE0074972E /* SystemConfiguration.framework */,
+				3009D9ED414D32326437EB3E /* libPods-SocketClient.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1663B6D31E8B9AD000818022 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				1663B6CD1E8B92E900818022 /* BaseViewController.h */,
+				1663B6CE1E8B92E900818022 /* BaseViewController.m */,
+				1663B6D41E8B9B5200818022 /* SCBaseLabel.h */,
+				1663B6D51E8B9B5200818022 /* SCBaseLabel.m */,
+				1663B6D71E8BADA400818022 /* SCBaseButton.h */,
+				1663B6D81E8BADA400818022 /* SCBaseButton.m */,
+				1663B6DF1E8BCCE800818022 /* SCBaseNavigationController.h */,
+				1663B6E01E8BCCE800818022 /* SCBaseNavigationController.m */,
+				1663B6E21E8BCE6500818022 /* SCBaseTextField.h */,
+				1663B6E31E8BCE6500818022 /* SCBaseTextField.m */,
+			);
+			name = Base;
 			sourceTree = "<group>";
 		};
 		1665A36B1E891C6200157FAF /* StructuralModel */ = {
@@ -171,6 +216,10 @@
 		167DFF8B1E89F80400901319 /* Login(登录) */ = {
 			isa = PBXGroup;
 			children = (
+				1663B6D01E8B931B00818022 /* SCLoginVC.h */,
+				1663B6D11E8B931B00818022 /* SCLoginVC.m */,
+				1663B6DC1E8BCBB700818022 /* SCSignOnPlatformVC.h */,
+				1663B6DD1E8BCBB700818022 /* SCSignOnPlatformVC.m */,
 				8D2DDA791D1D1F3300356798 /* ViewController.h */,
 				8D2DDA7A1D1D1F3300356798 /* ViewController.m */,
 				167DFF8D1E89F88800901319 /* Service */,
@@ -204,13 +253,13 @@
 			name = DataManager;
 			sourceTree = "<group>";
 		};
-		167DFF8F1E89F90800901319 /* SocketManager */ = {
+		167DFF8F1E89F90800901319 /* SocketCenter */ = {
 			isa = PBXGroup;
 			children = (
-				167DFF931E8A386E00901319 /* SCSocketConter.h */,
-				167DFF941E8A386E00901319 /* SCSocketConter.m */,
+				167DFF931E8A386E00901319 /* SCSocketCenter.h */,
+				167DFF941E8A386E00901319 /* SCSocketCenter.m */,
 			);
-			name = SocketManager;
+			name = SocketCenter;
 			sourceTree = "<group>";
 		};
 		5385A5041E763E8100425207 /* Model */ = {
@@ -286,9 +335,10 @@
 			isa = PBXGroup;
 			children = (
 				167DFF8E1E89F8CC00901319 /* DataManager */,
-				167DFF8F1E89F90800901319 /* SocketManager */,
+				167DFF8F1E89F90800901319 /* SocketCenter */,
 				5385A50E1E767D7A00425207 /* ObjTypeTool(数据类型工具) */,
 				5385A5061E763EB500425207 /* Encryption(加密) */,
+				1663B6DB1E8BB1C400818022 /* SocketClientPCH.pch */,
 			);
 			name = "Utilits(工具)";
 			sourceTree = "<group>";
@@ -307,6 +357,7 @@
 			children = (
 				5385A5081E763F1000425207 /* ViewControllers */,
 				5385A5041E763E8100425207 /* Model */,
+				1663B6D31E8B9AD000818022 /* Base */,
 				5385A50A1E763F5A00425207 /* Libs(第三方库) */,
 				5385A5091E763F2C00425207 /* Utilits(工具) */,
 				5385A50C1E763F9C00425207 /* Resource(资源文件) */,
@@ -351,6 +402,7 @@
 				8D2DDA721D1D1F3300356798 /* SocketClient */,
 				8D2DDA711D1D1F3300356798 /* Products */,
 				165C6FAD1E7B92CD0074972E /* Frameworks */,
+				F6F29B5739F182FE21016837 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -435,6 +487,15 @@
 			path = LSUDPDataDetail;
 			sourceTree = "<group>";
 		};
+		F6F29B5739F182FE21016837 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E4FCFCBE8365B310CC804CE /* Pods-SocketClient.debug.xcconfig */,
+				8D16913FA2ACA1D8628F7690 /* Pods-SocketClient.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -442,9 +503,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D2DDA871D1D1F3300356798 /* Build configuration list for PBXNativeTarget "SocketClient" */;
 			buildPhases = (
+				AEDC87F74024E5980DC9D18B /* [CP] Check Pods Manifest.lock */,
 				8D2DDA6C1D1D1F3300356798 /* Sources */,
 				8D2DDA6D1D1D1F3300356798 /* Frameworks */,
 				8D2DDA6E1D1D1F3300356798 /* Resources */,
+				558606FAF0F304E655DEAAEA /* [CP] Embed Pods Frameworks */,
+				8F63A8ED741BE3414640A2C0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -502,6 +566,54 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		558606FAF0F304E655DEAAEA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SocketClient/Pods-SocketClient-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8F63A8ED741BE3414640A2C0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SocketClient/Pods-SocketClient-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AEDC87F74024E5980DC9D18B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8D2DDA6C1D1D1F3300356798 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -512,11 +624,15 @@
 				5385A5021E76344300425207 /* BaseModel.m in Sources */,
 				1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */,
 				8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */,
-				167DFF951E8A386E00901319 /* SCSocketConter.m in Sources */,
+				167DFF951E8A386E00901319 /* SCSocketCenter.m in Sources */,
 				9FF15CFF1E7848FC00215108 /* Vernt.m in Sources */,
 				165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */,
 				5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */,
+				1663B6E11E8BCCE800818022 /* SCBaseNavigationController.m in Sources */,
+				1663B6DE1E8BCBB700818022 /* SCSignOnPlatformVC.m in Sources */,
+				1663B6CF1E8B92E900818022 /* BaseViewController.m in Sources */,
 				8D2DDA991D1D1F5400356798 /* GCDAsyncSocket.m in Sources */,
+				1663B6D91E8BADA400818022 /* SCBaseButton.m in Sources */,
 				8D2DDA781D1D1F3300356798 /* AppDelegate.m in Sources */,
 				8D2DDA9C1D1D1F5400356798 /* AsyncUdpSocket.m in Sources */,
 				9FF461321E6E86D000025286 /* NSData+LSUDPDataDetail.m in Sources */,
@@ -526,9 +642,12 @@
 				16F1DAA71E7A34270017A20D /* SCVectorBase.m in Sources */,
 				9FFB6F761E7118C3007214B6 /* RegisterModel.mm in Sources */,
 				8D2DDA981D1D1F5400356798 /* README.markdown in Sources */,
+				1663B6D21E8B931B00818022 /* SCLoginVC.m in Sources */,
+				1663B6D61E8B9B5200818022 /* SCBaseLabel.m in Sources */,
 				16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */,
 				8D2DDA9A1D1D1F5400356798 /* GCDAsyncUdpSocket.m in Sources */,
 				16952B0C1E824CB100818630 /* XTest.m in Sources */,
+				1663B6E41E8BCE6500818022 /* SCBaseTextField.m in Sources */,
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
@@ -653,23 +772,33 @@
 		};
 		8D2DDA881D1D1F3300356798 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8E4FCFCBE8365B310CC804CE /* Pods-SocketClient.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SocketClient/SocketClientPCH.pch";
 				INFOPLIST_FILE = SocketClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GGX.SocketClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SHARED_PRECOMPS_DIR = "$(OBJROOT)/SocketClientPCH.pch";
 			};
 			name = Debug;
 		};
 		8D2DDA891D1D1F3300356798 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8D16913FA2ACA1D8628F7690 /* Pods-SocketClient.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_INCREASE_PRECOMPILED_HEADER_SHARING = YES;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SocketClient/SocketClientPCH.pch";
 				INFOPLIST_FILE = SocketClient/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GGX.SocketClient;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SHARED_PRECOMPS_DIR = "$(OBJROOT)/SocketClientPCH.pch";
 			};
 			name = Release;
 		};

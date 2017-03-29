@@ -16,12 +16,12 @@
 
 //Tool
 #import "DataCenter.h"
-#import "SCSocketConter.h"
+#import "SCSocketCenter.h"
 
 @interface SCLoginService ()<SCSocketDelegate>
 /** Tool */
 @property (nonatomic, strong) DataCenter *dataCenter;
-@property (nonatomic, strong) SCSocketConter *socketCenter;
+@property (nonatomic, strong) SCSocketCenter *socketCenter;
 
 /** Model */
 @property (nonatomic, strong) SCLogInMsg *loginMsg;
@@ -49,30 +49,73 @@
     
     [self.socketCenter sendMessageToTheServer:login];
 }
+- (BOOL)connectService{
+    return [self.socketCenter connectService];
+}
 #pragma mark - SocketData
 /**
  接收数据
  */
 - (void)receiveModelForServiceReadData:(NSData *)data withTag:(long)tag{
+    NSLog(@"tag:%lu", tag);
     id objModel = [self.dataCenter objFromData:data];
     if ([[objModel class] isSubclassOfClass:[SCLogInMsg class]]){
         self.loginMsg = objModel;
-        NSLog(@"loginMsgOpType:%@", self.loginMsg.uOpType==1?@"登录错误":@"");
-    }else if([[objModel class] isSubclassOfClass:[SCMsgCenterLoginRep class]]){
+        if ([self.loginServiceDelegate respondsToSelector:@selector(receiveForServiceType:)]) {
+            [self.loginServiceDelegate
+             receiveForServiceType:self.loginMsg.uOpType==1?@"登录错误":@"登录成功"];
+        }
+        
+    }
+    if([[objModel class] isSubclassOfClass:[SCMsgCenterLoginRep class]]){
         self.msgCenterLoginRep = objModel;
         NSLog(@"Download success!\n\
               PlayerID:%u", self.msgCenterLoginRep.uPlayerID);
-    }else if([[objModel class] isSubclassOfClass:[SCMsgCenterAccountNtf class]]){
+        
+    }
+    if([[objModel class] isSubclassOfClass:[SCMsgCenterAccountNtf class]]){
         self.msgCenterAccountNtf = objModel;
-        NSLog(@"UserInfo\n\
-              uPlayerID:%u\n\
-              nRights:%hhu\n\
-              uMoney:%u\n\
-              uProceessTime:%llu",\
-              self.msgCenterAccountNtf.xAccountInfo.uPlayerID,
-              self.msgCenterAccountNtf.xAccountInfo.nRights,
-              self.msgCenterAccountNtf.xAccountInfo.uMoney,
-              self.msgCenterAccountNtf.xAccountInfo.uProcessTime);
+        if ([self.loginServiceDelegate respondsToSelector:@selector(receiveForServiceUName:andRights:andMoney:)]) {
+            [self.loginServiceDelegate
+             receiveForServiceUName:[NSNumber numberWithUnsignedInteger:self.msgCenterAccountNtf.xAccountInfo.uPlayerID]
+             
+             andRights:[NSNumber numberWithUnsignedInteger:self.msgCenterAccountNtf.xAccountInfo.nRights]
+             
+             andMoney:[NSNumber numberWithUnsignedInteger:self.msgCenterAccountNtf.xAccountInfo.uMoney]];
+            
+        }
+        
+    }
+    if ([[objModel class] isSubclassOfClass:[MsgSecretTest class]]) {
+        if ([self.loginServiceDelegate respondsToSelector:@selector(whetherOnTheServer:)]) {
+            [self.loginServiceDelegate whetherOnTheServer:YES];
+        }
+//        MsgSecretTest *dataTest_obj = objModel;
+//        NSLog(@"tag:%lu——————receive\n\
+//              ---------\n\
+//              uAssID:%u,\n\
+//              uScretKey:%u,\n\
+//              uTimeNow:%u,\n\
+//              u8Test:%d,\n\
+//              u16Test:%d,\n\
+//              sTest:%@,\n\
+//              vU8U16Test:%@,\n\
+//              vStringTest:%@,\n\
+//              vStringIntTest:%@,\n\
+//              vStructTest:%@\n\
+//              ",
+//              tag,
+//              dataTest_obj.uAssID,
+//              dataTest_obj.uSecretKey,
+//              dataTest_obj.uTimeNow,
+//              dataTest_obj.u8Test,
+//              dataTest_obj.u16Test,
+//              dataTest_obj.sTest,
+//              dataTest_obj.vU8U16Test,
+//              dataTest_obj.vStringTest,
+//              dataTest_obj.vStringIntTest,
+//              dataTest_obj.vStructTest
+//              );
     }
 }
 
@@ -83,11 +126,12 @@
     }
     return _dataCenter;
 }
-- (SCSocketConter *)socketCenter{
+- (SCSocketCenter *)socketCenter{
     if (!_socketCenter) {
-        _socketCenter = [SCSocketConter sharedManager];
+        _socketCenter = [SCSocketCenter sharedManager];
         _socketCenter.socketdelegate = self;
     }
     return _socketCenter;
 }
+
 @end

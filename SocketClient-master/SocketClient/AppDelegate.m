@@ -10,9 +10,12 @@
 #import "ObjSerializerTool.h"
 
 #import "DataCenter.h"
-#import "SCSocketConter.h"
-@interface AppDelegate ()<SCSocketDelegate>
-@property (nonatomic, strong) SCSocketConter *socketConter;
+#import "SCSocketCenter.h"
+
+/** VC */
+#import "SCLoginVC.h"
+@interface AppDelegate ()
+@property (nonatomic, strong) SCSocketCenter *socketCenter;
 @property (nonatomic, strong) DataCenter *dataCenter;
 @end
 
@@ -20,58 +23,22 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    //设置ROOTWINDOW
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    SCLoginVC *loginVC = [SCLoginVC new];
+    SCBaseNavigationController *navigationC = [[SCBaseNavigationController alloc]initWithRootViewController:loginVC];
+    self.window.rootViewController = navigationC;
+    [self.window makeKeyAndVisible];
 #warning 异步
-    //初始化dataConter
+    //初始化dataCenter
     ObjTypeTool *tool = [ObjTypeTool new];
     //连接服务器
     self.dataCenter = [DataCenter sharedManager];
-    self.socketConter = [SCSocketConter sharedManager];
-    self.socketConter.socketdelegate = self;
-    if ([self.socketConter connectService]) {
-#warning 提示连接成功
-        NSLog(@"To connect to the server success");
-    }else{
-#warning 重连
-        NSLog(@"Failed to connect to server");
-    }
-    
-    
-    
-    
+    self.socketCenter = [SCSocketCenter new];
     
     return YES;
 }
-/** 连接成功接收 */
-- (void)receiveModelForServiceReadData:(NSData *)data withTag:(long)tag{
-    id objModel = [self.dataCenter objFromData:data];
-    if ([[objModel class] isSubclassOfClass:[MsgSecretTest class]]) {
-        MsgSecretTest *dataTest_obj = objModel;
-        NSLog(@"——————receive\n\
-              ---------\n\
-              uAssID:%u,\n\
-              uScretKey:%u,\n\
-              uTimeNow:%u,\n\
-              u8Test:%d,\n\
-              u16Test:%d,\n\
-              sTest:%@,\n\
-              vU8U16Test:%@,\n\
-              vStringTest:%@,\n\
-              vStringIntTest:%@,\n\
-              vStructTest:%@\n\
-              ",
-              dataTest_obj.uAssID,
-              dataTest_obj.uSecretKey,
-              dataTest_obj.uTimeNow,
-              dataTest_obj.u8Test,
-              dataTest_obj.u16Test,
-              dataTest_obj.sTest,
-              dataTest_obj.vU8U16Test,
-              dataTest_obj.vStringTest,
-              dataTest_obj.vStringIntTest,
-              dataTest_obj.vStructTest
-              );
-    }
-}
+
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
