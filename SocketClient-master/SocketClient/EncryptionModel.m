@@ -8,6 +8,8 @@
 
 #import "EncryptionModel.h"
 
+#define kHASHKey 0xCFEBCFEB
+
 @implementation EncryptionModel
 /** 加密 */
 + (NSData *)getEncryptionForKey:(uint32_t)uSecretKey andBuffer:(NSData *)pBuffer andLength:(uint16_t)uLength{
@@ -89,4 +91,15 @@
     
     return [objData mutableCopy];
 }
+
+/** 用户密码加密 */
++ (uint32_t)forEncryptedString:(NSString *)string{
+    uint32_t encryptedInt;
+    NSUInteger hashInt = [string hash];
+    encryptedInt = [NSNumber numberWithUnsignedInteger:hashInt].unsignedIntValue;
+    encryptedInt ^= kHASHKey;
+    return encryptedInt;
+}
+
+
 @end

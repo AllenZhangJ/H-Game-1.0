@@ -28,4 +28,10 @@
  @return NSData
  */
 + (NSData *)getDecodeForKey:(uint32_t)uSecretKey andBuffer:(NSData *)pBuffer andLength:(uint16_t)uLength;
+
+/** 
+    用户密码加密 
+ */
++ (uint32_t)forEncryptedString:(NSString *)string;
+
 @end

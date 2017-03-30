@@ -18,6 +18,9 @@
 #import "SCLogInMsg.h"
 #import "SCMsgCenterLoginRep.h"
 #import "SCMsgCenterAccountNtf.h"
+#import "SCMsgCenterRegistRep.h"
+#import "SCRegistReq.h"
+
 
 //Tool
 #import "ObjSerializerTool.h"
@@ -107,6 +110,12 @@ static DataCenter *dataCenter = nil;
             return msgCenterAccountNtf;
         }
             break;
+        case OBJ_InstanceType_MSGCenterRegister:{
+            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
+            SCMsgCenterRegistRep *msgCenterRegistRep = [[SCMsgCenterRegistRep alloc]initWithData:decodeData];
+            msgCenterRegistRep.uAgreementID = _uAgreementID;
+            return msgCenterRegistRep;
+        }
         default:{
             return nil;
         }
@@ -130,6 +139,12 @@ static DataCenter *dataCenter = nil;
         case OBJ_InstanceType_Login:{
             if ([object isKindOfClass:[SCLogIn class]]) {
                 instance_Data = [((SCLogIn *)object) toData];
+            }
+        }
+            break;
+        case OBJ_InstanceType_Login_Register:{
+            if ([object isKindOfClass:[SCRegistReq class]]) {
+                instance_Data = [((SCRegistReq *)object) toData];
             }
         }
             break;

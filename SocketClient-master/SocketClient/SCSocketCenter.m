@@ -28,6 +28,9 @@ static NSInteger const PortInt = 11000;
 //客户端socket
 @property (nonatomic) GCDAsyncSocket *clinetSocket;
 
+//计时器
+@property (nonatomic, retain) NSTimer *connectTimer;
+
 @end
 
 @implementation SCSocketCenter
@@ -88,6 +91,10 @@ static NSInteger const PortInt = 11000;
 - (void)socket:(GCDAsyncSocket *)sock didConnectToHost:(NSString *)host port:(uint16_t)port{
     NSLog(@"链接成功:服务器IP ： %@", host);
     [self.clinetSocket readDataWithTimeout:-1 tag:0];
+    self.connectTimer = [NSTimer scheduledTimerWithTimeInterval:30 target:self selector:@selector(longConnectToSocket) userInfo:nil repeats:YES];
+    // 在longConnectToSocket方法中进行长连接需要向服务器发送的讯息
+    
+    [self.connectTimer fire];
 }
 
 //收到消息
@@ -99,7 +106,7 @@ static NSInteger const PortInt = 11000;
 //连接服务器
 - (BOOL)connectAction{
     NSError *error = nil;
-    if (![self.clinetSocket connectToHost:LANURLstr_text onPort:PortInt withTimeout:-1 error:&error]) {
+    if (![self.clinetSocket connectToHost:URLstr onPort:PortInt withTimeout:-1 error:&error]) {
 #warning 提示连接失败
         NSLog(@"Failed to connect to server!\n ERROR:%@", error.userInfo[@"NSLocalizedDescription"]);
         return NO;
@@ -128,14 +135,19 @@ static NSInteger const PortInt = 11000;
 
 //这个方法一定要注意，是GCD下，Socket连接断开的时候调用，无论此时是正常断开还是异常断开。正常断开err为空
 - (void)socketDidDisconnect:(GCDAsyncSocket *)sock withError:(NSError *)err{
-#warning 判断是否需要立刻重连
     if (!err) {
-        //正常断开
-        NSLog(@"[SocketCenter] In order to normal and server disconnect!");
+        [self.socketdelegate disconnectFromTheServer:err];
     }else{
-        NSLog(@"[SocketCenter] Abnormal disconnect the server!ERROR:%@", err.userInfo[@"NSLocalizedDescription"]);
+        
     }
 }
+
+#pragma mark - Private
+/** 心跳包 */
+- (void)longConnectToSocket{
+#warning 传合理的包即可
+}
+
 #pragma mark - load
 - (DataCenter *)dataCenter{
     if (!_dataCenter) {

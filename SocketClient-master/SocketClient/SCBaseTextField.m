@@ -14,7 +14,7 @@
     if (self = [super init]) {
         switch (style) {
             case SCTextFieldStyleNone:{
-            
+                [self setBackgroundColor:kViceTonalColor];
             }
                 break;
             case SCTextFieldStyleInputValidation:{

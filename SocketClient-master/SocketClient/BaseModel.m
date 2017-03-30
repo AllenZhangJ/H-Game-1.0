@@ -149,6 +149,9 @@
     return [self serializeObj];
 }
 
+- (uint32_t)returnAgreementID{
+    return _uAgreementID;
+}
 #pragma mark - Private (私有方法)
 
 

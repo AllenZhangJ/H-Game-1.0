@@ -24,6 +24,11 @@
  */
 - (NSData *)toData;
 
+/** 
+ 返回协议号用于判断Manager
+ */
+- (uint32_t)returnAgreementID;
+
 @optional
 
 @end

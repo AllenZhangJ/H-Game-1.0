@@ -21,6 +21,8 @@
  */
 - (void)receiveForServiceUName:(NSNumber *)uName andRights:(NSNumber *)rights andMoney:(NSNumber *)money;
 
+/** 注册是否成功 */
+- (void)receiveForServiceRegisteredSuccessfully:(NSString *)uAccount;
 @end
 
 @interface SCLoginService : NSObject
@@ -28,9 +30,11 @@
 /** Delegate */
 @property (nonatomic, weak) id<SCLoginServiceDelegate> loginServiceDelegate;
 
-/** server */
-//Login
+//server
+/** Login */
 - (void)loginServerForAccount:(NSString *)account andPasscode:(NSString *)passcode;
-//
+/** 连接服务器 */
 - (BOOL)connectService;
+/** 注册 */
+- (void)registerToServerUserName:(NSString *)account andPasscode:(NSString *)passcode;
 @end

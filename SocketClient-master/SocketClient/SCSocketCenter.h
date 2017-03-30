@@ -10,6 +10,7 @@
 
 /** Delegate */
 #import "SCSocketDelegate.h"
+#import "ModelDelegate.h"
 
 @interface SCSocketCenter : NSObject
 
@@ -24,7 +25,7 @@
  发送消息
  @return 是否把消息发送成功
  */
-- (void)sendMessageToTheServer:(id)obj;
+- (void)sendMessageToTheServer:(id<ModelDelegate>)obj;
 
 /** shared */
 + (SCSocketCenter *)sharedManager;

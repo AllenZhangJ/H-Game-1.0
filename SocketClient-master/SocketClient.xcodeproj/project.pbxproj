@@ -32,6 +32,10 @@
 		16F1DAA41E7A2FCF0017A20D /* ObjSerializerTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA31E7A2FCF0017A20D /* ObjSerializerTool.m */; };
 		16F1DAA71E7A34270017A20D /* SCVectorBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA61E7A34270017A20D /* SCVectorBase.m */; };
 		16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */; };
+		16F5E5C11E8CA59E00998DEC /* SCRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C01E8CA59E00998DEC /* SCRegisterVC.m */; };
+		16F5E5C41E8CB05500998DEC /* SCRegistReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C31E8CB05500998DEC /* SCRegistReq.m */; };
+		16F5E5C71E8CDAA000998DEC /* SCMsgCenterRegistRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */; };
+		16F5E5CA1E8CEB6200998DEC /* SCUserSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C91E8CEB6200998DEC /* SCUserSocketManager.m */; };
 		35E9862F842560F43C35251C /* libPods-SocketClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3009D9ED414D32326437EB3E /* libPods-SocketClient.a */; };
 		5385A4FC1E76255E00425207 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FB1E76255E00425207 /* DataCenter.m */; };
 		5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FE1E762DDD00425207 /* MsgSecret.m */; };
@@ -39,7 +43,6 @@
 		538BB69B1E6EE7B3009F850E /* MsgCenterSystemSecret.m in Sources */ = {isa = PBXBuildFile; fileRef = 538BB69A1E6EE7B3009F850E /* MsgCenterSystemSecret.m */; };
 		8D2DDA751D1D1F3300356798 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2DDA741D1D1F3300356798 /* main.m */; };
 		8D2DDA781D1D1F3300356798 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2DDA771D1D1F3300356798 /* AppDelegate.m */; };
-		8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D2DDA7A1D1D1F3300356798 /* ViewController.m */; };
 		8D2DDA7E1D1D1F3300356798 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2DDA7C1D1D1F3300356798 /* Main.storyboard */; };
 		8D2DDA801D1D1F3300356798 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D2DDA7F1D1D1F3300356798 /* Assets.xcassets */; };
 		8D2DDA831D1D1F3300356798 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D2DDA811D1D1F3300356798 /* LaunchScreen.storyboard */; };
@@ -105,6 +108,14 @@
 		16F1DAA61E7A34270017A20D /* SCVectorBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVectorBase.m; sourceTree = "<group>"; };
 		16F1DAA81E7A422E0017A20D /* MsgSecretTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MsgSecretTest.h; sourceTree = "<group>"; };
 		16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MsgSecretTest.m; sourceTree = "<group>"; };
+		16F5E5BF1E8CA59E00998DEC /* SCRegisterVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRegisterVC.h; sourceTree = "<group>"; };
+		16F5E5C01E8CA59E00998DEC /* SCRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRegisterVC.m; sourceTree = "<group>"; };
+		16F5E5C21E8CB05500998DEC /* SCRegistReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRegistReq.h; sourceTree = "<group>"; };
+		16F5E5C31E8CB05500998DEC /* SCRegistReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRegistReq.m; sourceTree = "<group>"; };
+		16F5E5C51E8CDAA000998DEC /* SCMsgCenterRegistRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterRegistRep.h; sourceTree = "<group>"; };
+		16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMsgCenterRegistRep.m; sourceTree = "<group>"; };
+		16F5E5C81E8CEB6200998DEC /* SCUserSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserSocketManager.h; sourceTree = "<group>"; };
+		16F5E5C91E8CEB6200998DEC /* SCUserSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserSocketManager.m; sourceTree = "<group>"; };
 		3009D9ED414D32326437EB3E /* libPods-SocketClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocketClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5385A4FA1E76255E00425207 /* DataCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCenter.h; sourceTree = "<group>"; };
 		5385A4FB1E76255E00425207 /* DataCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCenter.m; sourceTree = "<group>"; };
@@ -120,8 +131,6 @@
 		8D2DDA741D1D1F3300356798 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8D2DDA761D1D1F3300356798 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8D2DDA771D1D1F3300356798 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8D2DDA791D1D1F3300356798 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8D2DDA7A1D1D1F3300356798 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8D2DDA7D1D1D1F3300356798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D2DDA7F1D1D1F3300356798 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D2DDA821D1D1F3300356798 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -220,8 +229,8 @@
 				1663B6D11E8B931B00818022 /* SCLoginVC.m */,
 				1663B6DC1E8BCBB700818022 /* SCSignOnPlatformVC.h */,
 				1663B6DD1E8BCBB700818022 /* SCSignOnPlatformVC.m */,
-				8D2DDA791D1D1F3300356798 /* ViewController.h */,
-				8D2DDA7A1D1D1F3300356798 /* ViewController.m */,
+				16F5E5BF1E8CA59E00998DEC /* SCRegisterVC.h */,
+				16F5E5C01E8CA59E00998DEC /* SCRegisterVC.m */,
 				167DFF8D1E89F88800901319 /* Service */,
 				167DFF8C1E89F87700901319 /* Views */,
 			);
@@ -256,6 +265,8 @@
 		167DFF8F1E89F90800901319 /* SocketCenter */ = {
 			isa = PBXGroup;
 			children = (
+				16F5E5C81E8CEB6200998DEC /* SCUserSocketManager.h */,
+				16F5E5C91E8CEB6200998DEC /* SCUserSocketManager.m */,
 				167DFF931E8A386E00901319 /* SCSocketCenter.h */,
 				167DFF941E8A386E00901319 /* SCSocketCenter.m */,
 			);
@@ -316,6 +327,10 @@
 				1665A3631E88EE8700157FAF /* SCMsgCenterLoginRep.m */,
 				1665A3651E88F88B00157FAF /* SCMsgCenterAccountNtf.h */,
 				1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */,
+				16F5E5C21E8CB05500998DEC /* SCRegistReq.h */,
+				16F5E5C31E8CB05500998DEC /* SCRegistReq.m */,
+				16F5E5C51E8CDAA000998DEC /* SCMsgCenterRegistRep.h */,
+				16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */,
 			);
 			name = "SubModel(子类)";
 			sourceTree = "<group>";
@@ -623,8 +638,8 @@
 				5385A4FC1E76255E00425207 /* DataCenter.m in Sources */,
 				5385A5021E76344300425207 /* BaseModel.m in Sources */,
 				1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */,
-				8D2DDA7B1D1D1F3300356798 /* ViewController.m in Sources */,
 				167DFF951E8A386E00901319 /* SCSocketCenter.m in Sources */,
+				16F5E5C11E8CA59E00998DEC /* SCRegisterVC.m in Sources */,
 				9FF15CFF1E7848FC00215108 /* Vernt.m in Sources */,
 				165B8E731E84C627000E3C15 /* SCLogIn.m in Sources */,
 				5385A4FF1E762DDD00425207 /* MsgSecret.m in Sources */,
@@ -634,6 +649,7 @@
 				8D2DDA991D1D1F5400356798 /* GCDAsyncSocket.m in Sources */,
 				1663B6D91E8BADA400818022 /* SCBaseButton.m in Sources */,
 				8D2DDA781D1D1F3300356798 /* AppDelegate.m in Sources */,
+				16F5E5C41E8CB05500998DEC /* SCRegistReq.m in Sources */,
 				8D2DDA9C1D1D1F5400356798 /* AsyncUdpSocket.m in Sources */,
 				9FF461321E6E86D000025286 /* NSData+LSUDPDataDetail.m in Sources */,
 				9FF461311E6E86D000025286 /* LSUDPDataDetail.m in Sources */,
@@ -651,9 +667,11 @@
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
+				16F5E5CA1E8CEB6200998DEC /* SCUserSocketManager.m in Sources */,
 				167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */,
 				1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */,
 				8D2DDA9B1D1D1F5400356798 /* AsyncSocket.m in Sources */,
+				16F5E5C71E8CDAA000998DEC /* SCMsgCenterRegistRep.m in Sources */,
 				1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */,
 				16742A851E7F71F9008B6E8B /* SCVector.m in Sources */,
 				165B8E761E850287000E3C15 /* SCLogInMsg.m in Sources */,

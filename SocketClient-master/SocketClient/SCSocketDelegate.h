@@ -15,6 +15,11 @@
  */
 - (void)receiveModelForServiceReadData:(NSData *)data withTag:(long)tag;
 
+
 @optional
+/**
+ 断开连接
+ */
+- (void)disconnectFromTheServer:(NSError *)error;
 
 @end

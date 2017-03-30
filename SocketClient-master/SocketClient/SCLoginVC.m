@@ -39,20 +39,25 @@
 - (IBAction)sendMessageAction:(id)sender {
     [self.service loginServerForAccount:@"qqqqqq" andPasscode:@"1835900736"];
 }
+
 - (void)toTheNewVC{
     [self.navigationController pushViewController:[SCSignOnPlatformVC new] animated:YES];
 }
+
 #pragma mark - Load
 - (void)viewDidLoad {
     [super viewDidLoad];
     if ([self.service connectService]) {
-#warning 提示连接成功
-        NSLog(@"[AppDelegate] To connect to the server success");
+#warning 开始连接
+        [self.myProgressTypeView setText:@"开始连接"];
+        NSLog(@"[Login] To connect to the server success");
     }else{
 #warning 重连
-        NSLog(@"[AppDelegate] Failed to connect to server");
+        [self.myProgressTypeView setText:@"无法连接"];
+        NSLog(@"[Login] Failed to connect to server");
     }
 }
+
 - (void)setViews{
     [self.logoLabel setText:@"LOGO"];
     [self.signOnPlatformButton setTitle:@"平台登录"];
@@ -81,7 +86,7 @@
         _logoLabel = [[SCBaseLabel alloc]initWithLabelStyle:LabelStyleH1];
         [self.view addSubview:_logoLabel];
         [_logoLabel setTextColor:[UIColor redColor]];
-        _logoLabel.sd_layout.topSpaceToView(self.view, 50).leftSpaceToView(self.view, 100).rightSpaceToView(self.view, 100);
+        _logoLabel.sd_layout.topSpaceToView(self.view, 100).leftSpaceToView(self.view, 100).rightSpaceToView(self.view, 100);
     }
     return _logoLabel;
 }

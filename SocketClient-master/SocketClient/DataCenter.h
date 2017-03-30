@@ -27,9 +27,11 @@ typedef NS_ENUM(UInt32, OBJ_InstanceType) {
     /** Center */
     OBJ_InstanceType_MsgCenterLoginRep = 1906,          //登录反馈
     OBJ_InstanceType_MsgCenterAccountNtf = 2083,        //用户信息
+    OBJ_InstanceType_MSGCenterRegister = 1794,          //注册信息
     
     /** -- Send -- */
     OBJ_InstanceType_Login = 1905,                      //登录包
+    OBJ_InstanceType_Login_Register = 1793,             //注册包
 };
 
 @interface DataCenter : NSObject
