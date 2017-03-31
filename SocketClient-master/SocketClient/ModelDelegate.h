@@ -16,7 +16,7 @@
  @param data 初始化 Data
  @return 实例
  */
-- (instancetype)initWithData:(NSData *)data;
+- (instancetype)initWithData:(NSData *)data andAgreementID:(uint32_t)agreementID;
 /**
  转换成 data
  

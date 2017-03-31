@@ -11,10 +11,7 @@
 //Delegate
 #import "SCSocketDelegate.h"
 
-//Model
-#import "SCLogIn.h"
-#import "SCRegistReq.h"
-#import "SCMsgCenterRegistRep.h"
+
 
 //Tool
 #import "DataCenter.h"
@@ -41,7 +38,7 @@
 @implementation  SCLoginService
 #pragma mark - Interface
 - (void)loginServerForAccount:(NSString *)account andPasscode:(NSString *)passcode{
-    SCLogIn *login = [[SCLogIn alloc]init];
+    SCLogIn *login = [[SCLogIn alloc]initWithSendToAgreementID:OBJ_InstanceType_Login];
     login.opType = OP_LOGIN_LOGIN_PLAYER;
     login.eRegistType = 2;
     login.sAccount = account;
@@ -54,13 +51,12 @@
     login.sIP = @"";
     login.bAutoRegist = 0;
     login.vChannnelArg = @{};
-    login.uAgreementID = OBJ_InstanceType_Login;
     
     [self.manager loginServer:login];
 }
 
 - (void)registerToServerUserName:(NSString *)account andPasscode:(NSString *)passcode{
-    SCRegistReq *registReq = [SCRegistReq new];
+    SCRegistReq *registReq = [[SCRegistReq alloc]initWithSendToAgreementID:OBJ_InstanceType_Login_Register];
     registReq.uOpType = OP_REGIST_TYPE_PLAYER;
     registReq.sAccount = account;
     registReq.sChannel = @"OFFICIAL";
@@ -74,7 +70,6 @@
     registReq.sDeviceChannel = @"";
     registReq.sIP = @"193.168.1.222";
     
-    registReq.uAgreementID = OBJ_InstanceType_Login_Register;
     [self.manager registerToServer:registReq];
 }
 

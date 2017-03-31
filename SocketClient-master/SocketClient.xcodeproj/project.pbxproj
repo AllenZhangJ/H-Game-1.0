@@ -25,6 +25,7 @@
 		1665A36A1E88FF0C00157FAF /* XAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 1665A3691E88FF0C00157FAF /* XAccountInfo.m */; };
 		16742A851E7F71F9008B6E8B /* SCVector.m in Sources */ = {isa = PBXBuildFile; fileRef = 16742A841E7F71F9008B6E8B /* SCVector.m */; };
 		16742A871E7FCA8A008B6E8B /* CataloguelistingPlist.plist in Resources */ = {isa = PBXBuildFile; fileRef = 16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */; };
+		167B33B81E8E5ED100965545 /* SCAgreementType.m in Sources */ = {isa = PBXBuildFile; fileRef = 167B33B71E8E5ED100965545 /* SCAgreementType.m */; };
 		167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF911E8A0A7100901319 /* SCLoginService.m */; };
 		167DFF951E8A386E00901319 /* SCSocketCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 167DFF941E8A386E00901319 /* SCSocketCenter.m */; };
 		167DFF9A1E8A621C00901319 /* loginbackground.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 167DFF991E8A621C00901319 /* loginbackground.jpg */; };
@@ -94,6 +95,8 @@
 		16742A831E7F71F9008B6E8B /* SCVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCVector.h; sourceTree = "<group>"; };
 		16742A841E7F71F9008B6E8B /* SCVector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCVector.m; sourceTree = "<group>"; };
 		16742A861E7FCA8A008B6E8B /* CataloguelistingPlist.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CataloguelistingPlist.plist; sourceTree = "<group>"; };
+		167B33B61E8E5ED100965545 /* SCAgreementType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCAgreementType.h; sourceTree = "<group>"; };
+		167B33B71E8E5ED100965545 /* SCAgreementType.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCAgreementType.m; sourceTree = "<group>"; };
 		167DFF901E8A0A7100901319 /* SCLoginService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCLoginService.h; sourceTree = "<group>"; };
 		167DFF911E8A0A7100901319 /* SCLoginService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCLoginService.m; sourceTree = "<group>"; };
 		167DFF931E8A386E00901319 /* SCSocketCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCSocketCenter.h; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 			children = (
 				5385A4FA1E76255E00425207 /* DataCenter.h */,
 				5385A4FB1E76255E00425207 /* DataCenter.m */,
+				167B33B61E8E5ED100965545 /* SCAgreementType.h */,
+				167B33B71E8E5ED100965545 /* SCAgreementType.m */,
 			);
 			name = DataManager;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				1663B6E41E8BCE6500818022 /* SCBaseTextField.m in Sources */,
 				8D2DDA751D1D1F3300356798 /* main.m in Sources */,
 				16231BB61E8213BA00979CC6 /* ObjModelPropertyType.m in Sources */,
+				167B33B81E8E5ED100965545 /* SCAgreementType.m in Sources */,
 				9FF461331E6E86D000025286 /* NSString+LSUDPDataDetail.m in Sources */,
 				16F5E5CA1E8CEB6200998DEC /* SCUserSocketManager.m in Sources */,
 				167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */,

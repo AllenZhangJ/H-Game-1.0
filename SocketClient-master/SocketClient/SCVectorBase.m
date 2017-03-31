@@ -65,7 +65,7 @@
             }
             
             // 得到这个成员变量的值
-            id value = [objSerializerTool nextValueWithType:type andRegulation:nil];
+            id value = [objSerializerTool nextValueWithRegulation:nil];
             
             if (!value) {
                 // 返回值为空
@@ -117,11 +117,11 @@
         const char *type = attList[0].value;
         
         //拼接
-        if (![objSerializerTool appendDataForValue:value andType:type andRegulation:nil]) {
-            // 如果拼接不成功
-            free(properties);
-            return nil;
-        }
+//        if (![objSerializerTool appendDataForValue:value andType:type andRegulation:nil]) {
+//            // 如果拼接不成功
+//            free(properties);
+//            return nil;
+//        }
     }
     free(properties);
     return objSerializerTool.objData;

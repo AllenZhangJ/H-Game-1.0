@@ -16,13 +16,14 @@
 @interface BaseModel()
 {
     NSUInteger _length;
+    uint32_t _uAgreementID;// 包头
 }
 @end
 @implementation BaseModel
 
 #pragma mark - Interface (接口)
 // 反序列化
-- (instancetype)reserializeObj:(NSData *)data{
+- (instancetype)reserializeObj:(NSData *)data andAgreementID:(uint32_t)agreementID{
     ObjSerializerTool *objSerializerTool;
     if (data) {
         // data 不为空
@@ -32,27 +33,16 @@
         // 缓存 data 也为空
         return nil;
     }
+    _uAgreementID = agreementID;
     
-    u_int count;
-    objc_property_t *properties  = class_copyPropertyList([self class], &count);
-    //获取类的所有成员变量
-    
-    // 遍历所有属性
-    for (int i = 0; i < count; i++) {
-        //得到单个的成员变量
-        objc_property_t property = properties[i];// 变量名
+    NSArray *interfaceArray = [[self getInterfaceRegulation] objectForKey:@(_uAgreementID)];
+    if (!interfaceArray) {
+        return nil;
+    }
+    for (NSInteger i = 0; i < interfaceArray.count; i++) {
         
-        // 得到这个成员变量的类型
-        u_int attCount;
-        objc_property_attribute_t *attList = property_copyAttributeList(property, &attCount);
-        const char *type = attList[0].value;
+        NSString *propertyName = interfaceArray[i];
         
-        if (![objSerializerTool hasNext]) {
-            // 如果没有下一个
-            break;
-        }
-        // 获得变量名
-        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
         //查找规则
         NSArray *regulation ;
         if ([[self getRegulation] valueForKey:propertyName]) {
@@ -62,9 +52,8 @@
             //没有
             regulation = nil;
         }
-        
         // 得到这个成员变量的值
-        id value = [objSerializerTool nextValueWithType:type andRegulation:regulation];
+        id value = [objSerializerTool nextValueWithRegulation:regulation];
         
         if (!value) {
             // 返回值为空
@@ -74,8 +63,8 @@
         // 为当前实例赋值
         [self setValue:value forKey:propertyName];
     }
+    
     _length = objSerializerTool.getLength;
-    free(properties);
     return self;
 }
 
@@ -87,16 +76,12 @@
 - (NSData *)serializeObj{
     ObjSerializerTool *objSerializerTool = [ObjSerializerTool new];
     
-    u_int count;
-    objc_property_t * properties  = class_copyPropertyList([self class], &count);
-    
-    // 遍历所有属性
-    for (int i=0; i<count; i++) {
-        //得到单个的成员变量
-        objc_property_t property = properties[i];// 变量名
-        // 解析属性
-        NSString *propertyName = [NSString stringWithCString:property_getName(property) encoding:NSUTF8StringEncoding];
-        
+    NSArray *interfaceArray = [[self getInterfaceRegulation] objectForKey:@(_uAgreementID)];
+    if (!interfaceArray) {
+        return nil;
+    }
+    for (NSInteger i = 0; i < interfaceArray.count; i++) {
+        NSString *propertyName = interfaceArray[i];
         // 得到这个成员变量的值
         id value = [self valueForKey:propertyName];
         
@@ -104,11 +89,6 @@
             // 返回值不为空
             continue;
         }
-        
-        // 得到这个成员变量的类型
-        u_int attCount;
-        objc_property_attribute_t *attList = property_copyAttributeList(property, &attCount);
-        const char *type = attList[0].value;
         
         //查找规则
         NSArray *regulation ;
@@ -121,26 +101,41 @@
         }
         
         //拼接
-        if (![objSerializerTool appendDataForValue:value andType:type andRegulation:regulation]) {
+        if (![objSerializerTool appendDataForValue:value andRegulation:regulation]) {
             // 如果拼接不成功
-            free(properties);
             return nil;
         }
+        
     }
-    free(properties);
+
     return objSerializerTool.objData;
+}
+
+/**
+ 发送用初始化方法
+ */
+- (instancetype)initWithSendToAgreementID:(uint32_t)agreementID{
+    if (self = [super init]) {
+        _uAgreementID = agreementID;
+    }
+    return self;
 }
 
 - (NSDictionary *)getRegulation{
     return nil;
 }
+
+- (NSDictionary *)getInterfaceRegulation{
+    return nil;
+}
+
 - (NSUInteger)returnModelLength{
     return _length;
 }
 #pragma mark - ModelDelegate (ModelDelegate代理)
-- (instancetype)initWithData:(NSData *)data{
+- (instancetype)initWithData:(NSData *)data andAgreementID:(uint32_t)agreementID{
     if (self = [super init]) {
-        [self reserializeObj:data];
+        [self reserializeObj:data andAgreementID:agreementID];
     }
     return self;
 }

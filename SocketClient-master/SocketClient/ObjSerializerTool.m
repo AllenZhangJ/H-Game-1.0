@@ -109,14 +109,13 @@ static NSDictionary *kTypeCatalogueDic;
     return NO;
 }
 
-- (id)nextValueWithType:(const char *)propertyType andRegulation:(NSArray *)regulation{
-    return [self private_valueForPropertyType:propertyType andRegulation:regulation];
+- (id)nextValueWithRegulation:(NSArray *)regulation{
+    return [self private_valueForRegulation:regulation];
 }
 
-- (BOOL)appendDataForValue:(id)value andType:(const char *)propertyType andRegulation:(NSArray *)regulation{
+- (BOOL)appendDataForValue:(id)value andRegulation:(NSArray *)regulation{
     
-    NSData *dataTmp = [self private_valueJoinDataAtValue:value
-                                                 andType:propertyType andRegulation:regulation];
+    NSData *dataTmp = [self private_valueJoinDataAtValue:value andRegulation:regulation];
     if (!dataTmp || dataTmp.length == 0) {
         // 为空,或者长度为0
         return NO;
@@ -132,25 +131,14 @@ static NSDictionary *kTypeCatalogueDic;
 #pragma mark - Private
 
 ///** 序列化 拼接 */
-- (NSData *)private_valueJoinDataAtValue:(id)value andType:(const char *)propertyType andRegulation:(NSArray *)regulation{
+- (NSData *)private_valueJoinDataAtValue:(id)value andRegulation:(NSArray *)regulation{
     //判断为空
     if (!value) {
         return nil;
     }
     
-    NSString *typeString =  [NSString stringWithCString:propertyType
-                                               encoding:NSUTF8StringEncoding];
-    
-    //判断类型字符串为空
-    if (!typeString
-        || typeString.length == 0
-        || [typeString isEqual:[NSNull null]]
-        || [typeString isEqualToString:@""]) {
-        return nil;
-    }
-    
     //拼接
-    NSData *valueData = [ObjTypeTool getDataFormValue:value forProperty:typeString andRegulation:regulation];
+    NSData *valueData = [ObjTypeTool getDataFormValue:value forRegulation:regulation];
     
     //验证
     if (!valueData) {
@@ -161,18 +149,16 @@ static NSDictionary *kTypeCatalogueDic;
 }
 
 /** 反序列化 获得Value */
-- (id)private_valueForPropertyType:(const char *)propertyType andRegulation:(NSArray *)regulation{
+- (id)private_valueForRegulation:(NSArray *)regulation{
     if (!_objData) {
         // 如果 data 缓存为空
         return nil;
     }
-    
-    NSString *stringType =  [NSString stringWithCString:propertyType
-                                               encoding:NSUTF8StringEncoding];
+
     // 获取类型
-  //BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
-        
-    ObjTypeReturnData *returnData = [ObjTypeTool getValueFromData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length-_curLocation)] forProperty:stringType andRegulation:regulation];
+//  BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
+    
+    ObjTypeReturnData *returnData = [ObjTypeTool getValueFromData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length-_curLocation)] forRegulation:regulation];
     
     if (!returnData.returnData) {
         // 值为空
@@ -231,8 +217,8 @@ static NSDictionary *kTypeCatalogueDic;
     return self;
 }
 //Methods
-+ (ObjTypeReturnData *)getValueFromData:(NSData *)data forProperty:(NSString *)property  andRegulation:(NSArray *)regulation{
-    BaseModelPropertyType type = [self propertyTypeOfProperty:property];
++ (ObjTypeReturnData *)getValueFromData:(NSData *)data forRegulation:(NSArray *)regulation{
+    BaseModelPropertyType type = [self propertyTypeOfProperty:regulation[0]];
     switch (type) {
         case BaseModelPropertyType_UInt8:{
             uint8_t tmp;
@@ -276,20 +262,20 @@ static NSDictionary *kTypeCatalogueDic;
         }
             break;
         case BaseModelPropertyType_NSDictionary:{
-            return [ObjContainerTool getDicValueFromData:data forProperty:property andRegulation:regulation];
+            return [ObjContainerTool getDicValueFromData:data forRegulation:regulation];
         }
             break;
         case BaseModelPropertyType_NSArray:{
-            return [ObjContainerTool getArrayValueFromData:data forProperty:property andRegulation:regulation];
+            return [ObjContainerTool getArrayValueFromData:data forRegulation:regulation];
         }
             break;
         case BaseModelPropertyType_XTest:{
-            XTest *xTestData = [[XTest alloc]reserializeObj:data];
+            XTest *xTestData = [[XTest alloc]reserializeObj:data andAgreementID:0];
             return [ObjTypeReturnData returnData:xTestData andDataLangth:[xTestData returnModelLength]];
         }
             break;
         case BaseModelPropertyType_XAccountInfo:{
-            XAccountInfo *xAccounInfo = [[XAccountInfo alloc]reserializeObj:data];
+            XAccountInfo *xAccounInfo = [[XAccountInfo alloc]reserializeObj:data andAgreementID:0];
             return [ObjTypeReturnData returnData:xAccounInfo andDataLangth:[xAccounInfo returnModelLength]];
         }
             break;
@@ -315,25 +301,14 @@ static NSDictionary *kTypeCatalogueDic;
 
 // 根据传入类型字符串获取对应的枚举值
 + (BaseModelPropertyType)propertyTypeOfProperty:(NSString *)property{
-    NSString *keyStr;
-    // 现在只考虑 Uint32 占4个字节
-    if ([property hasPrefix:@"@"]) {
-        /**
-         OC类型进来有前后缀 @“xxx" 截取xxx
-         */
-        keyStr = [property substringWithRange:NSMakeRange(2, property.length - 3)];
-    }else{
-        // c 类型
-        keyStr = property;
-    }
-    return [[kTypeCatalogueDic valueForKey:keyStr] integerValue];
+    return [[kTypeCatalogueDic valueForKey:property] integerValue];
 }
 
 /**
  根据传入类型字符串 获取对应的data 序列化  
  */
-+ (NSData *)getDataFormValue:(id)value forProperty:(NSString *)property andRegulation:(NSArray *)regulation{
-    BaseModelPropertyType type = [self propertyTypeOfProperty:property];
++ (NSData *)getDataFormValue:(id)value forRegulation:(NSArray *)regulation{
+    BaseModelPropertyType type = [self propertyTypeOfProperty:regulation.firstObject];
     switch (type) {
         case BaseModelPropertyType_UInt8:{
             NSNumber *tmp = value;
@@ -428,7 +403,7 @@ static NSDictionary *kTypeCatalogueDic;
 @end
 
 @implementation ObjContainerTool
-+ (ObjTypeReturnData *)getDicValueFromData:(NSData *)data forProperty:(NSString *)property andRegulation:(NSArray *)regulation{
++ (ObjTypeReturnData *)getDicValueFromData:(NSData *)data forRegulation:(NSArray *)regulation{
     if (!data) {
         // 如果 data 缓存为空
         return nil;
@@ -441,15 +416,15 @@ static NSDictionary *kTypeCatalogueDic;
     NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
     
     for (int ergodicLocation = 0; ergodicLocation < number; ergodicLocation++) {
-        //获得类型
-        NSString *keyType =  regulation[1];
-        
-        ObjTypeReturnData *keyData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forProperty:keyType andRegulation:nil];
+
+        //截取数组 除第一个元素之外的后面所有元素 如果有嵌套字典 才能触发递归，第一位是本身的类型.
+        NSArray *keyRegulation = [regulation subarrayWithRange:NSMakeRange(1, regulation.count - 1)];
+        ObjTypeReturnData *keyData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forRegulation:keyRegulation];             //regulation[1]
         
         curLocation += keyData.dataLangth;
-        
-        NSString *valueTyoe = regulation[2];
-        ObjTypeReturnData *valueData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forProperty:valueTyoe andRegulation:nil];
+
+        NSArray *valueRegulation = [regulation subarrayWithRange:NSMakeRange(2, regulation.count - 2)];
+        ObjTypeReturnData *valueData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forRegulation:valueRegulation];   //regulation[2]
         
         curLocation += valueData.dataLangth;
         
@@ -480,10 +455,10 @@ static NSDictionary *kTypeCatalogueDic;
     NSMutableArray *mArray = [NSMutableArray array];
     
     for (int ergodicLocation = 0; ergodicLocation < number; ergodicLocation++) {
-        //获得类型
-        NSString *type =  regulation[1];
         
-        ObjTypeReturnData *arrayData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forProperty:type andRegulation:nil];
+        //截取数组 除第一个元素之外的后面所有元素 如果有嵌套数组 才能触发递归，第一位是本身的类型.
+        NSArray *arrayRegulation = [regulation subarrayWithRange:NSMakeRange(1, regulation.count - 1)];
+        ObjTypeReturnData *arrayData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forRegulation:arrayRegulation];
         
         curLocation += arrayData.dataLangth;
         
@@ -512,12 +487,14 @@ static NSDictionary *kTypeCatalogueDic;
         return objData;
     }
     for (NSString *key in dictionary.allKeys) {
-        
-        NSData *keyData = [ObjTypeTool getDataFormValue:key forProperty:regulation[1] andRegulation:nil];
+        //截取数组 除第一个元素之外的后面所有元素 如果有嵌套字典 才能触发递归，第一位是本身的类型.
+        NSArray *keyRegulation = [regulation subarrayWithRange:NSMakeRange(1, regulation.count - 1)];
+        NSData *keyData = [ObjTypeTool getDataFormValue:key forRegulation:keyRegulation];
         [objData appendData:keyData];
         
+        NSArray *valueRegulation = [regulation subarrayWithRange:NSMakeRange(2, regulation.count - 2)];
         id value = [dictionary objectForKey:key];
-        NSData *valueData = [ObjTypeTool getDataFormValue:value forProperty:regulation[2] andRegulation:nil];
+        NSData *valueData = [ObjTypeTool getDataFormValue:value forRegulation:valueRegulation];
         [objData appendData:valueData];
     }
     return [objData mutableCopy];
@@ -535,8 +512,10 @@ static NSDictionary *kTypeCatalogueDic;
         return objData;
     }
     
+    //截取数组 除第一个元素之外的后面所有元素 如果有嵌套数组 才能触发递归，第一位是本身的类型.
+    NSArray *arrayRegulation = [regulation subarrayWithRange:NSMakeRange(1, regulation.count - 1)];
     for (id value in array) {
-        NSData *keyData = [ObjTypeTool getDataFormValue:value forProperty:regulation[1] andRegulation:nil];
+        NSData *keyData = [ObjTypeTool getDataFormValue:value forRegulation:arrayRegulation];
         [objData appendData:keyData];
     }
     return [objData mutableCopy];

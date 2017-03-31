@@ -9,12 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "ModelDelegate.h"
 
+/** ENUM */
+#import "SCAgreementType.h"
+#import "ObjModelPropertyType.h"
+
 @interface BaseModel : NSObject
 <
     ModelDelegate
 >
-
-@property (nonatomic, assign) UInt32 uAgreementID;// 包头
 
 /**
  反序列化
@@ -22,7 +24,7 @@
  @param data 二进制流
  @return 返回值类型可以为 void
  */
-- (instancetype)reserializeObj:(NSData *)data;
+- (instancetype)reserializeObj:(NSData *)data andAgreementID:(uint32_t)agreementID;
 
 /**
  序列化
@@ -31,10 +33,20 @@
  */
 - (NSData *)serializeObj;
 
+/** 
+    发送用初始化方法
+ */
+- (instancetype)initWithSendToAgreementID:(uint32_t)agreementID;
+
 /**
  规则目录
 */
 - (NSDictionary *)getRegulation;
+
+/** 
+ 接口对应顺序规则
+ */
+- (NSDictionary *)getInterfaceRegulation;
 
 /** 
  长度

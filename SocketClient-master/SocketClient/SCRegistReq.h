@@ -27,4 +27,15 @@ typedef NS_ENUM(uint8_t, OP_REGIST_TYPE){
 @property (nonatomic ,strong) NSString *sAnonymousAccount;//匿名账号
 @property (nonatomic ,strong) NSString *sDeviceChannel; //匿名渠道
 @property (nonatomic ,strong) NSString *sIP;            //登录IP
+
+
+
+@property (nonatomic ,assign) uint16_t uErrCode;
+@property (nonatomic ,assign) uint32_t uPlayerID;       //玩家ID
+@property (nonatomic ,strong) NSString *sNewAccount;    //账号
+@property (nonatomic ,assign) uint32_t uNewPasscode;    //密码
+@property (nonatomic ,assign) uint8_t nServerID;
+@property (nonatomic ,assign) uint32_t uRights;         //
+@property (nonatomic ,assign) uint8_t bAutoRegist;      //自动注册
+
 @end

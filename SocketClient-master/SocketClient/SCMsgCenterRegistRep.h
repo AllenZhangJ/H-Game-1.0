@@ -8,6 +8,10 @@
 
 #import "BaseModel.h"
 #import "SCRegistReq.h"
+
+
+
+
 @interface SCMsgCenterRegistRep : BaseModel
 @property (nonatomic ,assign) OP_REGIST_TYPE uOpType;
 @property (nonatomic ,assign) uint16_t uErrCode;

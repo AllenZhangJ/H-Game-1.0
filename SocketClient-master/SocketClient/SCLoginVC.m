@@ -53,6 +53,9 @@
         [self.myProgressTypeView setText:@"无法连接"];
         NSLog(@"[Login] Failed to connect to server");
     }
+
+    NSString *objName = [NSString stringWithUTF8String:object_getClassName(self.signOnPlatformButton)];
+    NSLog(@"objName:%@", objName);
 }
 
 - (void)setViews{

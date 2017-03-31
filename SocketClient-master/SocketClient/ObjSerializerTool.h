@@ -79,16 +79,16 @@
  @param type 类型
  @return 解析出的值
  */
-- (id)nextValueWithType:(const char *)propertyType andRegulation:(NSArray *)regulation;
+- (id)nextValueWithRegulation:(NSArray *)regulation;
 
 /**
  将传入的值,根据类型,拼接到 objData 上
 
  @param value 值
- @param propertyType 类型
+ @param regulation 规则数组
  @return  YES: 拼接成功;NO: 拼接不成功
  */
-- (BOOL)appendDataForValue:(id)value andType:(const char *)propertyType andRegulation:(NSArray *)regulation;
+- (BOOL)appendDataForValue:(id)value andRegulation:(NSArray *)regulation;
 
 //得到长度
 - (NSUInteger )getLength;
@@ -109,7 +109,7 @@
  @param property 类型字符串
  @return OC值+长度
  */
-+ (ObjTypeReturnData *)getValueFromData:(NSData *)data forProperty:(NSString *)property andRegulation:(NSArray *)regulation;
++ (ObjTypeReturnData *)getValueFromData:(NSData *)data forRegulation:(NSArray *)regulation;
 
 /**
  根据传入类型字符串获取对应的枚举值
@@ -123,7 +123,7 @@
 /**
  根据传入类型字符串 获取对应的C值 序列化
  */
-+ (NSData *)getDataFormValue:(id)value forProperty:(NSString *)property andRegulation:(NSArray *)regulation;
++ (NSData *)getDataFormValue:(id)value forRegulation:(NSArray *)regulation;
 
 @end
 
@@ -137,11 +137,11 @@
 /**  
  传入data返回NSDictionary 反序列化
  */
-+ (ObjTypeReturnData *)getDicValueFromData:(NSData *)data forProperty:(NSString *)property andRegulation:(NSArray *)regulation;
++ (ObjTypeReturnData *)getDicValueFromData:(NSData *)data forRegulation:(NSArray *)regulation;
 /**
  传入data返回NSArray 反序列化
  */
-+ (ObjTypeReturnData *)getArrayValueFromData:(NSData *)data forProperty:(NSString *)property andRegulation:(NSArray *)regulation;
++ (ObjTypeReturnData *)getArrayValueFromData:(NSData *)data forRegulation:(NSArray *)regulation;
 /**
  传入NSDictionary 返回NSData 序列化
  */
