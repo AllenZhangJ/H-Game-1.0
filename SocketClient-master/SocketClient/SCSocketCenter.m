@@ -138,7 +138,7 @@ static NSInteger const PortInt = 11000;
     if (!err) {
         [self.socketdelegate disconnectFromTheServer:err];
     }else{
-        
+        [self connectAction];
     }
 }
 
@@ -146,6 +146,8 @@ static NSInteger const PortInt = 11000;
 /** 心跳包 */
 - (void)longConnectToSocket{
 #warning 传合理的包即可
+    
+    
 }
 
 #pragma mark - load

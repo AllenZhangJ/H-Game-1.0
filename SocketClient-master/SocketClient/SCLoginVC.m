@@ -31,6 +31,7 @@
         [self.myProgressView setProgress:1 animated:YES];
         [self.myProgressTypeView setText:@"连上服务器"];
         [self.signOnPlatformButton setHidden:NO];
+        [SVProgressHUD showSuccessWithStatus:@"已连接"];
     }
 }
 
@@ -38,10 +39,6 @@
 //发送消息
 - (IBAction)sendMessageAction:(id)sender {
     [self.service loginServerForAccount:@"qqqqqq" andPasscode:@"1835900736"];
-}
-
-- (void)toTheNewVC{
-    [self.navigationController pushViewController:[SCSignOnPlatformVC new] animated:YES];
 }
 
 #pragma mark - Load
@@ -92,11 +89,13 @@
 }
 - (SCBaseButton *)signOnPlatformButton{
     if (!_signOnPlatformButton) {
-        _signOnPlatformButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune];
+        _signOnPlatformButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune returnTouchAction:^(BOOL isHighligh) {
+            [self.navigationController pushViewController:[SCSignOnPlatformVC new] animated:YES];
+        }];
         [self.view addSubview:_signOnPlatformButton];
         _signOnPlatformButton.sd_layout.leftSpaceToView(self.view, 50).rightSpaceToView(self.view, 50).bottomSpaceToView(self.view, 100).heightRatioToView(self.view, 0.05);
         [_signOnPlatformButton setHidden:YES];
-        [_signOnPlatformButton addTarget:self action:@selector(toTheNewVC) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return _signOnPlatformButton;
 }

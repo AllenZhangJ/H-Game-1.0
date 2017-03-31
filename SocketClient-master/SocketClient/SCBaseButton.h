@@ -14,8 +14,18 @@ typedef NS_ENUM(uint8_t, SCButtonStyle){
     SCButtonStyleMassToneAttune,
     /** 副色调 */
     SCButtonStyleViceTonal,
+    /** 图片切换 */
+    SCButtonStyleToggleIconTypes,
 };
+typedef void (^ReturnTouchBlock)(BOOL isHighligh);
 @interface SCBaseButton : UIButton
-- (id)initWithButtonStyle:(SCButtonStyle )style;
+
+/** SCButtonStyleToggleIconTypes */
+@property (nonatomic, copy) ReturnTouchBlock returnTouchBlock;
+- (id)initWithImageButtonForeground:(NSString *)foregroundImage andHighlight:(NSString *)highlightImage returnTouchAction:(ReturnTouchBlock)block;
+
+
+- (id)initWithButtonStyle:(SCButtonStyle )style returnTouchAction:(ReturnTouchBlock)block;
+
 - (void)setTitle:(NSString *)title;
 @end

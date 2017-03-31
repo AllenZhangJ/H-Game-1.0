@@ -7,7 +7,11 @@
 //
 
 #import "BaseViewController.h"
-
+typedef void (^ReturnTextBlock)(NSString *userName, NSString *passcode);
 @interface SCRegisterVC : BaseViewController
+
+@property (nonatomic, copy) ReturnTextBlock returnTextBlock;
+
+- (void)returnText:(ReturnTextBlock)block;
 
 @end

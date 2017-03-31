@@ -44,13 +44,7 @@
 }
 
 #pragma mark - Action
-- (void)loginPlatform{
-    [self.service loginServerForAccount:self.userNameText.text andPasscode:self.userPassCodeText.text];
-}
 
-- (void)toTheRegisterVC{
-    [self.navigationController pushViewController:[SCRegisterVC new] animated:YES];
-}
 
 #pragma mark - Load
 - (void)viewDidLoad {
@@ -67,20 +61,32 @@
 
 - (SCBaseButton *)registerButton{
     if (!_registerButton) {
-        _registerButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleViceTonal];
+        _registerButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleViceTonal returnTouchAction:^(BOOL isHighligh) {
+            
+            SCRegisterVC *rvc = [SCRegisterVC new];
+            [self.navigationController pushViewController:rvc animated:YES];
+            
+            [rvc returnText:^(NSString *userName, NSString *passcode) {
+                self.userNameText.text = userName;
+                self.userPassCodeText.text = passcode;
+            }];
+            
+        }];
         [self.view addSubview:_registerButton];
         _registerButton.sd_layout.leftSpaceToView(self.view, 50).topSpaceToView(self.loginButton, 10).widthRatioToView(self.loginButton, 0.3).heightRatioToView(self.view, 0.05);
-        [_registerButton addTarget:self action:@selector(toTheRegisterVC) forControlEvents:UIControlEventTouchUpInside];
+
     }
     return _registerButton;
 }
 
 - (SCBaseButton *)loginButton{
     if (!_loginButton) {
-        _loginButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune];
+        _loginButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune returnTouchAction:^(BOOL isHighligh) {
+            [self.service loginServerForAccount:self.userNameText.text andPasscode:self.userPassCodeText.text];
+        }];
         [self.view addSubview:_loginButton];
         _loginButton.sd_layout.leftSpaceToView(self.view, 50).topSpaceToView(self.userPassCodeText, 20).rightSpaceToView(self.view, 50).heightRatioToView(self.view, 0.05);
-        [_loginButton addTarget:self action:@selector(loginPlatform) forControlEvents:UIControlEventTouchUpInside];
+        
     }
     return _loginButton;
 }

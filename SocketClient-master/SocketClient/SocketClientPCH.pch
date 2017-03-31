@@ -18,6 +18,7 @@
 /** 3f */
 #import <SDAutoLayout.h>
 #import <MBProgressHUD.h>
+#import <SVProgressHUD.h>
 
 /** Color */
 #define kMassToneAttuneColor [UIColor colorWithWhite:0.5 alpha:1]

@@ -8,6 +8,8 @@
 
 #import "SCRegisterVC.h"
 
+
+
 /** Service */
 #import "SCLoginService.h"
 
@@ -38,15 +40,20 @@
 #pragma mark - SCLoginServiceDelegate
 - (void)receiveForServiceRegisteredSuccessfully:(NSString *)uAccount{
     if (uAccount) {
-        NSLog(@"%@:注册成功！",uAccount);
+        if (self.returnTextBlock != nil) {
+            self.returnTextBlock(self.userNameTextField.text, self.userPasscodeTextField.text);
+        }
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"%@:注册成功！",uAccount]];
+        [self.navigationController popViewControllerAnimated:YES];
     }else{
-        NSLog(@"注册失败");
+        [SVProgressHUD showErrorWithStatus:[NSString stringWithFormat:@"%@:注册成功！",uAccount]];
     }
 }
 
 #pragma mark - Action
-- (void)registerAction{
-    [self.service registerToServerUserName:self.userNameTextField.text andPasscode:self.userPasscodeTextField.text];
+
+- (void)returnText:(ReturnTextBlock)block {
+    self.returnTextBlock = block;
 }
 
 #pragma mark - Load
@@ -109,10 +116,14 @@
 
 -(SCBaseButton *)registerButton{
     if (!_registerButton) {
-        _registerButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune];
+        _registerButton = [[SCBaseButton alloc]initWithButtonStyle:SCButtonStyleMassToneAttune returnTouchAction:^(BOOL isHighligh) {
+            
+            [self.service registerToServerUserName:self.userNameTextField.text andPasscode:self.userPasscodeTextField.text];
+            
+        }];
         [self.view addSubview:_registerButton];
         _registerButton.sd_layout.leftSpaceToView(self.view, 50).topSpaceToView(self.confirmPasswordTextField, 20).rightSpaceToView(self.view, 50).heightRatioToView(self.view, 0.05);
-        [_registerButton addTarget:self action:@selector(registerAction) forControlEvents:UIControlEventTouchUpInside];
+        
         [_registerButton setEnabled:NO];
     }
     return _registerButton;

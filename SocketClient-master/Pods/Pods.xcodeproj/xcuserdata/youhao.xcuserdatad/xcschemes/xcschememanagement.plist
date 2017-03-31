@@ -29,6 +29,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>UIImage+BlurredFrame.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,12 +42,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>15992CC6B52C9153A28A74C563C6E5A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>175B076ED45EB1A3E40F58BA14036467</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3924BE93A84B529387175CB8AFAA5BF9</key>
+		<key>19FD7C63D87992D068E5CCD8DE5CAFDA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5F7AB1A1F4FA050545AEDEC4C9502FEF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BBA84A7DBC679D06F5A4F5953FF36919</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -52,17 +72,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FD428CFB0B12873B518BDC9333F180DB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>FD5EE0B2DD4B436339BB0D83C7B17093</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FFC5E5C48542F2F1996B8238325728E3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
