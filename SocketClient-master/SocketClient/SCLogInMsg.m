@@ -7,7 +7,23 @@
 //
 
 #import "SCLogInMsg.h"
-
+static NSString *const SCLogInMsg_uOpType       = @"uOpType";
+static NSString *const getRegulation_uErrCode   = @"uErrCode";
 @implementation SCLogInMsg
+-(NSDictionary *)getRegulation{
+    return @{
+             SCLogInMsg_uOpType:    @[ObjTypeUInt8],
+             getRegulation_uErrCode:@[ObjTypeUInt16],
+             };
+}
 
+- (NSDictionary *)getInterfaceRegulation{
+    return @
+    {
+        @(OBJ_InstanceType_LoginMsg):
+        @[SCLogInMsg_uOpType,
+          getRegulation_uErrCode,
+          ]
+    };
+}
 @end

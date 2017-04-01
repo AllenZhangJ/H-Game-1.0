@@ -20,7 +20,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-                    /* ObjPacketHeader */
+/* ObjPacketHeader */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjPacketHeader
@@ -74,7 +74,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-                    /* ObjTypeReturnData */
+/* ObjTypeReturnData */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjTypeReturnData
@@ -89,7 +89,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-                    /* ObjSerializerTool */
+/* ObjSerializerTool */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjSerializerTool
@@ -154,9 +154,6 @@ static NSDictionary *kTypeCatalogueDic;
         // 如果 data 缓存为空
         return nil;
     }
-
-    // 获取类型
-//  BaseModelPropertyType type = [ObjTypeTool propertyTypeOfProperty:stringType];
     
     ObjTypeReturnData *returnData = [ObjTypeTool getValueFromData:[_objData subdataWithRange:NSMakeRange(_curLocation, _objData.length-_curLocation)] forRegulation:regulation];
     
@@ -166,7 +163,7 @@ static NSDictionary *kTypeCatalogueDic;
     }
     
     NSUInteger typeLangth = returnData.dataLangth;
-
+    
     // 验证 Range 越界
     if (_curLocation + typeLangth > _objData.length) {
         // 越界
@@ -200,7 +197,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-                            /* ObjTypeTool */
+/* ObjTypeTool */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjTypeTool
@@ -218,6 +215,9 @@ static NSDictionary *kTypeCatalogueDic;
 }
 //Methods
 + (ObjTypeReturnData *)getValueFromData:(NSData *)data forRegulation:(NSArray *)regulation{
+    if (!data || data.length <= 0) {
+        return nil;
+    }
     BaseModelPropertyType type = [self propertyTypeOfProperty:regulation[0]];
     switch (type) {
         case BaseModelPropertyType_UInt8:{
@@ -305,7 +305,7 @@ static NSDictionary *kTypeCatalogueDic;
 }
 
 /**
- 根据传入类型字符串 获取对应的data 序列化  
+ 根据传入类型字符串 获取对应的data 序列化
  */
 + (NSData *)getDataFormValue:(id)value forRegulation:(NSArray *)regulation{
     BaseModelPropertyType type = [self propertyTypeOfProperty:regulation.firstObject];
@@ -390,7 +390,7 @@ static NSDictionary *kTypeCatalogueDic;
 
 ///////////////////////////////////////////////////////////////////////////
 
-                            /* ObjContainerTool */
+/* ObjContainerTool */
 
 ///////////////////////////////////////////////////////////////////////////
 #pragma mark - ObjContainerTool
@@ -416,13 +416,13 @@ static NSDictionary *kTypeCatalogueDic;
     NSMutableDictionary *mDic = [NSMutableDictionary dictionary];
     
     for (int ergodicLocation = 0; ergodicLocation < number; ergodicLocation++) {
-
+        
         //截取数组 除第一个元素之外的后面所有元素 如果有嵌套字典 才能触发递归，第一位是本身的类型.
         NSArray *keyRegulation = [regulation subarrayWithRange:NSMakeRange(1, regulation.count - 1)];
         ObjTypeReturnData *keyData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forRegulation:keyRegulation];             //regulation[1]
         
         curLocation += keyData.dataLangth;
-
+        
         NSArray *valueRegulation = [regulation subarrayWithRange:NSMakeRange(2, regulation.count - 2)];
         ObjTypeReturnData *valueData = [ObjTypeTool getValueFromData:[data subdataWithRange:NSMakeRange(curLocation, data.length-curLocation)] forRegulation:valueRegulation];   //regulation[2]
         
@@ -432,7 +432,7 @@ static NSDictionary *kTypeCatalogueDic;
         [mDic setObject:valueData.returnData forKey:keyData.returnData];
     }
     
-
+    
     
     // 验证 Range 越界
     if (curLocation > data.length) {
@@ -442,7 +442,7 @@ static NSDictionary *kTypeCatalogueDic;
     
     return [ObjTypeReturnData returnData:mDic andDataLangth:curLocation];
 }
-+ (ObjTypeReturnData *)getArrayValueFromData:(NSData *)data forProperty:(NSString *)property andRegulation:(NSArray *)regulation{
++ (ObjTypeReturnData *)getArrayValueFromData:(NSData *)data forRegulation:(NSArray *)regulation{
     if (!data) {
         // 如果 data 缓存为空
         return nil;
@@ -478,7 +478,7 @@ static NSDictionary *kTypeCatalogueDic;
  传入NSDictionary 返回NSData 序列化
  */
 + (NSData *)getDataForDictionary:(NSDictionary *)dictionary andRegulation:(NSArray *)regulation{
-//空返回 uint16 0
+    //空返回 uint16 0
     uint16_t number = dictionary.allKeys.count;
     NSMutableData *objData = [NSMutableData data];
     [objData appendData:[NSData dataWithBytes:&number length:sizeof(number)]];
@@ -503,7 +503,7 @@ static NSDictionary *kTypeCatalogueDic;
  传入NSArray 返回NSData 序列化
  */
 + (NSData *)getDataForArrya:(NSArray *)array andRegulation:(NSArray *)regulation{
-//空返回 uint16 0
+    //空返回 uint16 0
     uint16_t number = array.count;
     NSMutableData *objData = [NSMutableData data];
     [objData appendData:[NSData dataWithBytes:&number length:sizeof(number)]];

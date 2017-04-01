@@ -9,7 +9,7 @@
 #ifndef SocketClientPCH_pch
 #define SocketClientPCH_pch
 
-/** base */
+/** Base */
 #import "SCBaseLabel.h"
 #import "SCBaseButton.h"
 #import "SCBaseNavigationController.h"
@@ -23,6 +23,13 @@
 /** Color */
 #define kMassToneAttuneColor [UIColor colorWithWhite:0.5 alpha:1]
 #define kViceTonalColor [UIColor colorWithWhite:0.9 alpha:1]
+
+/** Server */
+static NSString *const LANURLstr = @"192.168.1.139";
+static NSString *const LANURLstr_text = @"192.168.1.138";
+static NSString *const LANURLstr_LJ = @"192.168.1.140";
+static NSString *const URLstr = @"hydemo.hao-games.com";
+static NSInteger const PortInt = 11000;
 
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.

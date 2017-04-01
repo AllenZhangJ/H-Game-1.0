@@ -10,7 +10,6 @@
 
 //Model
 #import "SCRegistReq.h"
-#import "SCMsgCenterRegistRep.h"
 #import "SCLogIn.h"
 #import "SCLogInMsg.h"
 #import "SCMsgCenterLoginRep.h"

@@ -12,11 +12,11 @@
 @property (nonatomic, assign) uint32_t uAssID;
 @property (nonatomic, assign) uint32_t uSecretKey;
 @property (nonatomic, assign) uint32_t uTimeNow;
-@property (nonatomic, assign) uint8_t u8Test;
-@property (nonatomic, assign) uint16_t u16Test;
-@property (nonatomic, strong) NSString *sTest;
-@property (nonatomic, strong) NSDictionary *vU8U16Test;
-@property (nonatomic, strong) NSArray *vStringTest;
-@property (nonatomic, strong) NSDictionary *vStringIntTest;
-@property (nonatomic, strong) NSDictionary *vStructTest;
+//@property (nonatomic, assign) uint8_t u8Test;
+//@property (nonatomic, assign) uint16_t u16Test;
+//@property (nonatomic, strong) NSString *sTest;
+//@property (nonatomic, strong) NSDictionary *vU8U16Test;
+//@property (nonatomic, strong) NSArray *vStringTest;
+//@property (nonatomic, strong) NSDictionary *vStringIntTest;
+//@property (nonatomic, strong) NSDictionary *vStructTest;
 @end

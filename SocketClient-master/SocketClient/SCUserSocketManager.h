@@ -10,7 +10,7 @@
 //Model
 #import "SCLogIn.h"
 #import "SCRegistReq.h"
-#import "SCMsgCenterRegistRep.h"
+
 @protocol SCUserSocketManagerDelegate <NSObject>
 
 - (void)receiveModelForManagerReadData:(id)objData;

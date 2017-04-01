@@ -15,11 +15,6 @@
 #import "DataCenter.h"
 
 static SCSocketCenter *socketCenter = nil;
-static NSString *const LANURLstr = @"192.168.1.139";
-static NSString *const LANURLstr_text = @"192.168.1.138";
-static NSString *const LANURLstr_LJ = @"192.168.1.140";
-static NSString *const URLstr = @"hydemo.hao-games.com";
-static NSInteger const PortInt = 11000;
 
 @interface SCSocketCenter ()<GCDAsyncSocketDelegate>
 

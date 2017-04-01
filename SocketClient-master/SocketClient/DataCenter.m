@@ -18,7 +18,6 @@
 #import "SCLogInMsg.h"
 #import "SCMsgCenterLoginRep.h"
 #import "SCMsgCenterAccountNtf.h"
-#import "SCMsgCenterRegistRep.h"
 #import "SCRegistReq.h"
 
 
@@ -106,7 +105,7 @@ static DataCenter *dataCenter = nil;
             break;
         case OBJ_InstanceType_MSGCenterRegister:{
             NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
-            SCMsgCenterRegistRep *msgCenterRegistRep = [[SCMsgCenterRegistRep alloc]initWithData:decodeData andAgreementID:_uAgreementID];
+            SCRegistReq *msgCenterRegistRep = [[SCRegistReq alloc]initWithData:decodeData andAgreementID:_uAgreementID];
             return msgCenterRegistRep;
         }
         default:{

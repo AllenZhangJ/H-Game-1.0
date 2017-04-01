@@ -36,6 +36,10 @@
     _uAgreementID = agreementID;
     
     NSArray *interfaceArray = [[self getInterfaceRegulation] objectForKey:@(_uAgreementID)];
+    /** 结构体类型 */
+    if (_uAgreementID == 0) {
+        interfaceArray = [self getInterfaceRegulation].allValues.firstObject;
+    }
     if (!interfaceArray) {
         return nil;
     }

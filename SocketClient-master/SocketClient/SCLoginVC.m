@@ -15,6 +15,9 @@
 #import "SCLoginService.h"
 
 @interface SCLoginVC ()<SCLoginServiceDelegate>
+{
+    BOOL isFirstConnection;
+}
 @property (nonatomic, strong) SCLoginService *service;
 /** View */
 @property (nonatomic, strong) SCBaseLabel *logoLabel;
@@ -31,7 +34,11 @@
         [self.myProgressView setProgress:1 animated:YES];
         [self.myProgressTypeView setText:@"连上服务器"];
         [self.signOnPlatformButton setHidden:NO];
-        [SVProgressHUD showSuccessWithStatus:@"已连接"];
+        
+        if (isFirstConnection) {
+            [SVProgressHUD showSuccessWithStatus:@"已连接"];
+            isFirstConnection = !isFirstConnection;
+        }
     }
 }
 
@@ -47,15 +54,13 @@
     if ([self.service connectService]) {
 #warning 开始连接
         [self.myProgressTypeView setText:@"开始连接"];
+        isFirstConnection = YES;
         NSLog(@"[Login] To connect to the server success");
     }else{
 #warning 重连
         [self.myProgressTypeView setText:@"无法连接"];
         NSLog(@"[Login] Failed to connect to server");
     }
-
-    NSString *objName = [NSString stringWithUTF8String:object_getClassName(self.signOnPlatformButton)];
-    NSLog(@"objName:%@", objName);
 }
 
 - (void)setViews{

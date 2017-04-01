@@ -36,13 +36,21 @@
 @implementation SCSignOnPlatformVC
 #pragma mark - SCLoginServiceDelegate
 - (void)receiveForServiceType:(NSString *)type{
-    NSLog(@"type:%@", type);
+    [SVProgressHUD showErrorWithStatus:type];
 }
 
 -(void)receiveForServiceUName:(NSNumber *)uName andRights:(NSNumber *)rights andMoney:(NSNumber *)money{
-    NSLog(@"uName:%@",uName);
+#warning 详细信息
+//    NSLog(@"uName:%@",uName);
 }
 
+- (void)receiveLoginSuccessful:(BOOL)isSuccessful andUserName:(NSString *)sAccount{
+    if(isSuccessful){
+        [SVProgressHUD showSuccessWithStatus:[NSString stringWithFormat:@"欢迎:%@", sAccount]];
+    }else {
+        [SVProgressHUD showErrorWithStatus:@"账号或密码错误"];
+    }
+}
 #pragma mark - Action
 
 
@@ -51,6 +59,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 }
+
 - (void)setViews{
     [self.navigationItem setTitle:@"平台登录"];
     [self.userNameText setPlaceholder:@"账号"];

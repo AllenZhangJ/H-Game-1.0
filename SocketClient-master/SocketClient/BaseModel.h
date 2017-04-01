@@ -39,12 +39,12 @@
 - (instancetype)initWithSendToAgreementID:(uint32_t)agreementID;
 
 /**
- 规则目录
+ Sub必须实现:规则目录
 */
 - (NSDictionary *)getRegulation;
 
 /** 
- 接口对应顺序规则
+ Sub必须实现:接口对应顺序规则
  */
 - (NSDictionary *)getInterfaceRegulation;
 

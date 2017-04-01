@@ -11,8 +11,6 @@
 //Delegate
 #import "SCSocketDelegate.h"
 
-
-
 //Tool
 #import "DataCenter.h"
 #import "SCSocketCenter.h"
@@ -23,7 +21,7 @@
 
 @interface SCLoginService ()
 <
-    SCUserSocketManagerDelegate
+SCUserSocketManagerDelegate
 >
 /** Manager */
 @property (nonatomic ,strong) SCUserSocketManager *manager;
@@ -32,7 +30,8 @@
 @property (nonatomic, strong) SCLogInMsg *loginMsg;
 @property (nonatomic, strong) SCMsgCenterLoginRep *msgCenterLoginRep;
 @property (nonatomic, strong) SCMsgCenterAccountNtf *msgCenterAccountNtf;
-@property (nonatomic ,strong) SCMsgCenterRegistRep *registRep;
+@property (nonatomic, strong) SCRegistReq *registReq;
+
 @end
 
 @implementation  SCLoginService
@@ -82,21 +81,29 @@
  接收数据
  */
 - (void)receiveModelForManagerReadData:(id)objData{
-    if ([[objData class] isSubclassOfClass:[SCLogInMsg class]]){
+    BaseModel *baseModel = objData;
+    uint32_t agreementID = [baseModel returnAgreementID];
+    
+    if (agreementID == OBJ_InstanceType_LoginMsg) {
         self.loginMsg = objData;
         if ([self.loginServiceDelegate respondsToSelector:@selector(receiveForServiceType:)]) {
-            [self.loginServiceDelegate
-             receiveForServiceType:self.loginMsg.uOpType==1?@"登录错误":@"登录成功"];
+            switch (self.loginMsg.uErrCode) {
+                case 8194:{
+                    [self.loginServiceDelegate receiveForServiceType:@"重复登录"];
+                }
+                    break;
+                case 8195:{
+                    [self.loginServiceDelegate receiveForServiceType:@"账号密码错误"];
+                }
+                    break;
+                default:
+                    break;
+            }
         }
-        
+        return;
     }
-    if([[objData class] isSubclassOfClass:[SCMsgCenterLoginRep class]]){
-        self.msgCenterLoginRep = objData;
-        NSLog(@"Download success!\n\
-              PlayerID:%u", self.msgCenterLoginRep.uPlayerID);
-        
-    }
-    if([[objData class] isSubclassOfClass:[SCMsgCenterAccountNtf class]]){
+    
+    if (agreementID == OBJ_InstanceType_MsgCenterAccountNtf) {
         self.msgCenterAccountNtf = objData;
         if ([self.loginServiceDelegate respondsToSelector:@selector(receiveForServiceUName:andRights:andMoney:)]) {
             [self.loginServiceDelegate
@@ -107,19 +114,34 @@
              andMoney:[NSNumber numberWithUnsignedInteger:self.msgCenterAccountNtf.xAccountInfo.uMoney]];
             
         }
-        
+        return;
     }
-    if ([[objData class] isSubclassOfClass:[MsgSecretTest class]]) {
+    
+    if (agreementID == OBJ_InstanceType_MsgCenterLoginRep) {
+        self.msgCenterLoginRep = objData;
+        if ([self.loginServiceDelegate respondsToSelector:@selector(receiveLoginSuccessful:andUserName:)]) {
+            [self.loginServiceDelegate receiveLoginSuccessful:self.msgCenterLoginRep.uErrCode==1?YES:NO andUserName:self.msgCenterLoginRep.sAccount];
+        }
+        return;
+    }
+    
+    //连接消息
+    if (agreementID == OBJ_InstanceType_MsgSecretTest) {
         if ([self.loginServiceDelegate respondsToSelector:@selector(whetherOnTheServer:)]) {
             [self.loginServiceDelegate whetherOnTheServer:YES];
         }
+        return;
     }
-    if ([[objData class]isSubclassOfClass:[SCMsgCenterRegistRep class]]) {
-        self.registRep = objData;
+    
+    //注册消息
+    if (agreementID == OBJ_InstanceType_MSGCenterRegister) {
+        self.registReq = objData;
         if ([self.loginServiceDelegate respondsToSelector:@selector(receiveForServiceRegisteredSuccessfully:)]) {
-            [self.loginServiceDelegate receiveForServiceRegisteredSuccessfully:self.registRep.sAccount];
+            [self.loginServiceDelegate receiveForServiceRegisteredSuccessfully:self.registReq.sAccount];
         }
+        return;
     }
+    
 }
 
 - (void)disconnectFromTheServer:(NSError *)error{

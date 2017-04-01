@@ -18,12 +18,10 @@ typedef NS_ENUM(uint8_t, OP_REGIST_TYPE){
 @property (nonatomic ,strong) NSString *sChannel;       //渠道
 @property (nonatomic ,assign) uint32_t uPasscode;       //密码
 @property (nonatomic ,assign) uint8_t eRegistType;      //注册类型
-
 @property (nonatomic ,assign) uint8_t ePlatform;        //系统枚举值
 @property (nonatomic ,strong) NSString *sPlatformVer;   //系统版本号
 @property (nonatomic ,strong) NSString *sModel;         //手机型号
 @property (nonatomic ,assign) uint16_t nGameVer;        //游戏版本号
-
 @property (nonatomic ,strong) NSString *sAnonymousAccount;//匿名账号
 @property (nonatomic ,strong) NSString *sDeviceChannel; //匿名渠道
 @property (nonatomic ,strong) NSString *sIP;            //登录IP

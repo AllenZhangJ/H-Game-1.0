@@ -23,6 +23,9 @@
 
 /** 注册是否成功 */
 - (void)receiveForServiceRegisteredSuccessfully:(NSString *)uAccount;
+
+/** 登录成功 */
+- (void)receiveLoginSuccessful:(BOOL)isSuccessful andUserName:(NSString *)sAccount;
 @end
 
 @interface SCLoginService : NSObject

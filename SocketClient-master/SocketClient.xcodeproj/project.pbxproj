@@ -35,7 +35,6 @@
 		16F1DAAA1E7A422E0017A20D /* MsgSecretTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F1DAA91E7A422E0017A20D /* MsgSecretTest.m */; };
 		16F5E5C11E8CA59E00998DEC /* SCRegisterVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C01E8CA59E00998DEC /* SCRegisterVC.m */; };
 		16F5E5C41E8CB05500998DEC /* SCRegistReq.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C31E8CB05500998DEC /* SCRegistReq.m */; };
-		16F5E5C71E8CDAA000998DEC /* SCMsgCenterRegistRep.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */; };
 		16F5E5CA1E8CEB6200998DEC /* SCUserSocketManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 16F5E5C91E8CEB6200998DEC /* SCUserSocketManager.m */; };
 		35E9862F842560F43C35251C /* libPods-SocketClient.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3009D9ED414D32326437EB3E /* libPods-SocketClient.a */; };
 		5385A4FC1E76255E00425207 /* DataCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5385A4FB1E76255E00425207 /* DataCenter.m */; };
@@ -115,8 +114,6 @@
 		16F5E5C01E8CA59E00998DEC /* SCRegisterVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRegisterVC.m; sourceTree = "<group>"; };
 		16F5E5C21E8CB05500998DEC /* SCRegistReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCRegistReq.h; sourceTree = "<group>"; };
 		16F5E5C31E8CB05500998DEC /* SCRegistReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCRegistReq.m; sourceTree = "<group>"; };
-		16F5E5C51E8CDAA000998DEC /* SCMsgCenterRegistRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCMsgCenterRegistRep.h; sourceTree = "<group>"; };
-		16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCMsgCenterRegistRep.m; sourceTree = "<group>"; };
 		16F5E5C81E8CEB6200998DEC /* SCUserSocketManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SCUserSocketManager.h; sourceTree = "<group>"; };
 		16F5E5C91E8CEB6200998DEC /* SCUserSocketManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SCUserSocketManager.m; sourceTree = "<group>"; };
 		3009D9ED414D32326437EB3E /* libPods-SocketClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SocketClient.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,8 +331,6 @@
 				1665A3661E88F88B00157FAF /* SCMsgCenterAccountNtf.m */,
 				16F5E5C21E8CB05500998DEC /* SCRegistReq.h */,
 				16F5E5C31E8CB05500998DEC /* SCRegistReq.m */,
-				16F5E5C51E8CDAA000998DEC /* SCMsgCenterRegistRep.h */,
-				16F5E5C61E8CDAA000998DEC /* SCMsgCenterRegistRep.m */,
 			);
 			name = "SubModel(子类)";
 			sourceTree = "<group>";
@@ -677,7 +672,6 @@
 				167DFF921E8A0A7100901319 /* SCLoginService.m in Sources */,
 				1665A3641E88EE8700157FAF /* SCMsgCenterLoginRep.m in Sources */,
 				8D2DDA9B1D1D1F5400356798 /* AsyncSocket.m in Sources */,
-				16F5E5C71E8CDAA000998DEC /* SCMsgCenterRegistRep.m in Sources */,
 				1665A3671E88F88B00157FAF /* SCMsgCenterAccountNtf.m in Sources */,
 				16742A851E7F71F9008B6E8B /* SCVector.m in Sources */,
 				165B8E761E850287000E3C15 /* SCLogInMsg.m in Sources */,
