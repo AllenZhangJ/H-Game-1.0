@@ -92,6 +92,69 @@
     return [objData mutableCopy];
 }
 
++ (BOOL)get_C_EncryptionForKey:(uint32_t)uSecretKey andBuffer:(char *)pBuffer andLength:(uint16_t)uLength{
+
+    if (uLength<=0)return false;
+    if (!pBuffer)return false;
+    
+    uint32_t uSecretKey1 = uSecretKey;
+    uint32_t uSecretKey2 = uSecretKey1 + uSecretKey1+0xCBCEBCAA;
+    uint32_t uSecretKey3 = uSecretKey2 + uSecretKey1+0x20150909;
+    
+    uint uIndex =0;
+    
+    //能被4整除部分
+    while(uIndex + sizeof(uSecretKey1) < uLength){
+        uint32_t* pBufferUnit = (uint32_t*)&pBuffer[uIndex];
+        *pBufferUnit ^= uSecretKey1;
+        *pBufferUnit ^= uSecretKey2;
+        *pBufferUnit ^= uSecretKey3;
+        
+        uIndex+= sizeof(uSecretKey1);
+    }
+    
+    //不能被4整除部分
+    while(uIndex<uLength){
+        pBuffer[uIndex] ^= uSecretKey1;
+        pBuffer[uIndex] ^= uSecretKey2;
+        pBuffer[uIndex] ^= uSecretKey3;
+        
+        ++uIndex;
+    }
+    return true;
+}
+
++ (BOOL)get_C_DecodeForKey:(uint32_t)uSecretKey andBuffer:(char *)pBuffer andLength:(uint16_t)uLength{
+    if (uLength<=0)return false;
+    if (!pBuffer)return false;
+    
+    uint32_t uSecretKey1 = uSecretKey;
+    uint32_t uSecretKey2 = uSecretKey1 + uSecretKey1+0xCBCEBCAA;
+    uint32_t uSecretKey3 = uSecretKey2 + uSecretKey1+0x20150909;
+    
+    uint uIndex =0;
+    
+    //能被4整除部分
+    while(uIndex + sizeof(uSecretKey1) < uLength){
+        uint32_t* pBufferUnit = (uint32_t*)&pBuffer[uIndex];
+        *pBufferUnit ^= uSecretKey3;
+        *pBufferUnit ^= uSecretKey2;
+        *pBufferUnit ^= uSecretKey1;
+        
+        uIndex+= sizeof(uSecretKey1);
+    }
+    
+    //不能被4整除部分
+    while(uIndex<uLength){
+        pBuffer[uIndex] ^= uSecretKey3;
+        pBuffer[uIndex] ^= uSecretKey2;
+        pBuffer[uIndex] ^= uSecretKey1;
+        
+        ++uIndex;
+    }
+    return true;
+}
+
 /** 用户密码加密 */
 + (uint32_t)forEncryptedString:(NSString *)string{
     uint32_t encryptedInt;

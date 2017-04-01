@@ -86,26 +86,48 @@ static DataCenter *dataCenter = nil;
         }
             break;
         case OBJ_InstanceType_LoginMsg:{
-            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
-            SCLogInMsg *loginMsg = [[SCLogInMsg alloc]initWithData:decodeData andAgreementID:_uAgreementID];
+
+            SCLogInMsg *loginMsg;
+            if ([EncryptionModel get_C_DecodeForKey:_uScretKey andBuffer:[obj_Data bytes] andLength:obj_Data.length])
+            {
+                loginMsg = [[SCLogInMsg alloc]initWithData:obj_Data andAgreementID:_uAgreementID];
+            }else{
+                loginMsg = nil;
+            }
             return loginMsg;
         }
             break;
         case OBJ_InstanceType_MsgCenterLoginRep:{
-            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
-            SCMsgCenterLoginRep *msgCenterRep = [[SCMsgCenterLoginRep alloc]initWithData:decodeData andAgreementID:_uAgreementID];
+
+            SCMsgCenterLoginRep *msgCenterRep;
+            if ([EncryptionModel get_C_DecodeForKey:_uScretKey andBuffer:[obj_Data bytes] andLength:obj_Data.length]) {
+                msgCenterRep = [[SCMsgCenterLoginRep alloc]initWithData:obj_Data andAgreementID:_uAgreementID];
+            }else{
+                msgCenterRep = nil;
+            }
             return msgCenterRep;
         }
             break;
         case OBJ_InstanceType_MsgCenterAccountNtf:{
-            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
-            SCMsgCenterAccountNtf *msgCenterAccountNtf = [[SCMsgCenterAccountNtf alloc]initWithData:decodeData andAgreementID:_uAgreementID];
+            SCMsgCenterAccountNtf *msgCenterAccountNtf;
+
+            if ([EncryptionModel get_C_DecodeForKey:_uScretKey andBuffer:[obj_Data bytes] andLength:obj_Data.length]) {
+                msgCenterAccountNtf = [[SCMsgCenterAccountNtf alloc]initWithData:obj_Data andAgreementID:_uAgreementID];
+            }else{
+                msgCenterAccountNtf = nil;
+            }
+            
             return msgCenterAccountNtf;
         }
             break;
         case OBJ_InstanceType_MSGCenterRegister:{
-            NSData *decodeData = [EncryptionModel getDecodeForKey:_uScretKey andBuffer:obj_Data andLength:obj_Data.length];
-            SCRegistReq *msgCenterRegistRep = [[SCRegistReq alloc]initWithData:decodeData andAgreementID:_uAgreementID];
+
+            SCRegistReq *msgCenterRegistRep;
+            if([EncryptionModel get_C_DecodeForKey:_uScretKey andBuffer:[obj_Data bytes] andLength:obj_Data.length]){
+                 msgCenterRegistRep = [[SCRegistReq alloc]initWithData:obj_Data andAgreementID:_uAgreementID];
+            }else{
+                msgCenterRegistRep = nil;
+            }
             return msgCenterRegistRep;
         }
         default:{
@@ -153,8 +175,15 @@ static DataCenter *dataCenter = nil;
     
     NSData *agreement_Data = [ObjPacketHeader returnDataForPacketLength:instance_Data.length andpacketAgreementID:_uAgreementID];
     [mutableData appendData:agreement_Data];
+
+    NSData *instance ;
     
-    NSData *instance = [EncryptionModel getEncryptionForKey:_uScretKey andBuffer:instance_Data andLength:instance_Data.length];
+    if ([EncryptionModel get_C_EncryptionForKey:_uScretKey andBuffer:[instance_Data bytes] andLength:instance_Data.length]) {
+        instance = instance_Data;
+    }else{
+        instance = nil;
+    }
+    
     if (instance) {
         [mutableData appendData:instance];
         return [mutableData copy];

@@ -14,7 +14,10 @@
 /** Service */
 #import "SCLoginService.h"
 
-@interface SCLoginVC ()<SCLoginServiceDelegate>
+@interface SCLoginVC ()
+<
+    SCLoginServiceDelegate
+>
 {
     BOOL isFirstConnection;
 }
@@ -52,7 +55,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if ([self.service connectService]) {
-#warning 开始连接
         [self.myProgressTypeView setText:@"开始连接"];
         isFirstConnection = YES;
         NSLog(@"[Login] To connect to the server success");

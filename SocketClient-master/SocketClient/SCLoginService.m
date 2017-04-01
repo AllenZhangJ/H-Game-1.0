@@ -94,6 +94,7 @@ SCUserSocketManagerDelegate
                     break;
                 case 8195:{
                     [self.loginServiceDelegate receiveForServiceType:@"账号密码错误"];
+                    [self.manager connectService];
                 }
                     break;
                 default:

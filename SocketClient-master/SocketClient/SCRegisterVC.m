@@ -31,7 +31,7 @@
 
 @implementation SCRegisterVC
 #pragma mark - UITextFieldDelegate
-- (void)textFieldDidEndEditing:(UITextField *)textField{
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
     if ([self.userPasscodeTextField.text isEqualToString:self.confirmPasswordTextField.text]) {
         [self.registerButton setEnabled:YES];
     }
